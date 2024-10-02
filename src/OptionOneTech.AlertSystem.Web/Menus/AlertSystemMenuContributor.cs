@@ -1,15 +1,20 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
+using OptionOneTech.AlertSystem.Permissions;
 using OptionOneTech.AlertSystem.Localization;
 using OptionOneTech.AlertSystem.MultiTenancy;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
 using Volo.Abp.UI.Navigation;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OptionOneTech.AlertSystem.Web.Menus;
 
 public class AlertSystemMenuContributor : IMenuContributor
 {
+    public string Permissions { get; private set; }
+
     public async Task ConfigureMenuAsync(MenuConfigurationContext context)
     {
         if (context.Menu.Name == StandardMenus.Main)
@@ -45,5 +50,13 @@ public class AlertSystemMenuContributor : IMenuContributor
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+
+        context.Menu.Items.Add(new ApplicationMenuItem(
+            AlertSystemMenus.Department,
+            l["Menu:Department"],
+            "/Departments/Department",
+            icon: "fas fa-users",
+            requiredPermissionName: AlertSystemPermissions.Department.Default
+        ));
     }
 }

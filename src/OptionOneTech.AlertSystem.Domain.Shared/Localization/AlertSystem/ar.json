@@ -3,6 +3,20 @@
   "texts": {
     "Menu:Home": "الصفحة الرئيسية",
     "Welcome": "مرحباً",
-    "LongWelcomeMessage": "مرحبا بكم في التطبيق. هذا مشروع بدء تشغيل يعتمد على إطار عمل ABP. لمزيد من المعلومات ، يرجى زيارة abp.io."
+    "LongWelcomeMessage": "مرحبا بكم في التطبيق. هذا مشروع بدء تشغيل يعتمد على إطار عمل ABP. لمزيد من المعلومات ، يرجى زيارة abp.io.",
+    "Permission:Department": "Department",
+    "Permission:Create": "Create",
+    "Permission:Update": "Update",
+    "Permission:Delete": "Delete",
+    "Menu:Department": "MenuDepartment",
+    "Department": "Department",
+    "DepartmentName": "DepartmentName",
+    "DepartmentDescription": "DepartmentDescription",
+    "DepartmentActive": "DepartmentActive",
+    "CreateDepartment": "CreateDepartment",
+    "EditDepartment": "EditDepartment",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
+    "SuccessfullyDeleted": "Successfully deleted",
+    "TableFilter": "TableFilter"
   }
 }

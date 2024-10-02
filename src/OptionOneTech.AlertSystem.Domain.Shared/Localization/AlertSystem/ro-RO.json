@@ -3,6 +3,20 @@
   "texts": {
     "Menu:Home": "Acasă",
     "Welcome": "Bun venit",
-    "LongWelcomeMessage": "Bun venit la aplicaţie. Acesta este un proiect de pornire bazat pe framework-ul ABP. Pentru mai multe informaţii, vizitaţi, visit abp.io."
+    "LongWelcomeMessage": "Bun venit la aplicaţie. Acesta este un proiect de pornire bazat pe framework-ul ABP. Pentru mai multe informaţii, vizitaţi, visit abp.io.",
+    "Permission:Department": "Department",
+    "Permission:Create": "Create",
+    "Permission:Update": "Update",
+    "Permission:Delete": "Delete",
+    "Menu:Department": "MenuDepartment",
+    "Department": "Department",
+    "DepartmentName": "DepartmentName",
+    "DepartmentDescription": "DepartmentDescription",
+    "DepartmentActive": "DepartmentActive",
+    "CreateDepartment": "CreateDepartment",
+    "EditDepartment": "EditDepartment",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
+    "SuccessfullyDeleted": "Successfully deleted",
+    "TableFilter": "TableFilter"
   }
 }

@@ -3,6 +3,20 @@
   "texts": {
     "Menu:Home": "Home",
     "Welcome": "Welkom",
-    "LongWelcomeMessage": "Welkom bij de applicatie. Dit is een startup-project gebaseerd op het ABP-framework. Bezoek abp.io voor meer informatie."
+    "LongWelcomeMessage": "Welkom bij de applicatie. Dit is een startup-project gebaseerd op het ABP-framework. Bezoek abp.io voor meer informatie.",
+    "Permission:Department": "Department",
+    "Permission:Create": "Create",
+    "Permission:Update": "Update",
+    "Permission:Delete": "Delete",
+    "Menu:Department": "MenuDepartment",
+    "Department": "Department",
+    "DepartmentName": "DepartmentName",
+    "DepartmentDescription": "DepartmentDescription",
+    "DepartmentActive": "DepartmentActive",
+    "CreateDepartment": "CreateDepartment",
+    "EditDepartment": "EditDepartment",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
+    "SuccessfullyDeleted": "Successfully deleted",
+    "TableFilter": "TableFilter"
   }
 }

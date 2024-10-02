@@ -3,6 +3,20 @@
   "texts": {
     "Menu:Home": "Heim",
     "Welcome": "Velkomin",
-    "LongWelcomeMessage": "Verið velkomin í forritið. Þetta er startup verkefni sem byggir á ABP. Nánari upplýsingar er að finna á abp.io."
+    "LongWelcomeMessage": "Verið velkomin í forritið. Þetta er startup verkefni sem byggir á ABP. Nánari upplýsingar er að finna á abp.io.",
+    "Permission:Department": "Department",
+    "Permission:Create": "Create",
+    "Permission:Update": "Update",
+    "Permission:Delete": "Delete",
+    "Menu:Department": "MenuDepartment",
+    "Department": "Department",
+    "DepartmentName": "DepartmentName",
+    "DepartmentDescription": "DepartmentDescription",
+    "DepartmentActive": "DepartmentActive",
+    "CreateDepartment": "CreateDepartment",
+    "EditDepartment": "EditDepartment",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
+    "SuccessfullyDeleted": "Successfully deleted",
+    "TableFilter": "TableFilter"
   }
 }

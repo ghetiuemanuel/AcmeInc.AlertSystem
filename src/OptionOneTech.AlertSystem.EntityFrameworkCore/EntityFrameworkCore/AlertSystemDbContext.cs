@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -12,6 +12,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using OptionOneTech.AlertSystem.Departments;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace OptionOneTech.AlertSystem.EntityFrameworkCore;
 
@@ -52,6 +54,7 @@ public class AlertSystemDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
+    public DbSet<Department> Departments { get; set; }
 
     public AlertSystemDbContext(DbContextOptions<AlertSystemDbContext> options)
         : base(options)
@@ -82,5 +85,15 @@ public class AlertSystemDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+
+        builder.Entity<Department>(b =>
+        {
+            b.ToTable(AlertSystemConsts.DbTablePrefix + "Departments", AlertSystemConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
     }
 }
