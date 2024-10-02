@@ -51,14 +51,12 @@ public class AlertSystemMenuContributor : IMenuContributor
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
 
-        var menuItem = new ApplicationMenuItem(
+        context.Menu.Items.Add(new ApplicationMenuItem(
             AlertSystemMenus.Department,
             l["Menu:Department"],
             "/Departments/Department",
-            icon: "fas fa-users"
-        );
-
-        context.Menu.Items.Add(menuItem);
-
+            icon: "fas fa-users",
+            requiredPermissionName: AlertSystemPermissions.Department.Default.ToString()
+        ));
     }
 }
