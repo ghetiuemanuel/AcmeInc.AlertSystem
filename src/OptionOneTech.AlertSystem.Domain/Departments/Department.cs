@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace OptionOneTech.AlertSystem.Application
+namespace OptionOneTech.AlertSystem.Departments
 {
     public class Department : FullAuditedEntity<Guid>
     {
@@ -18,6 +14,5 @@ namespace OptionOneTech.AlertSystem.Application
 
         [Required]
         public bool Active { get; set; }      
-       
     }
 }
