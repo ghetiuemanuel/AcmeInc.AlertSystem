@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>OptionOneTech.AlertSystem</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OptionOneTech.AlertSystem.Domain\OptionOneTech.AlertSystem.Domain.csproj" />
+    <ProjectReference Include="..\OptionOneTech.AlertSystem.TestBase\OptionOneTech.AlertSystem.TestBase.csproj" />
+  </ItemGroup>
+
+</Project>
