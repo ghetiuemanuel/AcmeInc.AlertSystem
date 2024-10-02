@@ -13,22 +13,22 @@ namespace OptionOneTech.AlertSystem.Departments
         public string Description { get; set; }
 
         [Required]
-        public bool Active { get; set; }      
+        public bool Active { get; set; }
 
-    protected Department()
-    {
-    }
+        protected Department()
+        {
+        }
 
-    public Department(
-        Guid id,
-        string name,
-        string description,
-        bool active
-    ) : base(id)
-    {
-        Name = name;
-        Description = description;
-        Active = active;
-    }
+        public Department(
+            Guid id,
+            string name,
+            string description,
+            bool active
+        ) : base(id)
+        {
+            Name = name;
+            Description = description;
+            Active = active;
+        }
     }
 }
