@@ -46,10 +46,18 @@ public class AlertSystemMenuContributor : IMenuContributor
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+
+
         if (await context.IsGrantedAsync(AlertSystemPermissions.Department.Default))
         {
-            context.Menu.GetAdministration().AddItem(
-                new ApplicationMenuItem(AlertSystemMenus.Department, l["Menu:Department"], "/Departments/Department")
+            context.Menu.Items.Insert(
+                0,
+                new ApplicationMenuItem(
+                    AlertSystemMenus.Department,
+                    l["Menu:Department"],
+                    "/Departments/Department",
+                    icon: "fas fa-users"
+                )
             );
         }
     }
