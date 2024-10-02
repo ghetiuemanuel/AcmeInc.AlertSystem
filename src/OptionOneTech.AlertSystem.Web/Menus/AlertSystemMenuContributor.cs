@@ -56,7 +56,7 @@ public class AlertSystemMenuContributor : IMenuContributor
             l["Menu:Department"],
             "/Departments/Department",
             icon: "fas fa-users",
-            requiredPermissionName: AlertSystemPermissions.Department.Default.ToString()
+            requiredPermissionName: AlertSystemPermissions.Department.Default
         ));
     }
 }
