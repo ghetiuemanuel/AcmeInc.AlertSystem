@@ -1,8 +1,22 @@
 {
-    "culture": "zh-Hant",
-    "texts": {
-      "Menu:Home": "首頁",
-      "Welcome": "歡迎",
-      "LongWelcomeMessage": "歡迎來到此應用程式. 這是一個基於ABP框架的起始專案. 有關更多訊息, 請瀏覽 abp.io."
-    }
+  "culture": "zh-Hant",
+  "texts": {
+    "Menu:Home": "首頁",
+    "Welcome": "歡迎",
+    "LongWelcomeMessage": "歡迎來到此應用程式. 這是一個基於ABP框架的起始專案. 有關更多訊息, 請瀏覽 abp.io.",
+    "Permission:Department": "Department",
+    "Permission:Create": "Create",
+    "Permission:Update": "Update",
+    "Permission:Delete": "Delete",
+    "Menu:Department": "MenuDepartment",
+    "Department": "Department",
+    "DepartmentName": "DepartmentName",
+    "DepartmentDescription": "DepartmentDescription",
+    "DepartmentActive": "DepartmentActive",
+    "CreateDepartment": "CreateDepartment",
+    "EditDepartment": "EditDepartment",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
+    "SuccessfullyDeleted": "Successfully deleted",
+    "TableFilter": "TableFilter"
   }
+}

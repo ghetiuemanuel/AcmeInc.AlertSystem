@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
+using OptionOneTech.AlertSystem.Permissions;
 using OptionOneTech.AlertSystem.Localization;
 using OptionOneTech.AlertSystem.MultiTenancy;
 using Volo.Abp.Identity.Web.Navigation;
@@ -45,5 +46,11 @@ public class AlertSystemMenuContributor : IMenuContributor
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+        if (await context.IsGrantedAsync(AlertSystemPermissions.Department.Default))
+        {
+            context.Menu.GetAdministration().AddItem(
+                new ApplicationMenuItem(AlertSystemMenus.Department, l["Menu:Department"], "/Departments/Department")
+            );
+        }
     }
 }

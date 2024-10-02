@@ -1,4 +1,4 @@
-﻿namespace OptionOneTech.AlertSystem.Web.Menus;
+namespace OptionOneTech.AlertSystem.Web.Menus;
 
 public class AlertSystemMenus
 {
@@ -7,4 +7,5 @@ public class AlertSystemMenus
 
     //Add your menu items here...
 
+    public const string Department = Prefix + ".Department";
 }
