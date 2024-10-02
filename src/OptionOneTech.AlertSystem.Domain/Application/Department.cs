@@ -13,7 +13,7 @@ namespace OptionOneTech.AlertSystem.Application
         [Required]
         public string Name { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(512)]
         public string Description { get; set; }
 
         [Required]
