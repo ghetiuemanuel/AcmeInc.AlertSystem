@@ -38,6 +38,17 @@
     "CreateStatus": "Create Status",
     "EditStatus": "Edit Status",
     "StatusDeletionConfirmationMessage": "Are you sure to delete the status {0}?",
-    "StatusDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
+    "StatusDescriptionMaxLengthError": "Your description exceeds the allowed maximum length.",
+    "Permission:Message": "Message",
+    "Menu:Message": "Messages",
+    "Message": "Message",
+    "MessageTitle": "Title",
+    "MessageFrom": "From",
+    "MessageSourceId": "Source-Id",
+    "MessageSourceType": "Source-Type",
+    "MessageBody": "Body",
+    "CreateMessage": "Create Message",
+    "EditMessage": "Edit Message",
+    "MessageDeletionConfirmationMessage": "Are you sure to delete the message {0}?"
   }
 }

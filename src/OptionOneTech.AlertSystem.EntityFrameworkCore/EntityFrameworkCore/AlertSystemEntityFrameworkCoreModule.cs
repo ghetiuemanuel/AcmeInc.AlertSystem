@@ -1,3 +1,4 @@
+using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Statuses;
 using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Departments;
@@ -47,6 +48,7 @@ public class AlertSystemEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Department, DepartmentRepository>();
             options.AddRepository<Level, LevelRepository>();
             options.AddRepository<Status, StatusRepository>();
+            options.AddRepository<Message, MessageRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

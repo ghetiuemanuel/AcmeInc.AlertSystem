@@ -73,5 +73,12 @@ public class AlertSystemMenuContributor : IMenuContributor
            icon: "fas fa-spinner fa-spin",
            requiredPermissionName: AlertSystemPermissions.Status.Default
         ));
+        context.Menu.Items.Add(new ApplicationMenuItem(
+           AlertSystemMenus.Message,
+           l["Menu:Message"],
+           "/Message",
+           icon: "fas fa-envelope",
+           requiredPermissionName: AlertSystemPermissions.Message.Default
+        ));
     }
 }
