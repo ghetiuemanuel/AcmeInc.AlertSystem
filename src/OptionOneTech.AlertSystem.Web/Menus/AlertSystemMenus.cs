@@ -8,4 +8,5 @@ public class AlertSystemMenus
     //Add your menu items here...
 
     public const string Department = Prefix + ".Department";
+    public const string Level = Prefix + ".Level";
 }

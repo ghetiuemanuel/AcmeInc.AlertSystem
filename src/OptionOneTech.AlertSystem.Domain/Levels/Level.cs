@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,5 +17,21 @@ namespace OptionOneTech.AlertSystem.Levels
         public string Description { get; set; }
 
         public bool Active { get; set; }
+
+    protected Level()
+    {
+    }
+
+    public Level(
+        Guid id,
+        string name,
+        string description,
+        bool active
+    ) : base(id)
+    {
+        Name = name;
+        Description = description;
+        Active = active;
+    }
     }
 }
