@@ -18,6 +18,7 @@
     "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department \"{0}\"?",
     "SuccessfullyDeleted": "Successfully deleted",
     "TableFilter": "TableFilter",
-    "DepartmentDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
+    "ErrorMessage": "Too many characters!",
+    "DepartmentDescriptionMaxLengthCreateError": "Your description exceeds the allowed maximum length."
   }
 }
