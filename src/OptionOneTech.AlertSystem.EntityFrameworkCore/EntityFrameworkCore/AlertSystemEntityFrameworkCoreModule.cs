@@ -1,3 +1,4 @@
+using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Departments;
 using System;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,7 @@ public class AlertSystemEntityFrameworkCoreModule : AbpModule
                  * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
             options.AddRepository<Department, DepartmentRepository>();
+            options.AddRepository<Level, LevelRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

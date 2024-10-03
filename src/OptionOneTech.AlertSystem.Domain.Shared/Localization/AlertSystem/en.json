@@ -18,6 +18,16 @@
     "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department \"{0}\"?",
     "SuccessfullyDeleted": "Successfully deleted",
     "TableFilter": "TableFilter",
-    "DepartmentDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
+    "DepartmentDescriptionMaxLengthError": "Your description exceeds the allowed maximum length.",
+    "Permission:Level": "Level",
+    "Menu:Level": "Levels",
+    "Level": "Level",
+    "LevelName": "Name",
+    "LevelDescription": "Description",
+    "LevelActive": "Active",
+    "CreateLevel": "Create Level",
+    "EditLevel": "Edit Level",
+    "LevelDeletionConfirmationMessage": "Are you sure to delete the level {0}?",
+    "LevelDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
   }
 }

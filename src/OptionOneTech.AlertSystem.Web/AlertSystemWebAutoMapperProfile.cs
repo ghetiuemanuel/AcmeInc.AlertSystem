@@ -1,5 +1,7 @@
 using OptionOneTech.AlertSystem.Departments.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Department.ViewModels;
+using OptionOneTech.AlertSystem.Levels.Dtos;
+using OptionOneTech.AlertSystem.Web.Pages.Level.ViewModels;
 using AutoMapper;
 
 namespace OptionOneTech.AlertSystem.Web;
@@ -12,5 +14,8 @@ public class AlertSystemWebAutoMapperProfile : Profile
         CreateMap<DepartmentDto, EditDepartmentViewModel>();
         CreateMap<CreateDepartmentViewModel, DepartmentCreateDto>();
         CreateMap<EditDepartmentViewModel, DepartmentUpdateDto>();
+        CreateMap<LevelDto, EditLevelViewModel>();
+        CreateMap<CreateLevelViewModel, CreateLevelDto>();
+        CreateMap<EditLevelViewModel, UpdateLevelDto>();
     }
 }

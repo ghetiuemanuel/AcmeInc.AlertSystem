@@ -14,6 +14,7 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using OptionOneTech.AlertSystem.Departments;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using OptionOneTech.AlertSystem.Levels;
 
 namespace OptionOneTech.AlertSystem.EntityFrameworkCore;
 
@@ -55,6 +56,7 @@ public class AlertSystemDbContext :
 
     #endregion
     public DbSet<Department> Departments { get; set; }
+    public DbSet<Level> Levels { get; set; }
 
     public AlertSystemDbContext(DbContextOptions<AlertSystemDbContext> options)
         : base(options)
@@ -90,6 +92,16 @@ public class AlertSystemDbContext :
         builder.Entity<Department>(b =>
         {
             b.ToTable(AlertSystemConsts.DbTablePrefix + "Departments", AlertSystemConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<Level>(b =>
+        {
+            b.ToTable(AlertSystemConsts.DbTablePrefix + "Levels", AlertSystemConsts.DbSchema);
             b.ConfigureByConvention(); 
             
 

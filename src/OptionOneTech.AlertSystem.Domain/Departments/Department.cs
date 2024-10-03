@@ -12,7 +12,6 @@ namespace OptionOneTech.AlertSystem.Departments
         [MaxLength(512)]
         public string Description { get; set; }
 
-        [Required]
         public bool Active { get; set; }
 
         protected Department()

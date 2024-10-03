@@ -17,6 +17,15 @@
     "EditDepartment": "EditDepartment",
     "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
     "SuccessfullyDeleted": "Successfully deleted",
-    "TableFilter": "TableFilter"
+    "TableFilter": "TableFilter",
+    "Permission:Level": "Level",
+    "Menu:Level": "MenuLevel",
+    "Level": "Level",
+    "LevelName": "LevelName",
+    "LevelDescription": "LevelDescription",
+    "LevelActive": "LevelActive",
+    "CreateLevel": "CreateLevel",
+    "EditLevel": "EditLevel",
+    "LevelDeletionConfirmationMessage": "Are you sure to delete the level {0}?"
   }
 }
