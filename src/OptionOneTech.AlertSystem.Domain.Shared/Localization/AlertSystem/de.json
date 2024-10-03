@@ -26,6 +26,15 @@
     "LevelActive": "LevelActive",
     "CreateLevel": "CreateLevel",
     "EditLevel": "EditLevel",
-    "LevelDeletionConfirmationMessage": "Are you sure to delete the level {0}?"
+    "LevelDeletionConfirmationMessage": "Are you sure to delete the level {0}?",
+    "Permission:Status": "Status",
+    "Menu:Status": "MenuStatus",
+    "Status": "Status",
+    "StatusName": "StatusName",
+    "StatusDescription": "StatusDescription",
+    "StatusActive": "StatusActive",
+    "CreateStatus": "CreateStatus",
+    "EditStatus": "EditStatus",
+    "StatusDeletionConfirmationMessage": "Are you sure to delete the status {0}?"
   }
 }

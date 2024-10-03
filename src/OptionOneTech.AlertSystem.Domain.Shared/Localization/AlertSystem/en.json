@@ -28,6 +28,16 @@
     "CreateLevel": "Create Level",
     "EditLevel": "Edit Level",
     "LevelDeletionConfirmationMessage": "Are you sure to delete the level {0}?",
-    "LevelDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
+    "LevelDescriptionMaxLengthError": "Your description exceeds the allowed maximum length.",
+    "Permission:Status": "Status",
+    "Menu:Status": "Statuses",
+    "Status": "Status",
+    "StatusName": "Name",
+    "StatusDescription": "Description",
+    "StatusActive": "Active",
+    "CreateStatus": "Create Status",
+    "EditStatus": "Edit Status",
+    "StatusDeletionConfirmationMessage": "Are you sure to delete the status {0}?",
+    "StatusDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
   }
 }

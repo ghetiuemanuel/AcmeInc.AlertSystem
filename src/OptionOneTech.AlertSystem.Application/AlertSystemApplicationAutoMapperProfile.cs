@@ -2,6 +2,8 @@ using OptionOneTech.AlertSystem.Departments;
 using OptionOneTech.AlertSystem.Departments.Dtos;
 using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Levels.Dtos;
+using OptionOneTech.AlertSystem.Statuses;
+using OptionOneTech.AlertSystem.Statuses.Dtos;
 using AutoMapper;
 
 namespace OptionOneTech.AlertSystem;
@@ -19,5 +21,8 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<Level, LevelDto>();
         CreateMap<CreateLevelDto, Level>(MemberList.Source);
         CreateMap<UpdateLevelDto, Level>(MemberList.Source);
+        CreateMap<Status, StatusDto>();
+        CreateMap<CreateStatusDto, Status>(MemberList.Source);
+        CreateMap<UpdateStatusDto, Status>(MemberList.Source);
     }
 }
