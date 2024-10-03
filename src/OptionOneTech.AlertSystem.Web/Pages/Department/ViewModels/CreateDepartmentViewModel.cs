@@ -9,9 +9,9 @@ public class CreateDepartmentViewModel
     [Display(Name = "DepartmentName", Order = 1)]
     public string Name { get; set; }
 
-    [Display(Name = "DepartmentDescription", Order = 2)]
-    [TextArea(Rows = 4)]
-    [MaxLength(512, ErrorMessage = "Too many characters")]
+    [Display(Name = "DepartmentDescription", GroupName = "CustomMessage", Order = 2)]
+    [TextArea(Rows = 4)] 
+    [MaxLength(512, ErrorMessage = "ErrorMessage")]
     public string Description { get; set; }
 
     [Display(Name = "DepartmentActive", Order = 3)]

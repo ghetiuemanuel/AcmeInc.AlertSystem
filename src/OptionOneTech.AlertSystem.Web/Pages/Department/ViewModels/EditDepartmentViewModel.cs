@@ -12,9 +12,10 @@ public class EditDepartmentViewModel
     [Display(Name = "DepartmentDescription")]
     [DataType(DataType.MultilineText)]
     [TextArea(Rows = 4)]
-    [MaxLength(512, ErrorMessage = "Too many characters!")]
+    [MaxLength(512, ErrorMessage = "ErrorMessage")]
     public string Description { get; set; }
 
     [Display(Name = "DepartmentActive")]
     public bool Active { get; set; }
+
 }
