@@ -19,6 +19,6 @@
     "SuccessfullyDeleted": "Successfully deleted",
     "TableFilter": "TableFilter",
     "ErrorMessage": "Too many characters!",
-    "CustomMessage":  "This is a custom message from en.json"
+    "UserGuidanceForDepartmentCreationMessage": "This is a custom message from en.json"
   }
 }
