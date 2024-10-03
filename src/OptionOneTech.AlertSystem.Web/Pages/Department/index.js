@@ -22,8 +22,8 @@ $(function () {
     var l = abp.localization.getResource('AlertSystem');
 
     var service = optionOneTech.alertSystem.departments.department;
-    var createModal = new abp.ModalManager(abp.appPath + 'Departments/Department/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Departments/Department/EditModal');
+    var createModal = new abp.ModalManager(abp.appPath + 'Department/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'Department/EditModal');
 
     var dataTable = $('#DepartmentTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -50,7 +50,7 @@ $(function () {
                                 text: l('Delete'),
                                 visible: abp.auth.isGranted('AlertSystem.Department.Delete'),
                                 confirmMessage: function (data) {
-                                    return l('DepartmentDeletionConfirmationMessage', data.record.id);
+                                    return l('DepartmentDeletionConfirmationMessage', data.record.name);
                                 },
                                 action: function (data) {
                                     service.delete(data.record.id)

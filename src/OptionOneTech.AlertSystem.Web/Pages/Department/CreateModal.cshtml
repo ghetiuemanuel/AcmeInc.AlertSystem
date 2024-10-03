@@ -1,9 +1,9 @@
 @page
 @using Microsoft.AspNetCore.Mvc.Localization
-@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
 @using OptionOneTech.AlertSystem.Localization
 @inject IHtmlLocalizer<AlertSystemResource> L
-@model OptionOneTech.AlertSystem.Web.Pages.Departments.Department.CreateModalModel
+@model OptionOneTech.AlertSystem.Web.Pages.Department.CreateModalModel
 @{
     Layout = null;
 }
@@ -16,3 +16,6 @@
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
 </abp-dynamic-form>
+
+
+

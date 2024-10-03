@@ -10,13 +10,14 @@
     "Permission:Delete": "Delete",
     "Menu:Department": "Departments",
     "Department": "Department",
-    "DepartmentName": "Department Name",
-    "DepartmentDescription": "Department Description",
-    "DepartmentActive": "Department Active",
+    "DepartmentName": "Name",
+    "DepartmentDescription": "Description",
+    "DepartmentActive": "Active",
     "CreateDepartment": "Create Department",
-    "EditDepartment": "Edit Department",
-    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
+    "EditDepartment": "Edit",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department \"{0}\"?",
     "SuccessfullyDeleted": "Successfully deleted",
-    "TableFilter": "TableFilter"
+    "TableFilter": "TableFilter",
+    "DepartmentDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
   }
 }

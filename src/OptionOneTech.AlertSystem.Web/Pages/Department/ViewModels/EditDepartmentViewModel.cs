@@ -1,7 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Departments.Department.ViewModels;
+namespace OptionOneTech.AlertSystem.Web.Pages.Department.ViewModels;
 
 public class EditDepartmentViewModel
 {
@@ -9,8 +10,12 @@ public class EditDepartmentViewModel
     public string Name { get; set; }
 
     [Display(Name = "DepartmentDescription")]
+    [DataType(DataType.MultilineText)]
+    [TextArea(Rows = 4)]
+    [MaxLength(512, ErrorMessage = "DepartmentDescriptionMaxLengthError")]
     public string Description { get; set; }
 
     [Display(Name = "DepartmentActive")]
     public bool Active { get; set; }
+
 }
