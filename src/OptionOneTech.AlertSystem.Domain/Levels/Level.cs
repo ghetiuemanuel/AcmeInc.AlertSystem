@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,12 @@ namespace OptionOneTech.AlertSystem.Levels
 {
     public class Level : FullAuditedEntity<Guid>
     {
+        [Required]
         public string Name { get; set; }
+
+        [MaxLength(512)]
         public string Description { get; set; }
+
         public bool Active { get; set; }
     }
 }
