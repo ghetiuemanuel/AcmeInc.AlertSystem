@@ -11,7 +11,7 @@ public class CreateDepartmentViewModel
 
     [Display(Name = "DepartmentDescription", Order = 2)]
     [TextArea(Rows = 4)]
-    [MaxLength(512, ErrorMessage = "Description cannot exceed 500 characters")]
+    [MaxLength(512, ErrorMessage = "Too many characters")]
     public string Description { get; set; }
 
     [Display(Name = "DepartmentActive", Order = 3)]
