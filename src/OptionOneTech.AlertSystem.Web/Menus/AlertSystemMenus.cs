@@ -9,4 +9,5 @@ public class AlertSystemMenus
 
     public const string Department = Prefix + ".Department";
     public const string Level = Prefix + ".Level";
+    public const string Status = Prefix + ".Status";
 }
