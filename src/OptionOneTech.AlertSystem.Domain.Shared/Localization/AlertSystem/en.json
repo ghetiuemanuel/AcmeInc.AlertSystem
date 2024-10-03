@@ -8,14 +8,14 @@
     "Permission:Create": "Create",
     "Permission:Update": "Update",
     "Permission:Delete": "Delete",
-    "Menu:Department": "Department",
+    "Menu:Department": "Departments",
     "Department": "Department",
     "DepartmentName": "Name",
     "DepartmentDescription": "Description",
     "DepartmentActive": "Active",
     "CreateDepartment": "Create Department",
     "EditDepartment": "Edit",
-    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department {0}?",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department \"{0}\"?",
     "SuccessfullyDeleted": "Successfully deleted",
     "TableFilter": "TableFilter"
   }

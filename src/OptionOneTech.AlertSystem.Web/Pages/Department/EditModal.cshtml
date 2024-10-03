@@ -1,39 +1,18 @@
-@page
-@using OptionOneTech.AlertSystem.Localization
+ @page
 @using Microsoft.AspNetCore.Mvc.Localization
-@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@using OptionOneTech.AlertSystem.Localization
 @inject IHtmlLocalizer<AlertSystemResource> L
-@model OptionOneTech.AlertSystem.Web.Pages.Department.EditModalModel
+@model OptionOneTech.AlertSystem.Web.Pages.Department.CreateModalModel
 @{
     Layout = null;
 }
-<abp-dynamic-form abp-model="ViewModel" data-ajaxForm="true" asp-page="EditModal">
+<abp-dynamic-form abp-model="ViewModel" data-ajaxForm="true" asp-page="CreateModal">
     <abp-modal>
-        <abp-modal-header title="@L["Edit"].Value"></abp-modal-header>
+        <abp-modal-header title="@L["CreateDepartment"].Value"></abp-modal-header>
         <abp-modal-body>
-            <abp-input asp-for="ViewModel" style="display:none;" />
-
-            
-            <div class="form-group">
-                <label asp-for="ViewModel.Name"></label>
-                <abp-input asp-for="ViewModel.Name" class="form-control" />
-                <span asp-validation-for="ViewModel.Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ViewModel.Description"></label>
-                <textarea asp-for="ViewModel.Description" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="ViewModel.Description" class="text-danger"></span>
-            </div>
-
-           
-            <div class="form-group">
-                <label asp-for="ViewModel.Active"></label>
-                <abp-input asp-for="ViewModel.Active" type="checkbox" />
-                <span asp-validation-for="ViewModel.Active" class="text-danger"></span>
-            </div>
+            <abp-form-content />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
 </abp-dynamic-form>
-
