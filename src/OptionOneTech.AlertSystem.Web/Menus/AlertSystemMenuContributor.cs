@@ -58,11 +58,15 @@ public class AlertSystemMenuContributor : IMenuContributor
             icon: "fas fa-users",
             requiredPermissionName: AlertSystemPermissions.Department.Default
         ));
-        if (await context.IsGrantedAsync(AlertSystemPermissions.Level.Default))
-        {
-            context.Menu.GetAdministration().AddItem(
-                new ApplicationMenuItem(AlertSystemMenus.Level, l["Menu:Level"], "/Levels/Level")
+            context.Menu.Items.Add(new ApplicationMenuItem 
+                (
+                 AlertSystemMenus.Level,
+                    l["Menu:Level"],
+                    "/Levels/Level",
+                    icon: "fas fa-signal",
+                     requiredPermissionName: AlertSystemPermissions.Department.Default
+                )
             );
-        }
+        
     }
 }

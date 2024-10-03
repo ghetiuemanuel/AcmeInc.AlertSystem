@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace OptionOneTech.AlertSystem.Web.Pages.Levels.Level.ViewModels;
 
@@ -9,6 +10,9 @@ public class EditLevelViewModel
     public string Name { get; set; }
 
     [Display(Name = "LevelDescription")]
+    [DataType(DataType.MultilineText)]
+    [TextArea(Rows = 4)]
+    [MaxLength(512, ErrorMessage = "LevelDescriptionMaxLengthError")]
     public string Description { get; set; }
 
     [Display(Name = "LevelActive")]

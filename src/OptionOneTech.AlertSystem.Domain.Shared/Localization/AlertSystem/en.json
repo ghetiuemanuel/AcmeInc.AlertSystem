@@ -20,13 +20,14 @@
     "TableFilter": "TableFilter",
     "DepartmentDescriptionMaxLengthError": "Your description exceeds the allowed maximum length.",
     "Permission:Level": "Level",
-    "Menu:Level": "MenuLevel",
+    "Menu:Level": "Levels",
     "Level": "Level",
-    "LevelName": "LevelName",
-    "LevelDescription": "LevelDescription",
-    "LevelActive": "LevelActive",
-    "CreateLevel": "CreateLevel",
-    "EditLevel": "EditLevel",
-    "LevelDeletionConfirmationMessage": "Are you sure to delete the level {0}?"
+    "LevelName": "Name",
+    "LevelDescription": "Description",
+    "LevelActive": "Active",
+    "CreateLevel": "Create Level",
+    "EditLevel": "Edit Level",
+    "LevelDeletionConfirmationMessage": "Are you sure to delete the level {0}?",
+    "LevelDescriptionMaxLengthError": "Your description exceeds the allowed maximum length."
   }
 }
