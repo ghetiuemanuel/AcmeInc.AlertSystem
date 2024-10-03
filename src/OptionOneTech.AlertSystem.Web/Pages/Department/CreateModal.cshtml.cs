@@ -2,9 +2,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OptionOneTech.AlertSystem.Departments;
 using OptionOneTech.AlertSystem.Departments.Dtos;
-using OptionOneTech.AlertSystem.Web.Pages.Departments.Department.ViewModels;
+using OptionOneTech.AlertSystem.Web.Pages.Department.ViewModels;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Departments.Department;
+namespace OptionOneTech.AlertSystem.Web.Pages.Department;
 
 public class CreateModalModel : AlertSystemPageModel
 {

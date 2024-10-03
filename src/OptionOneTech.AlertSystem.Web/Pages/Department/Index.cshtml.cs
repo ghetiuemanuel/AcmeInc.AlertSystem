@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Departments.Department;
+namespace OptionOneTech.AlertSystem.Web.Pages.Department;
 
 public class IndexModel : AlertSystemPageModel
 {
@@ -18,14 +18,14 @@ public class IndexModel : AlertSystemPageModel
 public class DepartmentFilterInput
 {
     [FormControlSize(AbpFormControlSize.Small)]
-    [Display(Name = "DepartmentName")]
+    [Display(Name = "Name")]
     public string? Name { get; set; }
 
     [FormControlSize(AbpFormControlSize.Small)]
-    [Display(Name = "DepartmentDescription")]
+    [Display(Name = "Description")]
     public string? Description { get; set; }
 
     [FormControlSize(AbpFormControlSize.Small)]
-    [Display(Name = "DepartmentActive")]
+    [Display(Name = "Active")]
     public bool? Active { get; set; }
 }

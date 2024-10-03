@@ -1,0 +1,39 @@
+@page
+@using OptionOneTech.AlertSystem.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@inject IHtmlLocalizer<AlertSystemResource> L
+@model OptionOneTech.AlertSystem.Web.Pages.Department.EditModalModel
+@{
+    Layout = null;
+}
+<abp-dynamic-form abp-model="ViewModel" data-ajaxForm="true" asp-page="EditModal">
+    <abp-modal>
+        <abp-modal-header title="@L["Edit"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="ViewModel" style="display:none;" />
+
+            
+            <div class="form-group">
+                <label asp-for="ViewModel.Name"></label>
+                <abp-input asp-for="ViewModel.Name" class="form-control" />
+                <span asp-validation-for="ViewModel.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ViewModel.Description"></label>
+                <textarea asp-for="ViewModel.Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="ViewModel.Description" class="text-danger"></span>
+            </div>
+
+           
+            <div class="form-group">
+                <label asp-for="ViewModel.Active"></label>
+                <abp-input asp-for="ViewModel.Active" type="checkbox" />
+                <span asp-validation-for="ViewModel.Active" class="text-danger"></span>
+            </div>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</abp-dynamic-form>
+

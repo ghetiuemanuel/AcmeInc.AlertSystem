@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Departments.Department.ViewModels;
+namespace OptionOneTech.AlertSystem.Web.Pages.Department.ViewModels;
 
 public class EditDepartmentViewModel
 {
@@ -9,6 +9,7 @@ public class EditDepartmentViewModel
     public string Name { get; set; }
 
     [Display(Name = "DepartmentDescription")]
+    [DataType(DataType.MultilineText)]
     public string Description { get; set; }
 
     [Display(Name = "DepartmentActive")]

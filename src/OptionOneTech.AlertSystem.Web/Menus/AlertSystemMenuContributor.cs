@@ -54,7 +54,7 @@ public class AlertSystemMenuContributor : IMenuContributor
         context.Menu.Items.Add(new ApplicationMenuItem(
             AlertSystemMenus.Department,
             l["Menu:Department"],
-            "/Departments/Department",
+            "/Department",
             icon: "fas fa-users",
             requiredPermissionName: AlertSystemPermissions.Department.Default
         ));
