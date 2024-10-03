@@ -10,7 +10,6 @@ public class EditStatusViewModel
     public string Name { get; set; }
 
     [Display(Name = "StatusDescription")]
-    [DataType(DataType.MultilineText)]
     [TextArea(Rows = 4)]
     [MaxLength(512, ErrorMessage = "StatusDescriptionMaxLengthError")]
 
