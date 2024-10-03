@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Levels.Level.ViewModels;
+namespace OptionOneTech.AlertSystem.Web.Pages.Level.ViewModels;
 
 public class EditLevelViewModel
 {

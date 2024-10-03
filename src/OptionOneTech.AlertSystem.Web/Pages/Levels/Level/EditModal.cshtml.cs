@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Levels.Dtos;
-using OptionOneTech.AlertSystem.Web.Pages.Levels.Level.ViewModels;
+using OptionOneTech.AlertSystem.Web.Pages.Level.ViewModels;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Levels.Level;
+namespace OptionOneTech.AlertSystem.Web.Pages.Level;
 
 public class EditModalModel : AlertSystemPageModel
 {

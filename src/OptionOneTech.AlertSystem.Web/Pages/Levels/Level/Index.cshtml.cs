@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Levels.Level;
+namespace OptionOneTech.AlertSystem.Web.Pages.Level;
 
 public class IndexModel : AlertSystemPageModel
 {

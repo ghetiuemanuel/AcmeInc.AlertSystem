@@ -62,7 +62,7 @@ public class AlertSystemMenuContributor : IMenuContributor
                 (
                  AlertSystemMenus.Level,
                     l["Menu:Level"],
-                    "/Levels/Level",
+                    "/Level",
                     icon: "fas fa-signal",
                      requiredPermissionName: AlertSystemPermissions.Department.Default
                 )
