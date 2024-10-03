@@ -19,6 +19,6 @@
     "SuccessfullyDeleted": "Successfully deleted",
     "TableFilter": "TableFilter",
     "ErrorMessage": "Too many characters!",
-    "UserGuidanceForDepartmentCreationMessage": "This is a custom message from en.json"
+    "DepartmentDescriptionMaxLengthCreateError": "Your description exceeds the allowed maximum length."
   }
 }
