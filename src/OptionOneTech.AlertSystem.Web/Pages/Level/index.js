@@ -3,8 +3,8 @@ $(function () {
     var l = abp.localization.getResource('AlertSystem');
 
     var service = optionOneTech.alertSystem.levels.level;
-    var createModal = new abp.ModalManager(abp.appPath + 'Levels/Level/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Levels/Level/EditModal');
+    var createModal = new abp.ModalManager(abp.appPath + 'Level/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'Level/EditModal');
 
     var dataTable = $('#LevelTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,

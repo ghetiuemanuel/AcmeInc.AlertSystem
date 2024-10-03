@@ -1,7 +1,7 @@
 using OptionOneTech.AlertSystem.Departments.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Department.ViewModels;
 using OptionOneTech.AlertSystem.Levels.Dtos;
-using OptionOneTech.AlertSystem.Web.Pages.Levels.Level.ViewModels;
+using OptionOneTech.AlertSystem.Web.Pages.Level.ViewModels;
 using AutoMapper;
 
 namespace OptionOneTech.AlertSystem.Web;

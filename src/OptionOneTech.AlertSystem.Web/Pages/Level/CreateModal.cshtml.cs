@@ -4,7 +4,7 @@ using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Levels.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Level.ViewModels;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Levels.Level;
+namespace OptionOneTech.AlertSystem.Web.Pages.Level;
 
 public class CreateModalModel : AlertSystemPageModel
 {
