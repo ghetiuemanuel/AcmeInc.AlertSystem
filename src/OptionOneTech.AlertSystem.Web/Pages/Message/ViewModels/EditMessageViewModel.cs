@@ -18,7 +18,7 @@ public class EditMessageViewModel
     public Guid SourceId { get; set; }
 
     [Display(Name = "MessageSourceType")]
-    public string SourceType { get; set; }
+    public SourceType SourceType { get; set; }
 
     [Display(Name = "MessageBody")]
     [TextArea(Rows = 4)]
