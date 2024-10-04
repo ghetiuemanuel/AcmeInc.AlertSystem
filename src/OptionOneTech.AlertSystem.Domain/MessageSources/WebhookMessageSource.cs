@@ -12,8 +12,10 @@ namespace OptionOneTech.AlertSystem.MessageSources
     {
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string From { get; set; }
+
         [Required]
         public string Body { get; set; }
 
