@@ -27,4 +27,11 @@ public static class AlertSystemPermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    public class Message
+    {
+        public const string Default = GroupName + ".Message";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

@@ -35,6 +35,17 @@
     "StatusActive": "StatusActive",
     "CreateStatus": "CreateStatus",
     "EditStatus": "EditStatus",
-    "StatusDeletionConfirmationMessage": "Are you sure to delete the status {0}?"
+    "StatusDeletionConfirmationMessage": "Are you sure to delete the status {0}?",
+    "Permission:Message": "Message",
+    "Menu:Message": "MenuMessage",
+    "Message": "Message",
+    "MessageTitle": "MessageTitle",
+    "MessageFrom": "MessageFrom",
+    "MessageSourceId": "MessageSourceId",
+    "MessageSourceType": "MessageSourceType",
+    "MessageBody": "MessageBody",
+    "CreateMessage": "CreateMessage",
+    "EditMessage": "EditMessage",
+    "MessageDeletionConfirmationMessage": "Are you sure to delete the message {0}?"
   }
 }

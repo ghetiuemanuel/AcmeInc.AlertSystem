@@ -16,6 +16,7 @@ using OptionOneTech.AlertSystem.Departments;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Statuses;
+using OptionOneTech.AlertSystem.Messages;
 
 namespace OptionOneTech.AlertSystem.EntityFrameworkCore;
 
@@ -59,6 +60,7 @@ public class AlertSystemDbContext :
     public DbSet<Department> Departments { get; set; }
     public DbSet<Level> Levels { get; set; }
     public DbSet<Status> Statuses { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     public AlertSystemDbContext(DbContextOptions<AlertSystemDbContext> options)
         : base(options)
@@ -114,6 +116,16 @@ public class AlertSystemDbContext :
         builder.Entity<Status>(b =>
         {
             b.ToTable(AlertSystemConsts.DbTablePrefix + "Statuses", AlertSystemConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<Message>(b =>
+        {
+            b.ToTable(AlertSystemConsts.DbTablePrefix + "Messages", AlertSystemConsts.DbSchema);
             b.ConfigureByConvention(); 
             
 
