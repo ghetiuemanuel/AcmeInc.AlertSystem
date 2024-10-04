@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OptionOneTech.AlertSystem.Messages;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace OptionOneTech.AlertSystem.Messages
@@ -18,6 +19,9 @@ namespace OptionOneTech.AlertSystem.Messages
 
         [Required]
         public Guid SourceId { get; set; }
+
+        [Required]
+        public MessageType Type { get; set; }
 
         [Required]
         public string SourceType { get; set; }
