@@ -174,9 +174,8 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.Property<Guid>("SourceId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("SourceType")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("SourceType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
