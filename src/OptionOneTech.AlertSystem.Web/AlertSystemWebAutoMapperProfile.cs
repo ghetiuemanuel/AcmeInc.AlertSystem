@@ -6,7 +6,9 @@ using OptionOneTech.AlertSystem.Statuses.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Status.ViewModels;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Message.ViewModels;
+using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using AutoMapper;
+using OptionOneTech.AlertSystem.Web.Pages.WebhookMessageSource.ViewModels;
 
 namespace OptionOneTech.AlertSystem.Web;
 
@@ -27,5 +29,8 @@ public class AlertSystemWebAutoMapperProfile : Profile
         CreateMap<MessageDto, EditMessageViewModel>();
         CreateMap<CreateMessageViewModel, CreateMessageDto>();
         CreateMap<EditMessageViewModel, UpdateMessageDto>();
+        CreateMap<WebhookMessageSourceDto, EditWebhookMessageSourceViewModel>();
+        CreateMap<CreateWebhookMessageSourceViewModel, CreateWebhookMessageSourceDto>();
+        CreateMap<EditWebhookMessageSourceViewModel, UpdateWebhookMessageSourceDto>();
     }
 }

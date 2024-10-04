@@ -46,6 +46,15 @@
     "MessageBody": "MessageBody",
     "CreateMessage": "CreateMessage",
     "EditMessage": "EditMessage",
-    "MessageDeletionConfirmationMessage": "Are you sure to delete the message {0}?"
+    "MessageDeletionConfirmationMessage": "Are you sure to delete the message {0}?",
+    "Permission:WebhookMessageSource": "WebhookMessageSource",
+    "Menu:WebhookMessageSource": "MenuWebhookMessageSource",
+    "WebhookMessageSource": "WebhookMessageSource",
+    "WebhookMessageSourceTitle": "WebhookMessageSourceTitle",
+    "WebhookMessageSourceFrom": "WebhookMessageSourceFrom",
+    "WebhookMessageSourceBody": "WebhookMessageSourceBody",
+    "CreateWebhookMessageSource": "CreateWebhookMessageSource",
+    "EditWebhookMessageSource": "EditWebhookMessageSource",
+    "WebhookMessageSourceDeletionConfirmationMessage": "Are you sure to delete the webhookMessageSource {0}?"
   }
 }

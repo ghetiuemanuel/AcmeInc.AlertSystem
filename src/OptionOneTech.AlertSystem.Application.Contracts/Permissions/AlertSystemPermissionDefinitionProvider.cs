@@ -31,6 +31,11 @@ public class AlertSystemPermissionDefinitionProvider : PermissionDefinitionProvi
         messagePermission.AddChild(AlertSystemPermissions.Message.Create, L("Permission:Create"));
         messagePermission.AddChild(AlertSystemPermissions.Message.Update, L("Permission:Update"));
         messagePermission.AddChild(AlertSystemPermissions.Message.Delete, L("Permission:Delete"));
+
+        var webhookMessageSourcePermission = myGroup.AddPermission(AlertSystemPermissions.WebhookMessageSource.Default, L("Permission:WebhookMessageSource"));
+        webhookMessageSourcePermission.AddChild(AlertSystemPermissions.WebhookMessageSource.Create, L("Permission:Create"));
+        webhookMessageSourcePermission.AddChild(AlertSystemPermissions.WebhookMessageSource.Update, L("Permission:Update"));
+        webhookMessageSourcePermission.AddChild(AlertSystemPermissions.WebhookMessageSource.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

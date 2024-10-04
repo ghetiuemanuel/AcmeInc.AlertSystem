@@ -2,11 +2,11 @@ $(function () {
 
     var l = abp.localization.getResource('AlertSystem');
 
-    var service = optionOneTech.alertSystem.messages.message;
-    var createModal = new abp.ModalManager(abp.appPath + 'Message/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Message/EditModal');
+    var service = optionOneTech.alertSystem.messageSources.webhookMessageSource;
+    var createModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/EditModal');
 
-    var dataTable = $('#MessageTable').DataTable(abp.libs.datatables.normalizeConfiguration({
+    var dataTable = $('#WebhookMessageSourceTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
         serverSide: true,
         paging: true,
@@ -22,16 +22,16 @@ $(function () {
                         [
                             {
                                 text: l('Edit'),
-                                visible: abp.auth.isGranted('AlertSystem.Message.Update'),
+                                visible: abp.auth.isGranted('AlertSystem.WebhookMessageSource.Update'),
                                 action: function (data) {
                                     editModal.open({ id: data.record.id });
                                 }
                             },
                             {
                                 text: l('Delete'),
-                                visible: abp.auth.isGranted('AlertSystem.Message.Delete'),
+                                visible: abp.auth.isGranted('AlertSystem.WebhookMessageSource.Delete'),
                                 confirmMessage: function (data) {
-                                    return l('MessageDeletionConfirmationMessage', data.record.title);
+                                    return l('WebhookMessageSourceDeletionConfirmationMessage', data.record.title);
                                 },
                                 action: function (data) {
                                     service.delete(data.record.id)
@@ -45,23 +45,15 @@ $(function () {
                 }
             },
             {
-                title: l('MessageTitle'),
+                title: l('WebhookMessageSourceTitle'),
                 data: "title"
             },
             {
-                title: l('MessageFrom'),
+                title: l('WebhookMessageSourceFrom'),
                 data: "from"
             },
             {
-                title: l('MessageSourceId'),
-                data: "sourceId"
-            },
-            {
-                title: l('MessageSourceType'),
-                data: "sourceType"
-            },
-            {
-                title: l('MessageBody'),
+                title: l('WebhookMessageSourceBody'),
                 data: "body"
             },
         ]
@@ -75,7 +67,7 @@ $(function () {
         dataTable.ajax.reload();
     });
 
-    $('#NewMessageButton').click(function (e) {
+    $('#NewWebhookMessageSourceButton').click(function (e) {
         e.preventDefault();
         createModal.open();
     });
