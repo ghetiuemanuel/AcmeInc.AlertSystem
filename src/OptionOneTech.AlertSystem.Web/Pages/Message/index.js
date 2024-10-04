@@ -31,7 +31,7 @@ $(function () {
                                 text: l('Delete'),
                                 visible: abp.auth.isGranted('AlertSystem.Message.Delete'),
                                 confirmMessage: function (data) {
-                                    return l('MessageDeletionConfirmationMessage', data.record.name);
+                                    return l('MessageDeletionConfirmationMessage', data.record.title);
                                 },
                                 action: function (data) {
                                     service.delete(data.record.id)

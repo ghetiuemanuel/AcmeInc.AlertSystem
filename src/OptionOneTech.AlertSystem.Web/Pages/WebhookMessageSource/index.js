@@ -31,7 +31,7 @@ $(function () {
                                 text: l('Delete'),
                                 visible: abp.auth.isGranted('AlertSystem.WebhookMessageSource.Delete'),
                                 confirmMessage: function (data) {
-                                    return l('WebhookMessageSourceDeletionConfirmationMessage', data.record.name);
+                                    return l('WebhookMessageSourceDeletionConfirmationMessage', data.record.title);
                                 },
                                 action: function (data) {
                                     service.delete(data.record.id)
