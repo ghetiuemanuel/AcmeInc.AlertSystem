@@ -34,4 +34,11 @@ public static class AlertSystemPermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    public class WebhookMessageSource
+    {
+        public const string Default = GroupName + ".WebhookMessageSource";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

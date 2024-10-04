@@ -17,6 +17,7 @@ using Volo.Abp.EntityFrameworkCore.Modeling;
 using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Statuses;
 using OptionOneTech.AlertSystem.Messages;
+using OptionOneTech.AlertSystem.MessageSources;
 
 namespace OptionOneTech.AlertSystem.EntityFrameworkCore;
 
@@ -61,6 +62,7 @@ public class AlertSystemDbContext :
     public DbSet<Level> Levels { get; set; }
     public DbSet<Status> Statuses { get; set; }
     public DbSet<Message> Messages { get; set; }
+    public DbSet<WebhookMessageSource> WebhookMessageSources { get; set; }
 
     public AlertSystemDbContext(DbContextOptions<AlertSystemDbContext> options)
         : base(options)
@@ -126,6 +128,16 @@ public class AlertSystemDbContext :
         builder.Entity<Message>(b =>
         {
             b.ToTable(AlertSystemConsts.DbTablePrefix + "Messages", AlertSystemConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<WebhookMessageSource>(b =>
+        {
+            b.ToTable(AlertSystemConsts.DbTablePrefix + "WebhookMessageSources", AlertSystemConsts.DbSchema);
             b.ConfigureByConvention(); 
             
 

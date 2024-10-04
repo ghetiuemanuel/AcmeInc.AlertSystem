@@ -80,5 +80,12 @@ public class AlertSystemMenuContributor : IMenuContributor
            icon: "fas fa-envelope",
            requiredPermissionName: AlertSystemPermissions.Message.Default
         ));
+        context.Menu.Items.Add(new ApplicationMenuItem(
+          AlertSystemMenus.WebhookMessageSource,
+          l["Menu:WebhookMessageSource"],
+          "/WebhookMessageSource",
+          icon: "fas fa-bell",
+          requiredPermissionName: AlertSystemPermissions.WebhookMessageSource.Default
+        ));
     }
 }

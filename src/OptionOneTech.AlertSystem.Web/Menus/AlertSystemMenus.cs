@@ -11,4 +11,5 @@ public class AlertSystemMenus
     public const string Level = Prefix + ".Level";
     public const string Status = Prefix + ".Status";
     public const string Message = Prefix + ".Message";
+    public const string WebhookMessageSource = Prefix + ".WebhookMessageSource";
 }
