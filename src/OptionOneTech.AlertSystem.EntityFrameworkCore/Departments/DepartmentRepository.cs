@@ -24,18 +24,20 @@ namespace OptionOneTech.AlertSystem.Departments
             return (await GetQueryableAsync()).IncludeDetails();
         }
         
-        public async Task<List<LookupDto<Guid>>> GetLookupListAsync(long skip, long take)
+        //public async Task<List<Department>> GetLookupListAsync(int skip, int take);
+          public async Task<List<Department>> GetLookupListAsync(int skip, int take)
         {
             return await (await GetQueryableAsync())
                 .AsNoTracking() 
                 .Where(department => department.Active) 
-                .Select(department => new LookupDto<Guid>
-                {
-                    Id = department.Id,
-                    Name = department.Name 
-                })
-                .Skip((int)skip)
-                .Take((int)take)
+                .Select(department => new Department(
+                department.Id,
+                department.Name, 
+                department.Description,
+                true)
+                
+                .Skip(skip)
+                .Take(take)
                 .ToListAsync();
         }
     }

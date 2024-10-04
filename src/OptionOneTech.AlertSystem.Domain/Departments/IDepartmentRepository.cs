@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace OptionOneTech.AlertSystem.Departments;
-
-public interface IDepartmentRepository : IRepository<Department, Guid>
+namespace OptionOneTech.AlertSystem.Departments
 {
-    public interface IRepository<TEntity, TKey>
+    public interface IDepartmentRepository : IRepository<Department, Guid>, ILookupRepository<Department>
     {
-        Task<List<LookupDto<TKey>>> GetLookupListAsync(long skip, long take);
+       
     }
-
 }
+
