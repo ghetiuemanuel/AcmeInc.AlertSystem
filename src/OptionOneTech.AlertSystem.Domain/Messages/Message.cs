@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OptionOneTech.AlertSystem.Messages;
 using Volo.Abp.Domain.Entities.Auditing;
+using OptionOneTech.AlertSystem;
 
 namespace OptionOneTech.AlertSystem.Messages
 {
@@ -21,10 +22,7 @@ namespace OptionOneTech.AlertSystem.Messages
         public Guid SourceId { get; set; }
 
         [Required]
-        public MessageType Type { get; set; }
-
-        [Required]
-        public string SourceType { get; set; }
+        public SourceType SourceType { get; set; }
 
         [Required]
         public string Body { get; set; }
@@ -38,7 +36,7 @@ namespace OptionOneTech.AlertSystem.Messages
         string title,
         string from,
         Guid sourceId,
-        string sourceType,
+        SourceType sourceType,
         string body
     ) : base(id)
     {

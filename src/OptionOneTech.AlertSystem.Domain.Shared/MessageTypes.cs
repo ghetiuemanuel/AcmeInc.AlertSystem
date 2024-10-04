@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OptionOneTech.AlertSystem
 {
-    public enum MessageType
+    public enum SourceType
     {
         Email,
         Webhook
