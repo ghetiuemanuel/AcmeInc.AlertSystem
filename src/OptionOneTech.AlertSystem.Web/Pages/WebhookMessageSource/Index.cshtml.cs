@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.MessageSources.WebhookMessageSource;
+namespace OptionOneTech.AlertSystem.Web.Pages.WebhookMessageSource;
 
 public class IndexModel : AlertSystemPageModel
 {

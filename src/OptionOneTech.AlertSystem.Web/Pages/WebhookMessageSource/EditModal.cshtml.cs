@@ -5,7 +5,7 @@ using OptionOneTech.AlertSystem.MessageSources;
 using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.WebhookMessageSource.ViewModels;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.MessageSources.WebhookMessageSource;
+namespace OptionOneTech.AlertSystem.Web.Pages.WebhookMessageSource;
 
 public class EditModalModel : AlertSystemPageModel
 {

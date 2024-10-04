@@ -3,8 +3,8 @@ $(function () {
     var l = abp.localization.getResource('AlertSystem');
 
     var service = optionOneTech.alertSystem.messageSources.webhookMessageSource;
-    var createModal = new abp.ModalManager(abp.appPath + 'MessageSources/WebhookMessageSource/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'MessageSources/WebhookMessageSource/EditModal');
+    var createModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/EditModal');
 
     var dataTable = $('#WebhookMessageSourceTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
