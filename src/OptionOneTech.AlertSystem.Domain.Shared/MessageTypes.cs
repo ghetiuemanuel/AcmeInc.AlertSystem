@@ -8,8 +8,8 @@ namespace OptionOneTech.AlertSystem
 {
     public enum SourceType
     {
-        Email,
-        Webhook
+        Email = 1,
+        Webhook = 2,
     }
 
 }

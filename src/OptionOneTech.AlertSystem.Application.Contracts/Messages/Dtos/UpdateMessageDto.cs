@@ -11,7 +11,7 @@ public class UpdateMessageDto
 
     public Guid SourceId { get; set; }
 
-    public string SourceType { get; set; }
+    public SourceType SourceType { get; set; }
 
     public string Body { get; set; }
 }
