@@ -24,7 +24,7 @@ public class MessageRepository : EfCoreRepository<AlertSystemDbContext, Message,
         return await (await GetQueryableAsync())
             .AsNoTracking()
             .Where(message => message.SourceType != null)
-            .Select(message => new Message(message.Id, message.Title, message.From ,message.SourceId,message.SourceType, message.Body))
+            .Select(message => new Message(message.Id, message.Title, "" ,Guid.Empty,SourceType.Email,""))
             .Skip(skip)
             .Take(take)
             .ToListAsync();

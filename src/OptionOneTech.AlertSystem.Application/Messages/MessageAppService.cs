@@ -41,7 +41,7 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedAndSortedResultRequestDto input)
     {
         // get the list of levels using the repository
-        var message = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
+        var messages = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 
         // get total number of levels
         var totalCount = await _repository.CountAsync(p => p.SourceId != Guid.Empty);
@@ -49,7 +49,7 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
         // mapping levels to LookupDto and return PagedResultDto
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,
-           ObjectMapper.Map<List<Message>, List<LookupDto<Guid>>>(message)
+           ObjectMapper.Map<List<Message>, List<LookupDto<Guid>>>(messages)
         );
 
     }
