@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using OptionOneTech.AlertSystem.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -16,5 +18,15 @@ public class LevelRepository : EfCoreRepository<AlertSystemDbContext, Level, Gui
     public override async Task<IQueryable<Level>> WithDetailsAsync()
     {
         return (await GetQueryableAsync()).IncludeDetails();
+    }
+    public async Task<List<Level>> GetLookupListAsync(int skip, int take)
+    {
+        return await (await GetQueryableAsync())
+            .AsNoTracking()
+            .Where(level => level.Active)
+            .Select(level => new Level(level.Id, level.Name, "", true))
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
     }
 }

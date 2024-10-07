@@ -1,10 +1,10 @@
 using System;
 using Volo.Abp.Application.Dtos;
 
-namespace OptionOneTech.AlertSystem.Departments.Dtos;
+namespace OptionOneTech.AlertSystem.Levels.Dtos;
 
 [Serializable]
-public class DepartmentGetListInput : PagedAndSortedResultRequestDto
+public class LevelGetListInput : PagedAndSortedResultRequestDto
 {
     public string? Name { get; set; }
 

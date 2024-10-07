@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace OptionOneTech.AlertSystem.MessageSources
@@ -19,20 +15,24 @@ namespace OptionOneTech.AlertSystem.MessageSources
         [Required]
         public string Body { get; set; }
 
+        public bool Active { get; set; }
+
     protected WebhookMessageSource()
     {
     }
 
     public WebhookMessageSource(
-        Guid id,
-        string title,
-        string from,
-        string body
-    ) : base(id)
-    {
-        Title = title;
-        From = from;
-        Body = body;
-    }
+            Guid id,
+            string title,
+            string from,
+            string body,
+            bool active = true
+        ) : base(id)
+        {
+            Title = title;
+            From = from;
+            Body = body;
+            Active = active;
+        }
     }
 }

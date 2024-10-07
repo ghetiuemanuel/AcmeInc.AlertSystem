@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace OptionOneTech.AlertSystem.Statuses
@@ -18,20 +14,20 @@ namespace OptionOneTech.AlertSystem.Statuses
 
         public bool Active { get; set; }
 
-    protected Status()
-    {
-    }
+        protected Status()
+        {
+        }
 
-    public Status(
-        Guid id,
-        string name,
-        string description,
-        bool active
-    ) : base(id)
-    {
-        Name = name;
-        Description = description;
-        Active = active;
-    }
+        public Status(
+            Guid id,
+            string name,
+            string description,
+            bool active
+        ) : base(id)
+        {
+            Name = name;
+            Description = description;
+            Active = active;
+        }
     }
 }

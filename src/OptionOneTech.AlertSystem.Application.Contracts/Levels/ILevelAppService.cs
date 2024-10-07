@@ -1,6 +1,6 @@
 using System;
 using OptionOneTech.AlertSystem.Levels.Dtos;
-using Volo.Abp.Application.Dtos;
+using OptionOneTech.AlertSystem.Lookup;
 using Volo.Abp.Application.Services;
 
 namespace OptionOneTech.AlertSystem.Levels;
@@ -8,11 +8,12 @@ namespace OptionOneTech.AlertSystem.Levels;
 
 public interface ILevelAppService :
     ICrudAppService< 
-                LevelDto, 
-        Guid, 
-        PagedAndSortedResultRequestDto,
+        LevelDto, 
+        Guid,
+        LevelGetListInput,
         CreateLevelDto,
-        UpdateLevelDto>
+        UpdateLevelDto>,
+        ILookupAppService<Guid>
 {
 
 }
