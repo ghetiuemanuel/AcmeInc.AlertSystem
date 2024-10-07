@@ -9,6 +9,8 @@ using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.MessageSources;
 using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using AutoMapper;
+using OptionOneTech.AlertSystem.Lookup;
+using System;
 
 namespace OptionOneTech.AlertSystem;
 
@@ -34,5 +36,10 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<WebhookMessageSource, WebhookMessageSourceDto>();
         CreateMap<CreateWebhookMessageSourceDto, WebhookMessageSource>(MemberList.Source);
         CreateMap<UpdateWebhookMessageSourceDto, WebhookMessageSource>(MemberList.Source);
+        CreateMap<Department, LookupDto<Guid>>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+
     }
 }
