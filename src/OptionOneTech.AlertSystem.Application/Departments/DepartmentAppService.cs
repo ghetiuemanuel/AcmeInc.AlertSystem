@@ -8,7 +8,6 @@ using Volo.Abp.Application.Dtos;
 using OptionOneTech.AlertSystem.Lookup;
 using Volo.Abp.Domain.Repositories;
 using System.Collections.Generic;
-using Volo.Abp.ObjectMapping;
 
 namespace OptionOneTech.AlertSystem.Departments
 {
@@ -36,17 +35,12 @@ namespace OptionOneTech.AlertSystem.Departments
                 .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
                 .WhereIf(input.Active != null, x => x.Active == input.Active);
         }
-
-        // implement GetLookupAsync from ILookupAppService<Guid>
         public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedAndSortedResultRequestDto input)
         {
-            // get the list of departments using the repository
             var departments = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 
-            // get total number of departments
             var totalCount = await _repository.CountAsync(p => p.Active);
 
-            // mapping departments to LookupDto and return PagedResultDto
             return new PagedResultDto<LookupDto<Guid>>(
                totalCount,
                ObjectMapper.Map<List<Department>, List<LookupDto<Guid>>>(departments)

@@ -17,12 +17,10 @@ namespace OptionOneTech.AlertSystem.Departments
         {
 
         }
-
         public override async Task<IQueryable<Department>> WithDetailsAsync()
         {
             return (await GetQueryableAsync()).IncludeDetails();
         }
-
         public async Task<List<Department>> GetLookupListAsync(int skip, int take)
         {
             return await (await GetQueryableAsync())

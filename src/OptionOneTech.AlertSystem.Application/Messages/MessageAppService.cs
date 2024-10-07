@@ -11,7 +11,6 @@ using Volo.Abp.Domain.Repositories;
 
 namespace OptionOneTech.AlertSystem.Messages;
 
-
 public class MessageAppService : CrudAppService<Message, MessageDto, Guid, MessageGetListInput, CreateMessageDto, UpdateMessageDto>, IMessageAppService
 {
     protected override string GetPolicyName { get; set; } = AlertSystemPermissions.Message.Default;
@@ -36,22 +35,15 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
             .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Body.Contains(input.Body));
 
     }
-
-    // implement GetLookupAsync from ILookupAppService<Guid>
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedAndSortedResultRequestDto input)
     {
-        // get the list of levels using the repository
         var messages = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 
-        // get total number of levels
         var totalCount = await _repository.CountAsync(p => p.SourceId != Guid.Empty);
 
-        // mapping levels to LookupDto and return PagedResultDto
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,
            ObjectMapper.Map<List<Message>, List<LookupDto<Guid>>>(messages)
         );
-
     }
-
 }
