@@ -32,7 +32,8 @@ public class WebhookMessageSourceAppService : CrudAppService<WebhookMessageSourc
         return (await base.CreateFilteredQueryAsync(input))
             .WhereIf(!input.Title.IsNullOrWhiteSpace(), x => x.Title.Contains(input.Title))
             .WhereIf(!input.From.IsNullOrWhiteSpace(), x => x.From.Contains(input.From))
-            .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Body.Contains(input.Body));
+            .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Body.Contains(input.Body))
+            .WhereIf(input.Active != null, x => x.Active == input.Active);
 
 
     }
@@ -40,7 +41,7 @@ public class WebhookMessageSourceAppService : CrudAppService<WebhookMessageSourc
     {
         var webhookMessageSource = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 
-        var totalCount = await _repository.CountAsync(p => p.Body.IsNullOrWhiteSpace());
+        var totalCount = await _repository.CountAsync(p => p.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,

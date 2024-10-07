@@ -15,20 +15,24 @@ namespace OptionOneTech.AlertSystem.MessageSources
         [Required]
         public string Body { get; set; }
 
+        public bool Active { get; set; }
+
     protected WebhookMessageSource()
     {
     }
 
     public WebhookMessageSource(
-        Guid id,
-        string title,
-        string from,
-        string body
-    ) : base(id)
-    {
-        Title = title;
-        From = from;
-        Body = body;
-    }
+            Guid id,
+            string title,
+            string from,
+            string body,
+            bool active = true
+        ) : base(id)
+        {
+            Title = title;
+            From = from;
+            Body = body;
+            Active = active;
+        }
     }
 }

@@ -23,8 +23,8 @@ public class WebhookMessageSourceRepository : EfCoreRepository<AlertSystemDbCont
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()
-            .Where(webhookMessageSource => webhookMessageSource.Body.IsNullOrWhiteSpace())
-            .Select(webhookMessageSource => new WebhookMessageSource(webhookMessageSource.Id,webhookMessageSource.Title, "", ""))
+            .Where(webhookMessageSource => webhookMessageSource.Active)
+            .Select(webhookMessageSource => new WebhookMessageSource(webhookMessageSource.Id,webhookMessageSource.Title, "","", true))
             .Skip(skip)
             .Take(take)
             .ToListAsync();
