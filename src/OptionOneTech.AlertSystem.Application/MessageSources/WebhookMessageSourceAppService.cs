@@ -39,13 +39,13 @@ public class WebhookMessageSourceAppService : CrudAppService<WebhookMessageSourc
     }
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedAndSortedResultRequestDto input)
     {
-        var webhookMessageSource = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
+        var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 
         var totalCount = await _repository.CountAsync(p => p.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,
-           ObjectMapper.Map<List<WebhookMessageSource>, List<LookupDto<Guid>>>(webhookMessageSource)
+           ObjectMapper.Map<List<WebhookMessageSource>, List<LookupDto<Guid>>>(list)
         );
 
     }
