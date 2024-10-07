@@ -133,6 +133,9 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasColumnType("longtext");

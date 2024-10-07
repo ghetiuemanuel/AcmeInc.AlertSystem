@@ -15,4 +15,6 @@ public class CreateWebhookMessageSourceViewModel
     [Display(Name = "WebhookMessageSourceBody")]
     [TextArea(Rows = 4)]
     public string Body { get; set; }
+
+    public bool Active { get; set; }
 }
