@@ -32,5 +32,6 @@ public class AlertSystemWebAutoMapperProfile : Profile
         CreateMap<WebhookMessageSourceDto, EditWebhookMessageSourceViewModel>();
         CreateMap<CreateWebhookMessageSourceViewModel, CreateWebhookMessageSourceDto>();
         CreateMap<EditWebhookMessageSourceViewModel, UpdateWebhookMessageSourceDto>();
+
     }
 }

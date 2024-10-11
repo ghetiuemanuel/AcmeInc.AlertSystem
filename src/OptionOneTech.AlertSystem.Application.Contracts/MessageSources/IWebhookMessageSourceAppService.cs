@@ -1,4 +1,5 @@
 using System;
+using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -11,7 +12,8 @@ public interface IWebhookMessageSourceAppService :
         Guid,
         WebhookMessageSourceGetListInput,
         CreateWebhookMessageSourceDto,
-        UpdateWebhookMessageSourceDto>
+        UpdateWebhookMessageSourceDto>,
+        ILookupAppService<Guid>
 {
 
 }

@@ -1,4 +1,5 @@
 using System;
+using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Statuses.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -11,7 +12,8 @@ public interface IStatusAppService :
         Guid,
         StatusGetListInput,
         CreateStatusDto,
-        UpdateStatusDto>
+        UpdateStatusDto>,
+        ILookupAppService<Guid>
 {
 
 }

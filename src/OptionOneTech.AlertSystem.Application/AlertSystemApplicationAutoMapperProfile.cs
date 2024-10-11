@@ -36,6 +36,15 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<WebhookMessageSource, WebhookMessageSourceDto>();
         CreateMap<CreateWebhookMessageSourceDto, WebhookMessageSource>(MemberList.Source);
         CreateMap<UpdateWebhookMessageSourceDto, WebhookMessageSource>(MemberList.Source);
-        CreateMap<Department, LookupDto<Guid>>();        
+        CreateMap<Department, LookupDto<Guid>>();
+        CreateMap<Message, LookupDto<Guid>>();
+        CreateMap<WebhookMessageSource, LookupDto<Guid>>()
+        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title));
+        CreateMap<Status, LookupDto<Guid>>();
+        CreateMap<Level, LookupDto<Guid>>();
+
+
+
+
     }
 }

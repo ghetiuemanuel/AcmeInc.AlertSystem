@@ -18,6 +18,11 @@ public class CreateModalModel : AlertSystemPageModel
         _service = service;
     }
 
+    public virtual async Task OnGet()
+    {
+        ViewModel = new CreateMessageViewModel();
+    }
+
     public virtual async Task<IActionResult> OnPostAsync()
     {
         var dto = ObjectMapper.Map<CreateMessageViewModel, CreateMessageDto>(ViewModel);

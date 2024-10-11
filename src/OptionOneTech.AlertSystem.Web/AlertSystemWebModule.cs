@@ -141,6 +141,13 @@ public class AlertSystemWebModule : AbpModule
                     bundle.AddFiles("/global-styles.css");
                 }
             );
+            options.ScriptBundles.Configure(
+                LeptonXLiteThemeBundles.Scripts.Global,
+                bundle =>
+                {
+                    bundle.AddFiles("/site.js");
+                }
+            );
         });
     }
 
