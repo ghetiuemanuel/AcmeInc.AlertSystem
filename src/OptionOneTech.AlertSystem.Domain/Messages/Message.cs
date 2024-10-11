@@ -13,10 +13,10 @@ namespace OptionOneTech.AlertSystem.Messages
         public string From { get; set; }
 
         [Required]
-        public SourceType SourceType { get; set; }
+        public Guid SourceId { get; set; }
 
         [Required]
-        public Guid SourceId { get; set; }
+        public SourceType SourceType { get; set; }
 
         [Required]
         public string Body { get; set; }

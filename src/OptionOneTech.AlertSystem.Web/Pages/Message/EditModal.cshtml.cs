@@ -1,16 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.MessageSources;
+using OptionOneTech.AlertSystem.Web.Extensions.OptionOneTech.AlertSystem.Web.Extensions;
 using OptionOneTech.AlertSystem.Web.Pages.Message.ViewModels;
-using Volo.Abp.Application.Dtos;
+
 
 namespace OptionOneTech.AlertSystem.Web.Pages.Message;
 
@@ -33,37 +31,18 @@ public class EditModalModel : AlertSystemPageModel
     }
 
     public virtual async Task OnGetAsync()
-    {
-        var pageSize = 5;
-        var totalItemsCount = 0;
-        var currentPage = 0;
-        var allItems = new List<LookupDto<Guid>>();
+    {  
+        var allItems = await _webhookMessageSourceAppService.FetchAll();
 
-        var page = await _webhookMessageSourceAppService.GetLookupAsync(new PagedAndSortedResultRequestDto() { SkipCount = 0 , MaxResultCount = pageSize });
-
-        totalItemsCount = (int)page.TotalCount;
-
-        allItems.AddRange(page.Items);
-
-        var totalPages = totalItemsCount / pageSize;
-
-        while (currentPage < totalPages - 1)
-        {
-            currentPage++;
-            page = await _webhookMessageSourceAppService.GetLookupAsync(new PagedAndSortedResultRequestDto()
-            {
-                SkipCount = currentPage * pageSize,
-                MaxResultCount = pageSize
-            });
-
-            allItems.AddRange(page.Items);
-        }
-
-        var dto = await _service.GetAsync(Id);     
+        var dto = await _service.GetAsync(Id);
 
         ViewModel = ObjectMapper.Map<MessageDto, EditMessageViewModel>(dto);
-
-        ViewModel.SourceOptions = allItems.Select(item => new SelectListItem { Value = item.Id.ToString(), Text = item.Name }).ToList();
+        
+        ViewModel.SourceOptions = allItems.Select(item => new SelectListItem
+        {
+            Value = item.Id.ToString(),
+            Text = item.Name
+        }).ToList();
     }
 
     public virtual async Task<IActionResult> OnPostAsync()

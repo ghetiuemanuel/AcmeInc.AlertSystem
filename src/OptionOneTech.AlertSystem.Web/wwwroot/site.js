@@ -3,7 +3,7 @@
     var totalItemCount = 0;
     var currentPage = 0;
     var allItems = [];
-    var page = await getLookup({ skipCount: 0, maxResultCount: pageSize });
+    var page = await getLookup({ skipCount: currentPage * pageSize, maxResultCount: pageSize });
     totalItemCount = page.totalCount;
 
     for (var i = 0; i < page.items.length; i++) {
