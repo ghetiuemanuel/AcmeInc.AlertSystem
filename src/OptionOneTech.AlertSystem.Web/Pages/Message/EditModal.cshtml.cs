@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.MessageSources;
-using OptionOneTech.AlertSystem.Web.Extensions.OptionOneTech.AlertSystem.Web.Extensions;
 using OptionOneTech.AlertSystem.Web.Pages.Message.ViewModels;
 
 
@@ -52,4 +51,5 @@ public class EditModalModel : AlertSystemPageModel
         await _service.UpdateAsync(Id, dto);
         return NoContent();
     }
+
 }

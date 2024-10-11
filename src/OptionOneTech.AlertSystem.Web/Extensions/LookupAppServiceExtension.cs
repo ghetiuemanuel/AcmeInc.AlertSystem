@@ -4,40 +4,36 @@ using System.Threading.Tasks;
 using System;
 using Volo.Abp.Application.Dtos;
 
-namespace OptionOneTech.AlertSystem.Web.Extensions
+public static class LookupAppServiceExtension
 {
-    namespace OptionOneTech.AlertSystem.Web.Extensions
+    public static async Task<List<LookupDto<TKey>>> FetchAll<TKey>(this ILookupAppService<TKey> service)
     {
-        public static class LookupAppServiceExtension
+        var pageSize = 1000;
+        var totalItemsCount = 0;
+        var currentPage = 0;
+        var allItems = new List<LookupDto<TKey>>();
+
+        var page = await service.GetLookupAsync(new PagedResultRequestDto() { SkipCount = currentPage * pageSize, MaxResultCount = pageSize });
+
+        totalItemsCount = (int)page.TotalCount;
+
+        allItems.AddRange(page.Items);
+
+        var totalPages = totalItemsCount / pageSize;
+
+        while (currentPage < totalPages - 1)
         {
-            public static async Task<List<LookupDto<TKey>>> FetchAll<TKey>(this ILookupAppService<TKey> service)
+            currentPage++;
+            page = await service.GetLookupAsync(new PagedResultRequestDto()
             {
-                var pageSize = 1000;
-                var totalItemsCount = 0;
-                var currentPage = 0;
-                var allItems = new List<LookupDto<TKey>>();
+                SkipCount = currentPage * pageSize,
+                MaxResultCount = pageSize
+            });
 
-                var page = await service.GetLookupAsync(new PagedResultRequestDto() { SkipCount = currentPage * pageSize, MaxResultCount = pageSize });
-
-                totalItemsCount = (int)page.TotalCount;
-
-                allItems.AddRange(page.Items);
-
-                var totalPages = totalItemsCount / pageSize;
-
-                while (currentPage < totalPages - 1)
-                {
-                    currentPage++;
-                    page = await service.GetLookupAsync(new PagedResultRequestDto()
-                    {
-                        SkipCount = currentPage * pageSize,
-                        MaxResultCount = pageSize
-                    });
-
-                    allItems.AddRange(page.Items);
-                }
-                return allItems;
-            }                         
+            allItems.AddRange(page.Items);
         }
+        return allItems;
     }
 }
+
+

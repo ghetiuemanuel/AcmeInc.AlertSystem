@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using Volo.Abp.Application.Services;
@@ -15,5 +17,5 @@ public interface IMessageAppService :
         UpdateMessageDto>,
         ILookupAppService<Guid>
 {
-   
+    Task<List<MessageNavigationDto>> GetNavigationListAsync(int skip, int take);
 }
