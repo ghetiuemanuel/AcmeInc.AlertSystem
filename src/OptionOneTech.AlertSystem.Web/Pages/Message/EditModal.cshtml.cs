@@ -41,7 +41,8 @@ public class EditModalModel : AlertSystemPageModel
         ViewModel.SourceOptions = allItems.Select(item => new SelectListItem
         {
             Value = item.Id.ToString(),
-            Text = item.Name
+            Text = item.Name,
+            Selected = item.Id == ViewModel.SourceId
         }).ToList();
     }
 

@@ -10,12 +10,12 @@ namespace OptionOneTech.AlertSystem.Web.Extensions
     {
         public static class LookupAppServiceExtension
         {
-            public static async Task<List<LookupDto<Guid>>> FetchAll(this ILookupAppService<Guid> service)
+            public static async Task<List<LookupDto<TKey>>> FetchAll<TKey>(this ILookupAppService<TKey> service)
             {
                 var pageSize = 1000;
                 var totalItemsCount = 0;
                 var currentPage = 0;
-                var allItems = new List<LookupDto<Guid>>();
+                var allItems = new List<LookupDto<TKey>>();
 
                 var page = await service.GetLookupAsync(new PagedResultRequestDto() { SkipCount = currentPage * pageSize, MaxResultCount = pageSize });
 
