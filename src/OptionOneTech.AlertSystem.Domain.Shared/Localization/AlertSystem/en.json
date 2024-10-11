@@ -44,7 +44,7 @@
     "Message": "Message",
     "MessageTitle": "Title",
     "MessageFrom": "From",
-    "MessageSourceId": "Source Id",
+    "MessageSourceId": "Source",
     "MessageSourceType": "Source Type",
     "MessageBody": "Body",
     "CreateMessage": "Create",

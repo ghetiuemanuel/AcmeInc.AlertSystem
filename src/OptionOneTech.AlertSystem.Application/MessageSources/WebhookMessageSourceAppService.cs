@@ -37,7 +37,7 @@ public class WebhookMessageSourceAppService : CrudAppService<WebhookMessageSourc
 
 
     }
-    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedAndSortedResultRequestDto input)
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
     {
         var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 

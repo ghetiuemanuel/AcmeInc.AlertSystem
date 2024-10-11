@@ -33,7 +33,7 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
             .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
             .WhereIf(input.Active != null, x => x.Active == input.Active);
     }
-    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedAndSortedResultRequestDto input)
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
     {
         var statuses = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 

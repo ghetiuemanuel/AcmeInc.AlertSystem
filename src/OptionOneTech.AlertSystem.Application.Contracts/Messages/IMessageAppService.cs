@@ -7,13 +7,13 @@ namespace OptionOneTech.AlertSystem.Messages;
 
 
 public interface IMessageAppService :
-        ICrudAppService< 
-        MessageDto, 
+        ICrudAppService<
+        MessageDto,
         Guid,
         MessageGetListInput,
         CreateMessageDto,
         UpdateMessageDto>,
         ILookupAppService<Guid>
 {
-
+   
 }

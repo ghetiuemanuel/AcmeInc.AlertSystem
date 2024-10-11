@@ -35,7 +35,7 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
             .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Body.Contains(input.Body));
 
     }
-    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedAndSortedResultRequestDto input)
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
     {
         var messages = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
 

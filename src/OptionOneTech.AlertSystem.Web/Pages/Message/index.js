@@ -1,10 +1,10 @@
-$(function () {
+﻿$(function () {
 
     var l = abp.localization.getResource('AlertSystem');
 
     var service = optionOneTech.alertSystem.messages.message;
-    var createModal = new abp.ModalManager(abp.appPath + 'Message/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Message/EditModal');
+    var createModal = new abp.ModalManager({ viewUrl: abp.appPath + 'Message/CreateModal', scriptUrl: '/Pages/Message/edit.js', modalClass: 'messageEdit' });
+    var editModal = new abp.ModalManager({ viewUrl: abp.appPath + 'Message/EditModal', scriptUrl: '/Pages/Message/edit.js', modalClass: 'messageEdit' });
 
     var dataTable = $('#MessageTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
