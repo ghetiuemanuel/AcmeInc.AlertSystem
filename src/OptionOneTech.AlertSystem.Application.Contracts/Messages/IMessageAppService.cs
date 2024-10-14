@@ -17,5 +17,5 @@ public interface IMessageAppService :
         UpdateMessageDto>,
         ILookupAppService<Guid>
 { 
-    Task<PagedResultDto<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input);
+    Task<PagedResultDto<MessageNavigationDto>> GetNavigationListAsync(MessageGetListInput input);
 }

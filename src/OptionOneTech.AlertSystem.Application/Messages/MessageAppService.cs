@@ -47,9 +47,17 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
            ObjectMapper.Map<List<Message>, List<LookupDto<Guid>>>(messages)
         );
     }
-    public async Task<PagedResultDto<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input)
+    public async Task<PagedResultDto<MessageNavigationDto>> GetNavigationListAsync(MessageGetListInput input)
     {
         var query = await _repository.GetNavigationList();
+
+        query = query
+            .WhereIf(!input.From.IsNullOrWhiteSpace(), x => x.Message.From.Contains(input.From))
+            .WhereIf(input.SourceId != null, x => x.Message.SourceId == input.SourceId)
+            .WhereIf(input.SourceType != null, x => x.Message.SourceType == input.SourceType)
+            .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Message.Body.Contains(input.Body))
+            .WhereIf(!input.Title.IsNullOrWhiteSpace(), x => x.Message.Title.Contains(input.Title));
+
         var totalCount = await query.CountAsync();
 
         var messageNavigations = await query
@@ -58,8 +66,10 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
             .ToListAsync();
 
         return new PagedResultDto<MessageNavigationDto>(
-             totalCount,
-             ObjectMapper.Map<List<MessageNavigation>, List<MessageNavigationDto>>(messageNavigations)          
+            totalCount,
+            ObjectMapper.Map<List<MessageNavigation>, List<MessageNavigationDto>>(messageNavigations)
         );
     }
 }
+
+
