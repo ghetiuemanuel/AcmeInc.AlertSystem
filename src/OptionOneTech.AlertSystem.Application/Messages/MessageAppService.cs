@@ -49,7 +49,7 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
     }
     public async Task<PagedResultDto<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input)
     {
-        var query = _repository.GetNavigationList();
+        var query = await _repository.GetNavigationList();
         var totalCount = await query.CountAsync();
 
         var messageNavigations = await query

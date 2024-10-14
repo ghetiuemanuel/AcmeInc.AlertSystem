@@ -32,9 +32,9 @@ namespace OptionOneTech.AlertSystem.Messages
                 .Take(take)
                 .ToListAsync();
         }
-        public IQueryable<MessageNavigation> GetNavigationList()
+        public async Task<IQueryable<MessageNavigation>> GetNavigationList()
         {
-            var dbContext = GetDbContextAsync().Result;
+            var dbContext = await GetDbContextAsync();
             var query =
                 from message in dbContext.Messages
                 join webhookMessageSource in dbContext.WebhookMessageSources
