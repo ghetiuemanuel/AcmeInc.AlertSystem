@@ -8,7 +8,7 @@
     <RootNamespace>OptionOneTech.AlertSystem</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup>   
     
     <ProjectReference Include="..\OptionOneTech.AlertSystem.Domain\OptionOneTech.AlertSystem.Domain.csproj" />
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.MySQL" Version="8.2.1" />

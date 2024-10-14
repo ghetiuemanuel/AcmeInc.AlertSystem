@@ -48,10 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <ProjectReference Include="..\OptionOneTech.AlertSystem.Application\OptionOneTech.AlertSystem.Application.csproj" />
     <ProjectReference Include="..\OptionOneTech.AlertSystem.HttpApi\OptionOneTech.AlertSystem.HttpApi.csproj" />
     <ProjectReference Include="..\OptionOneTech.AlertSystem.EntityFrameworkCore\OptionOneTech.AlertSystem.EntityFrameworkCore.csproj" />
