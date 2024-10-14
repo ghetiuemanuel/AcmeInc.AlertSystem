@@ -1,10 +1,10 @@
-﻿using static OptionOneTech.AlertSystem.Permissions.AlertSystemPermissions;
+﻿using WebhookMessageSource = OptionOneTech.AlertSystem.MessageSources.WebhookMessageSource;
 
 namespace OptionOneTech.AlertSystem.Messages
 {
     public class MessageNavigation
     {
-        public Message Message { get; set; }
-        public WebhookMessageSource WebhookMessageSource { get; set; }
+        public Message? Message { get; set; }
+        public WebhookMessageSource? WebhookMessageSource { get; set; }
     }
 }

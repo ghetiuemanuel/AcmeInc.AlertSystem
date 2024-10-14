@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OptionOneTech.AlertSystem.EntityFrameworkCore;
-using OptionOneTech.AlertSystem.MessageSources;
-using Polly;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
+
 
 
 
@@ -15,12 +15,10 @@ namespace OptionOneTech.AlertSystem.Messages
 {
     public class MessageRepository : EfCoreRepository<AlertSystemDbContext, Message, Guid>, IMessageRepository
     {
+
         public MessageRepository(IDbContextProvider<AlertSystemDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
-
-        // Existing methods...
-
         public override async Task<IQueryable<Message>> WithDetailsAsync()
         {
             return (await GetQueryableAsync()).IncludeDetails();
@@ -35,15 +33,28 @@ namespace OptionOneTech.AlertSystem.Messages
                 .Take(take)
                 .ToListAsync();
         }
-        public async Task<List<MessageNavigation>> GetNavigationListAsync(int skip, int take)
+        public async Task<List<MessageNavigation>> GetNavigationListAsync(PagedResultRequestDto input)
         {
+            var dbContext = await GetDbContextAsync();
 
-            return await (await GetQueryableAsync())
-                .AsNoTracking()
-                .Select(messageNavigation => new MessageNavigation())
-                .Skip(skip)
-                .Take(take)
-                .ToListAsync();          
+            var query =
+                from message in dbContext.Messages
+                join webhookMessageSource in dbContext.WebhookMessageSources
+                on message.SourceId equals webhookMessageSource.Id into sourceGroup
+                from webhookMessageSource in sourceGroup.DefaultIfEmpty()
+                select new MessageNavigation
+                {
+                    Message = message,
+                    WebhookMessageSource = webhookMessageSource
+                };
+           
+            var pagedMessages = await query
+                .OrderBy(m => m.Message.Title) 
+                .Skip(input.SkipCount) 
+                .Take(input.MaxResultCount)
+                .ToListAsync();
+
+            return pagedMessages;
         }
     }
 }

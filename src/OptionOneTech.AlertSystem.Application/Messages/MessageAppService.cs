@@ -46,9 +46,9 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
            ObjectMapper.Map<List<Message>, List<LookupDto<Guid>>>(messages)
         );
     }
-    public async Task<List<MessageNavigationDto>> GetNavigationListAsync(int skip, int take)
+    public async Task<List<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input)
     {
-        var messageNavigations = await _repository.GetNavigationListAsync(skip, take);
+        var messageNavigations = await _repository.GetNavigationListAsync(input);
 
         return ObjectMapper.Map<List<MessageNavigation>, List<MessageNavigationDto>>(messageNavigations);
     }

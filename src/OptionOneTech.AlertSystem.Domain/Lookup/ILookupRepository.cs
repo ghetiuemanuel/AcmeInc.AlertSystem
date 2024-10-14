@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using OptionOneTech.AlertSystem.Messages;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 
 namespace OptionOneTech.AlertSystem.Lookup
 {
