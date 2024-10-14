@@ -43,6 +43,5 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title));
         CreateMap<Status, LookupDto<Guid>>();
         CreateMap<Level, LookupDto<Guid>>();
-        CreateMap<MessageNavigation, LookupDto<Guid>>();
     }
 }

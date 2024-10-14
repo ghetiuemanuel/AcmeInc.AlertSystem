@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Messages.Dtos;
@@ -17,6 +16,6 @@ public interface IMessageAppService :
         CreateMessageDto,
         UpdateMessageDto>,
         ILookupAppService<Guid>
-{
-    Task<List<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input);
+{ 
+    Task<PagedResultDto<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input);
 }

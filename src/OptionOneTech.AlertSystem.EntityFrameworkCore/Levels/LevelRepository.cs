@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OptionOneTech.AlertSystem.EntityFrameworkCore;
-using OptionOneTech.AlertSystem.Messages;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 

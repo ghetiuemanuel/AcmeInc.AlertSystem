@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OptionOneTech.AlertSystem.EntityFrameworkCore;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -33,10 +32,9 @@ namespace OptionOneTech.AlertSystem.Messages
                 .Take(take)
                 .ToListAsync();
         }
-        public async Task<List<MessageNavigation>> GetNavigationListAsync(PagedResultRequestDto input)
+        public IQueryable<MessageNavigation> GetNavigationList()
         {
-            var dbContext = await GetDbContextAsync();
-
+            var dbContext = GetDbContextAsync().Result;
             var query =
                 from message in dbContext.Messages
                 join webhookMessageSource in dbContext.WebhookMessageSources
@@ -47,14 +45,8 @@ namespace OptionOneTech.AlertSystem.Messages
                     Message = message,
                     WebhookMessageSource = webhookMessageSource
                 };
-           
-            var pagedMessages = await query
-                .OrderBy(m => m.Message.Title) 
-                .Skip(input.SkipCount) 
-                .Take(input.MaxResultCount)
-                .ToListAsync();
 
-            return pagedMessages;
+            return query; 
         }
     }
 }

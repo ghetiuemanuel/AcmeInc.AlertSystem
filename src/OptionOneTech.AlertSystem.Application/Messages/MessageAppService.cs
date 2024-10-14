@@ -8,6 +8,7 @@ using OptionOneTech.AlertSystem.Lookup;
 using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace OptionOneTech.AlertSystem.Messages;
 
@@ -46,11 +47,19 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
            ObjectMapper.Map<List<Message>, List<LookupDto<Guid>>>(messages)
         );
     }
-    public async Task<List<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input)
+    public async Task<PagedResultDto<MessageNavigationDto>> GetNavigationListAsync(PagedResultRequestDto input)
     {
-        var messageNavigations = await _repository.GetNavigationListAsync(input);
+        var query = _repository.GetNavigationList();
+        var totalCount = await query.CountAsync();
 
-        return ObjectMapper.Map<List<MessageNavigation>, List<MessageNavigationDto>>(messageNavigations);
+        var messageNavigations = await query
+            .Skip(input.SkipCount)
+            .Take(input.MaxResultCount)
+            .ToListAsync();
+
+        return new PagedResultDto<MessageNavigationDto>(
+             totalCount,
+             ObjectMapper.Map<List<MessageNavigation>, List<MessageNavigationDto>>(messageNavigations)          
+        );
     }
-
 }
