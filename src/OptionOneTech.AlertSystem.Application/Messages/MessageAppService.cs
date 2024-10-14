@@ -10,8 +10,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-using OptionOneTech.AlertSystem.MessageSources.Dtos;
-using OptionOneTech.AlertSystem.MessageSources;
 
 namespace OptionOneTech.AlertSystem.Messages;
 
@@ -24,12 +22,10 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
     protected override string DeletePolicyName { get; set; } = AlertSystemPermissions.Message.Delete;
 
     private readonly IMessageRepository _repository;
-    private readonly IWebhookMessageSourceRepository _webhookMessageSourceRepository;
 
-    public MessageAppService(IMessageRepository repository, IWebhookMessageSourceRepository webhookMessageSourceRepository) : base(repository)
+    public MessageAppService(IMessageRepository repository) : base(repository)
     {
         _repository = repository;
-        _webhookMessageSourceRepository = webhookMessageSourceRepository;
     }
     protected override async Task<IQueryable<Message>> CreateFilteredQueryAsync(MessageGetListInput input)
     {
@@ -56,48 +52,33 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
     {
         var query = await _repository.GetNavigationList();
 
-        var webhookSources = await _webhookMessageSourceRepository.GetAllAsync();
-
-        var sourceQuery = from messageNavigation in query
-                          join webhookSource in webhookSources 
-                          on messageNavigation.Message.SourceId equals webhookSource.Id into webhookJoin
-                          from webhookSource in webhookJoin.DefaultIfEmpty()
-                          select new
-                          {
-                              messageNavigation,
-                              WebhookMessageSource = webhookSource
-                          };
-
-        sourceQuery = sourceQuery
-            .WhereIf(!input.From.IsNullOrWhiteSpace(), x => x.messageNavigation.Message.From.Contains(input.From))
-            .WhereIf(input.SourceId != null, x => x.messageNavigation.Message.SourceId == input.SourceId)
-            .WhereIf(input.SourceType != null, x => x.messageNavigation.Message.SourceType == input.SourceType)
-            .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.messageNavigation.Message.Body.Contains(input.Body))
-            .WhereIf(!input.Title.IsNullOrWhiteSpace(), x => x.messageNavigation.Message.Title.Contains(input.Title));
+        query = query
+            .WhereIf(!input.From.IsNullOrWhiteSpace(), x => x.Message.From.Contains(input.From))
+            .WhereIf(input.SourceId != null, x => x.Message.SourceId == input.SourceId)
+            .WhereIf(input.SourceType != null, x => x.Message.SourceType == input.SourceType)
+            .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Message.Body.Contains(input.Body))
+            .WhereIf(!input.Title.IsNullOrWhiteSpace(), x => x.Message.Title.Contains(input.Title));
 
         if (!input.Sorting.IsNullOrWhiteSpace())
         {
-            sourceQuery = sourceQuery.OrderBy(input.Sorting);
+            query = query.OrderBy(input.Sorting);
         }
         else
         {
-            sourceQuery = sourceQuery.OrderBy(x => x.messageNavigation.Message.Title);
+            query = query.OrderBy(x => x.Message.Title);
         }
 
-        var totalCount = await sourceQuery.CountAsync();
+        var totalCount = await query.CountAsync();
 
-        var messageNavigations = await sourceQuery
+        var messageNavigations = await query
             .Skip(input.SkipCount)
             .Take(input.MaxResultCount)
             .ToListAsync();
 
-        var result = messageNavigations.Select(x => new MessageNavigationDto
-        {
-            Message = ObjectMapper.Map<Message, MessageDto>(x.messageNavigation.Message),
-            WebhookMessageSource = ObjectMapper.Map<WebhookMessageSource, WebhookMessageSourceDto>(x.WebhookMessageSource)
-        }).ToList();
-
-        return new PagedResultDto<MessageNavigationDto>(totalCount, result);
+        return new PagedResultDto<MessageNavigationDto>(
+            totalCount,
+            ObjectMapper.Map<List<MessageNavigation>, List<MessageNavigationDto>>(messageNavigations)
+        );
     }
 }
 
