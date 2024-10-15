@@ -8,5 +8,4 @@ namespace OptionOneTech.AlertSystem.MessageSources;
 
 public interface IWebhookMessageSourceRepository : IRepository<WebhookMessageSource, Guid>, ILookupRepository<WebhookMessageSource>
 {
-    Task<List<WebhookMessageSource>> GetAllAsync();
 }

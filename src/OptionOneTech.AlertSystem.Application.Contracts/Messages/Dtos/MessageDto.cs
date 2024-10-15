@@ -15,4 +15,5 @@ public class MessageDto : FullAuditedEntityDto<Guid>
     public SourceType SourceType { get; set; }
 
     public string Body { get; set; }
+
 }

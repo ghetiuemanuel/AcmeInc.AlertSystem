@@ -29,8 +29,4 @@ public class WebhookMessageSourceRepository : EfCoreRepository<AlertSystemDbCont
             .Take(take)
             .ToListAsync();
     }
-    public async Task<List<WebhookMessageSource>> GetAllAsync()
-    {
-        return await (await GetQueryableAsync()).ToListAsync();
-    }
 }
