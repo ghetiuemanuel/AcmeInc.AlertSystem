@@ -24,12 +24,10 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
     protected override string DeletePolicyName { get; set; } = AlertSystemPermissions.Message.Delete;
 
     private readonly IMessageRepository _repository;
-    private readonly IWebhookMessageSourceRepository _webhookMessageSourceRepository;
 
     public MessageAppService(IMessageRepository repository, IWebhookMessageSourceRepository webhookMessageSourceRepository) : base(repository)
     {
         _repository = repository;
-        _webhookMessageSourceRepository = webhookMessageSourceRepository;
     }
     protected override async Task<IQueryable<Message>> CreateFilteredQueryAsync(MessageGetListInput input)
     {

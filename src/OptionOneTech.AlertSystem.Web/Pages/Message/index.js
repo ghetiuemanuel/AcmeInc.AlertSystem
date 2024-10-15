@@ -36,15 +36,21 @@
                         {
                             text: l('Delete'),
                             visible: abp.auth.isGranted('AlertSystem.Message.Delete'),
-                            confirmMessage: function (data) {
-                                return l('MessageDeletionConfirmationMessage', data.record.title);
-                            },
                             action: function (data) {
-                                service.delete(data.record.id)
-                                    .then(function () {
-                                        abp.notify.info(l('SuccessfullyDeleted'));
-                                        dataTable.ajax.reload();
-                                    });
+                                const recordId = data.record.id;
+
+                                abp.message.confirm(
+                                    l('MessageDeletionConfirmationMessage', data.record.title),
+                                    null,
+                                    (isConfirmed) => {
+                                        if (isConfirmed) {
+                                            service.delete(recordId).then(function () {
+                                                abp.notify.info(l('SuccessfullyDeleted'));
+                                                dataTable.ajax.reload();
+                                            });
+                                        }
+                                    }
+                                );
                             }
                         }
                     ]
@@ -59,10 +65,17 @@
                 data: "message.from"
             },
             {
-                title: l('MessageSourceId'),
-                data: "webhookMessageSource.title",
-                render: function (data, type, row) {                  
-                    return data || 'N/A';
+                title: l('MessageSource'), 
+                data: null, 
+                render: function (data, type, row) {
+                    const sources = [];
+                    if (row.webhookMessageSource && row.webhookMessageSource.title) {
+                        sources.push(row.webhookMessageSource.title);
+                    }
+                    if (row.emailMessageSource && row.emailMessageSource.title) {
+                        sources.push(row.emailMessageSource.title);
+                    }
+                    return sources.length ? sources.join(', ') : 'N/A'; 
                 }
             },
             {
