@@ -1,10 +1,11 @@
 $(function () {
-
     var l = abp.localization.getResource('AlertSystem');
 
     var service = optionOneTech.alertSystem.messageSources.webhookMessageSource;
     var createModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/EditModal');
+
+    var websiteUrl = 'https://localhost:44346/';
 
     var dataTable = $('#WebhookMessageSourceTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -18,30 +19,29 @@ $(function () {
         columnDefs: [
             {
                 rowAction: {
-                    items:
-                        [
-                            {
-                                text: l('Edit'),
-                                visible: abp.auth.isGranted('AlertSystem.WebhookMessageSource.Update'),
-                                action: function (data) {
-                                    editModal.open({ id: data.record.id });
-                                }
-                            },
-                            {
-                                text: l('Delete'),
-                                visible: abp.auth.isGranted('AlertSystem.WebhookMessageSource.Delete'),
-                                confirmMessage: function (data) {
-                                    return l('WebhookMessageSourceDeletionConfirmationMessage', data.record.title);
-                                },
-                                action: function (data) {
-                                    service.delete(data.record.id)
-                                        .then(function () {
-                                            abp.notify.info(l('SuccessfullyDeleted'));
-                                            dataTable.ajax.reload();
-                                        });
-                                }
+                    items: [
+                        {
+                            text: l('Edit'),
+                            visible: abp.auth.isGranted('AlertSystem.WebhookMessageSource.Update'),
+                            action: function (data) {
+                                editModal.open({ id: data.record.id });
                             }
-                        ]
+                        },
+                        {
+                            text: l('Delete'),
+                            visible: abp.auth.isGranted('AlertSystem.WebhookMessageSource.Delete'),
+                            confirmMessage: function (data) {
+                                return l('WebhookMessageSourceDeletionConfirmationMessage', data.record.title);
+                            },
+                            action: function (data) {
+                                service.delete(data.record.id)
+                                    .then(function () {
+                                        abp.notify.info(l('SuccessfullyDeleted'));
+                                        dataTable.ajax.reload();
+                                    });
+                            }
+                        }
+                    ]
                 }
             },
             {
@@ -56,6 +56,13 @@ $(function () {
                 title: l('WebhookMessageSourceBody'),
                 data: "body"
             },
+            {
+                title: l('Webhook URL'),
+                data: null,
+                render: function (data, type, row, meta) {
+                    return `${websiteUrl}/webhook/${row.id}`;
+                }
+            }
         ]
     }));
 
@@ -72,3 +79,4 @@ $(function () {
         createModal.open();
     });
 });
+
