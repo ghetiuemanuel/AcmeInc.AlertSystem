@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.MessageSources;
@@ -22,6 +23,7 @@ namespace OptionOneTech.AlertSystem.Webhooks
 
         [HttpPost("{id}")]
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> ReceiveWebhook(Guid id)
         {
             try
