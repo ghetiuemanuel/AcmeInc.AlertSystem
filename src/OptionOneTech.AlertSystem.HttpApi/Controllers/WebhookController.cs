@@ -4,6 +4,7 @@ using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.MessageSources;
 using System;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Entities;
 
 namespace OptionOneTech.AlertSystem.Webhooks
 {
@@ -27,11 +28,6 @@ namespace OptionOneTech.AlertSystem.Webhooks
             {
                 var webhookData = await _webhookMessageSourceAppService.GetAsync(id);
 
-                if (webhookData == null)
-                {
-                    throw new InvalidOperationException("Bad request!");
-                }
-
                 var messageDto = new CreateMessageDto
                 {
                     SourceId = id,
@@ -42,12 +38,11 @@ namespace OptionOneTech.AlertSystem.Webhooks
                 };
 
                 await _messageAppService.CreateAsync(messageDto);
-
                 return Ok("Message created successfully");
             }
-            catch (Exception ex)
+            catch (EntityNotFoundException)
             {
-                return BadRequest($"An error occurred: Bad request!");
+                return BadRequest("Webhook entity not found");
             }
         }
     }
