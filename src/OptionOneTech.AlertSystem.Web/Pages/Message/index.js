@@ -37,19 +37,14 @@
                         {
                             text: l('Delete'),
                             visible: abp.auth.isGranted('AlertSystem.Message.Delete'),
+                            confirmMessage: function (data) {
+                                return l('MessageDeletionConfirmationMessage', data.record.message.title);
+                            },
                             action: function (data) {
-                                abp.message.confirm(
-                                    l('MessageDeletionConfirmationMessage', data.record.message.title),
-                                    null,
-                                    function (isConfirmed) {
-                                        if (isConfirmed) {
-                                            service.delete(data.record.message.id).then(function () {
-                                                abp.notify.info(l('SuccessfullyDeleted'));
-                                                dataTable.ajax.reload();
-                                            });
-                                        }
-                                    }
-                                );
+                                service.delete(data.record.message.id).then(function () {
+                                    abp.notify.info(l('SuccessfullyDeleted'));
+                                    dataTable.ajax.reload();
+                                });
                             }
                         }
                     ]
@@ -100,3 +95,4 @@
         createModal.open();
     });
 });
+
