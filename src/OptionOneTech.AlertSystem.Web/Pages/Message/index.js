@@ -7,11 +7,13 @@
         scriptUrl: '/Pages/Message/edit.js',
         modalClass: 'messageEdit'
     });
+
     var editModal = new abp.ModalManager({
         viewUrl: abp.appPath + 'Message/EditModal',
         scriptUrl: '/Pages/Message/edit.js',
         modalClass: 'messageEdit'
     });
+
     var dataTable = $('#MessageTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
         serverSide: true,
@@ -63,7 +65,16 @@
             },
             {
                 title: l('MessageSourceId'),
-                data: "webhookMessageSource.title"
+                data: null,
+                render: function (data, type, row, meta) {
+                    if (row.webhookMessageSource && row.webhookMessageSource.title) {
+                        return row.webhookMessageSource.title;
+                    }
+                    if (row.message && row.message.sourceId) {
+                        return row.message.sourceId;
+                    }
+                    return '';
+                }
             },
             {
                 title: l('MessageSourceType'),
