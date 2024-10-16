@@ -10,8 +10,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-using OptionOneTech.AlertSystem.MessageSources.Dtos;
-using OptionOneTech.AlertSystem.MessageSources;
 
 namespace OptionOneTech.AlertSystem.Messages;
 
@@ -25,7 +23,7 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
 
     private readonly IMessageRepository _repository;
 
-    public MessageAppService(IMessageRepository repository, IWebhookMessageSourceRepository webhookMessageSourceRepository) : base(repository)
+    public MessageAppService(IMessageRepository repository) : base(repository)
     {
         _repository = repository;
     }

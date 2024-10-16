@@ -1,7 +1,7 @@
 ﻿$(function () {
     var l = abp.localization.getResource('AlertSystem');
-
     var service = optionOneTech.alertSystem.messages.message;
+
     var createModal = new abp.ModalManager({
         viewUrl: abp.appPath + 'Message/CreateModal',
         scriptUrl: '/Pages/Message/edit.js',
@@ -12,7 +12,6 @@
         scriptUrl: '/Pages/Message/edit.js',
         modalClass: 'messageEdit'
     });
-
     var dataTable = $('#MessageTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
         serverSide: true,
@@ -30,21 +29,19 @@
                             text: l('Edit'),
                             visible: abp.auth.isGranted('AlertSystem.Message.Update'),
                             action: function (data) {
-                                editModal.open({ id: data.record.id });
+                                editModal.open({ id: data.record.message.id });
                             }
                         },
                         {
                             text: l('Delete'),
                             visible: abp.auth.isGranted('AlertSystem.Message.Delete'),
                             action: function (data) {
-                                const recordId = data.record.id;
-
                                 abp.message.confirm(
-                                    l('MessageDeletionConfirmationMessage', data.record.title),
+                                    l('MessageDeletionConfirmationMessage', data.record.message.title),
                                     null,
-                                    (isConfirmed) => {
+                                    function (isConfirmed) {
                                         if (isConfirmed) {
-                                            service.delete(recordId).then(function () {
+                                            service.delete(data.record.message.id).then(function () {
                                                 abp.notify.info(l('SuccessfullyDeleted'));
                                                 dataTable.ajax.reload();
                                             });
@@ -65,18 +62,8 @@
                 data: "message.from"
             },
             {
-                title: l('MessageSource'), 
-                data: null, 
-                render: function (data, type, row) {
-                    const sources = [];
-                    if (row.webhookMessageSource && row.webhookMessageSource.title) {
-                        sources.push(row.webhookMessageSource.title);
-                    }
-                    if (row.emailMessageSource && row.emailMessageSource.title) {
-                        sources.push(row.emailMessageSource.title);
-                    }
-                    return sources.length ? sources.join(', ') : 'N/A'; 
-                }
+                title: l('MessageSourceId'),
+                data: "webhookMessageSource.title"
             },
             {
                 title: l('MessageSourceType'),
@@ -85,7 +72,7 @@
             {
                 title: l('MessageBody'),
                 data: "message.body"
-            },
+            }
         ]
     }));
 
