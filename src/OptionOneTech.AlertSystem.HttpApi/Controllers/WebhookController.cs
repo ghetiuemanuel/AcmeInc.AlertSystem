@@ -2,7 +2,6 @@
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.MessageSources;
-using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using System;
 using System.Threading.Tasks;
 
@@ -24,21 +23,32 @@ namespace OptionOneTech.AlertSystem.Webhooks
         [HttpGet("{id}")]
         public async Task<IActionResult> ReceiveWebhook(Guid id)
         {
-           var webhookData = await _webhookMessageSourceAppService.GetAsync(id);
-
-            var messageDto = new CreateMessageDto
+            try
             {
-                SourceId = id,
-                Body = webhookData.Body,
-                Title = webhookData.Title,
-                From = webhookData.From,
-                SourceType = SourceType.Webhook            
-            };
+                var webhookData = await _webhookMessageSourceAppService.GetAsync(id);
 
-            await _messageAppService.CreateAsync(messageDto);
+                if (webhookData == null)
+                {
+                    throw new InvalidOperationException("Bad request!");
+                }
 
-            return Ok("Message created successfully");
+                var messageDto = new CreateMessageDto
+                {
+                    SourceId = id,
+                    Body = webhookData.Body,
+                    Title = webhookData.Title,
+                    From = webhookData.From,
+                    SourceType = SourceType.Webhook
+                };
+
+                await _messageAppService.CreateAsync(messageDto);
+
+                return Ok("Message created successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"An error occurred: Bad request!");
+            }
         }
     }
-
 }
