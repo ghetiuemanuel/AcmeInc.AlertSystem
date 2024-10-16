@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Messages.Dtos;
+using OptionOneTech.AlertSystem.MessageSources;
+using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using System;
 using System.Threading.Tasks;
 
@@ -11,26 +13,26 @@ namespace OptionOneTech.AlertSystem.Webhooks
     {
         private readonly IMessageAppService _messageAppService;
 
-        public WebhookController(IMessageAppService messageAppService)
+        private readonly IWebhookMessageSourceAppService _webhookMessageSourceAppService;
+        public WebhookController(IMessageAppService messageAppService, IWebhookMessageSourceAppService webhookMessageSourceAppService)
         {
             _messageAppService = messageAppService;
+            _webhookMessageSourceAppService = webhookMessageSourceAppService;
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> ReceiveWebhook(Guid id, [FromBody] WebhookPayload payload)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ReceiveWebhook(Guid id)
         {
-            if (payload == null)
-            {
-                return BadRequest("Payload is null");
-            }
+           var webhookData = await _webhookMessageSourceAppService.GetAsync(id);
 
             var messageDto = new CreateMessageDto
             {
-                SourceId = id, 
-                Body = payload.Body,
-                From = payload.From,
-                Title = payload.Title,
-                SourceType = SourceType.Webhook
+                SourceId = id,
+                Body = webhookData.Body,
+                Title = webhookData.Title,
+                From = webhookData.From,
+                SourceType = SourceType.Webhook            
             };
 
             await _messageAppService.CreateAsync(messageDto);
@@ -38,10 +40,5 @@ namespace OptionOneTech.AlertSystem.Webhooks
             return Ok("Message created successfully");
         }
     }
-    public class WebhookPayload
-    {
-        public string Body { get; set; }
-        public string From { get; set; }
-        public string Title { get; set; }
-    }
+
 }

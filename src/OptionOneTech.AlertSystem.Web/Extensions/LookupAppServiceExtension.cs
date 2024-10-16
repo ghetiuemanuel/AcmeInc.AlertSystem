@@ -1,7 +1,6 @@
 ﻿using OptionOneTech.AlertSystem.Lookup;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 using Volo.Abp.Application.Dtos;
 
 public static class LookupAppServiceExtension

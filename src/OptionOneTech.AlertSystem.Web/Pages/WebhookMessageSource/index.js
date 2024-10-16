@@ -5,7 +5,7 @@ $(function () {
     var createModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'WebhookMessageSource/EditModal');
 
-    var websiteUrl = 'https://localhost:44346/';
+    var websiteUrl = window.location.protocol + '//' + window.location.host;
 
     var dataTable = $('#WebhookMessageSourceTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -57,7 +57,7 @@ $(function () {
                 data: "body"
             },
             {
-                title: l('Webhook URL'),
+                title: l('WebhookMessageSourceURL'),
                 data: null,
                 render: function (data, type, row, meta) {
                     return `${websiteUrl}/webhook/${row.id}`;
