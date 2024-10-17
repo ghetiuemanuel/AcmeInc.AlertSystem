@@ -63,6 +63,7 @@ public class AlertSystemDbContext :
     public DbSet<Status> Statuses { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<WebhookMessageSource> WebhookMessageSources { get; set; }
+    public DbSet<EmailMessageSource> EmailMessageSources { get; set; }
 
     public AlertSystemDbContext(DbContextOptions<AlertSystemDbContext> options)
         : base(options)
@@ -138,6 +139,16 @@ public class AlertSystemDbContext :
         builder.Entity<WebhookMessageSource>(b =>
         {
             b.ToTable(AlertSystemConsts.DbTablePrefix + "WebhookMessageSources", AlertSystemConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<EmailMessageSource>(b =>
+        {
+            b.ToTable(AlertSystemConsts.DbTablePrefix + "EmailMessageSources", AlertSystemConsts.DbSchema);
             b.ConfigureByConvention(); 
             
 

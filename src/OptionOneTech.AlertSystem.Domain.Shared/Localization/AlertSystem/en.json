@@ -60,6 +60,20 @@
     "WebhookMessageSourceURL": "URL",
     "CreateWebhookMessageSource": "Create",
     "EditWebhookMessageSource": "Edit",
-    "WebhookMessageSourceDeletionConfirmationMessage": "Are you sure to delete the Webhook Message Source {0}?"
+    "WebhookMessageSourceDeletionConfirmationMessage": "Are you sure to delete the Webhook Message Source {0}?",
+    "Permission:EmailMessageSource": "Email Message Source",
+    "Menu:EmailMessageSource": "Email Message Source",
+    "EmailMessageSource": "Email Message Source",
+    "EmailMessageSourceHostname": "Hostname",
+    "EmailMessageSourcePort": "Port",
+    "EmailMessageSourceSSL": "SSL",
+    "EmailMessageSourceUsername": "Username",
+    "EmailMessageSourcePassword": "Password",
+    "EmailMessageSourceFolder": "Folder",
+    "EmailMessageSourceDeleteAfterDownload": "Delete After Download",
+    "EmailMessageSourceActive": "Active",
+    "CreateEmailMessageSource": "Create",
+    "EditEmailMessageSource": "Edit",
+    "EmailMessageSourceDeletionConfirmationMessage": "Are you sure to delete the emailMessageSource {0}?"
   }
 }

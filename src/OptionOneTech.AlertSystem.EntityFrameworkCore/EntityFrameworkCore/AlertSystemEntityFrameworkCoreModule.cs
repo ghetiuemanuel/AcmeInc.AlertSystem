@@ -51,6 +51,7 @@ public class AlertSystemEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Status, StatusRepository>();
             options.AddRepository<Message, MessageRepository>();
             options.AddRepository<WebhookMessageSource, WebhookMessageSourceRepository>();
+            options.AddRepository<EmailMessageSource, EmailMessageSourceRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>
