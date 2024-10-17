@@ -41,4 +41,11 @@ public static class AlertSystemPermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    public class EmailMessageSource
+    {
+        public const string Default = GroupName + ".EmailMessageSource";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

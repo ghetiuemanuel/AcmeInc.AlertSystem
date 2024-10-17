@@ -44,5 +44,8 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<Status, LookupDto<Guid>>();
         CreateMap<Level, LookupDto<Guid>>();
         CreateMap<MessageNavigation, MessageNavigationDto>();
+        CreateMap<EmailMessageSource, EmailMessageSourceDto>();
+        CreateMap<EmailMessageSourceCreateDto, EmailMessageSource>(MemberList.Source);
+        CreateMap<EmailMessageSourceUpdateDto, EmailMessageSource>(MemberList.Source);
     }
 }

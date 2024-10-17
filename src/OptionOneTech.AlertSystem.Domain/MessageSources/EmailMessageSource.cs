@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace OptionOneTech.AlertSystem.MessageSources
 {
-    public class EmailMessageSource
+    public class EmailMessageSource : FullAuditedEntity<Guid>
     {
         public string Hostname { get; set; }
         public int Port { get; set; }
@@ -16,5 +13,31 @@ namespace OptionOneTech.AlertSystem.MessageSources
         public string Folder { get; set; }
         public bool DeleteAfterDownload { get; set; }
         public bool Active { get; set; }
+
+    protected EmailMessageSource()
+    {
+    }
+
+    public EmailMessageSource(
+        Guid id,
+        string hostname,
+        int port,
+        bool ssl,
+        string username,
+        string password,
+        string folder,
+        bool deleteAfterDownload,
+        bool active
+    ) : base(id)
+    {
+        Hostname = hostname;
+        Port = port;
+        SSL = ssl;
+        Username = username;
+        Password = password;
+        Folder = folder;
+        DeleteAfterDownload = deleteAfterDownload;
+        Active = active;
+    }
     }
 }
