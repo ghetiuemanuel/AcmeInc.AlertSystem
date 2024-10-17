@@ -80,10 +80,6 @@ $(function () {
                 data: "username"
             },
             {
-                title: l('EmailMessageSourcePassword'),
-                data: "password"
-            },
-            {
                 title: l('EmailMessageSourceFolder'),
                 data: "folder"
             },

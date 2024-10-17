@@ -15,8 +15,6 @@ public class EmailMessageSourceGetListInput : PagedAndSortedResultRequestDto
 
     public string? Username { get; set; }
 
-    public string? Password { get; set; }
-
     public string? Folder { get; set; }
 
     public bool? DeleteAfterDownload { get; set; }

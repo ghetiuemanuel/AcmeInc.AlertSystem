@@ -8,6 +8,7 @@ using OptionOneTech.AlertSystem.Lookup;
 using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Security.Encryption;
 
 namespace OptionOneTech.AlertSystem.MessageSources;
 
@@ -22,10 +23,12 @@ public class EmailMessageSourceAppService : CrudAppService<EmailMessageSource, E
     protected override string DeletePolicyName { get; set; } = AlertSystemPermissions.EmailMessageSource.Delete;
 
     private readonly IEmailMessageSourceRepository _repository;
+    private readonly IStringEncryptionService _stringEncryptionService;
 
-    public EmailMessageSourceAppService(IEmailMessageSourceRepository repository) : base(repository)
+    public EmailMessageSourceAppService(IEmailMessageSourceRepository repository, IStringEncryptionService stringEncriptionService) : base(repository)
     {
         _repository = repository;
+        _stringEncryptionService = stringEncriptionService;
     }
 
     protected override async Task<IQueryable<EmailMessageSource>> CreateFilteredQueryAsync(EmailMessageSourceGetListInput input)
@@ -36,7 +39,6 @@ public class EmailMessageSourceAppService : CrudAppService<EmailMessageSource, E
             .WhereIf(input.Port != null, x => x.Port == input.Port)
             .WhereIf(input.SSL != null, x => x.SSL == input.SSL)
             .WhereIf(!input.Username.IsNullOrWhiteSpace(), x => x.Username.Contains(input.Username))
-            .WhereIf(!input.Password.IsNullOrWhiteSpace(), x => x.Password.Contains(input.Password))
             .WhereIf(!input.Folder.IsNullOrWhiteSpace(), x => x.Folder.Contains(input.Folder))
             .WhereIf(input.DeleteAfterDownload != null, x => x.DeleteAfterDownload == input.DeleteAfterDownload)
             .WhereIf(input.Active != null, x => x.Active == input.Active)
@@ -45,6 +47,14 @@ public class EmailMessageSourceAppService : CrudAppService<EmailMessageSource, E
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
     {
         var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
+
+        foreach (var emailMessageSource in list)
+        {
+            if (!string.IsNullOrEmpty(emailMessageSource.Password))
+            {
+                emailMessageSource.Password = _stringEncryptionService.Encrypt(emailMessageSource.Password);
+            }
+        }
 
         var totalCount = await _repository.CountAsync(p => p.Active);
 

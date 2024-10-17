@@ -47,5 +47,7 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<EmailMessageSource, EmailMessageSourceDto>();
         CreateMap<EmailMessageSourceCreateDto, EmailMessageSource>(MemberList.Source);
         CreateMap<EmailMessageSourceUpdateDto, EmailMessageSource>(MemberList.Source);
+        CreateMap<EmailMessageSource, LookupDto<Guid>>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Hostname));
     }
 }
