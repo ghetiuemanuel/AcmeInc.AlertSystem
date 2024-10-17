@@ -57,6 +57,7 @@
     "WebhookMessageSourceFrom": "From",
     "WebhookMessageSourceBody": "Body",
     "WebhookMessageSourceActive": "Active",
+    "WebhookMessageSourceURL": "URL",
     "CreateWebhookMessageSource": "Create",
     "EditWebhookMessageSource": "Edit",
     "WebhookMessageSourceDeletionConfirmationMessage": "Are you sure to delete the Webhook Message Source {0}?"

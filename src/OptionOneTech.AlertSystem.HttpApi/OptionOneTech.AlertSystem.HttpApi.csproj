@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OptionOneTech.AlertSystem.Application.Contracts\OptionOneTech.AlertSystem.Application.Contracts.csproj" />
+    <ProjectReference Include="..\OptionOneTech.AlertSystem.Domain\OptionOneTech.AlertSystem.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
