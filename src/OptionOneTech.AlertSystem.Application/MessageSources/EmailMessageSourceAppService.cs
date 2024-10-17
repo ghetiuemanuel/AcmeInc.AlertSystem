@@ -44,17 +44,19 @@ public class EmailMessageSourceAppService : CrudAppService<EmailMessageSource, E
             .WhereIf(input.Active != null, x => x.Active == input.Active)
             ;
     }
+    public override Task<EmailMessageSourceDto> CreateAsync(EmailMessageSourceCreateDto input)
+    {
+
+        if (input.Password != null)
+        {
+            input.Password = _stringEncryptionService.Encrypt(input.Password);
+        }
+
+        return base.CreateAsync(input);
+    }
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
     {
         var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
-
-        foreach (var emailMessageSource in list)
-        {
-            if (!string.IsNullOrEmpty(emailMessageSource.Password))
-            {
-                emailMessageSource.Password = _stringEncryptionService.Encrypt(emailMessageSource.Password);
-            }
-        }
 
         var totalCount = await _repository.CountAsync(p => p.Active);
 
