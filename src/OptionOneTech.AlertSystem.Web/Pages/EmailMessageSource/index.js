@@ -50,7 +50,7 @@ $(function () {
                                 text: l('Delete'),
                                 visible: abp.auth.isGranted('AlertSystem.EmailMessageSource.Delete'),
                                 confirmMessage: function (data) {
-                                    return l('EmailMessageSourceDeletionConfirmationMessage', data.record.hostname);
+                                    return l('EmailMessageSourceDeletionConfirmationMessage', data.record.username);
                                 },
                                 action: function (data) {
                                     service.delete(data.record.id)
