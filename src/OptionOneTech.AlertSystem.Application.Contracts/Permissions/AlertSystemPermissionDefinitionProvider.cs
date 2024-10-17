@@ -41,6 +41,11 @@ public class AlertSystemPermissionDefinitionProvider : PermissionDefinitionProvi
         emailMessageSourcePermission.AddChild(AlertSystemPermissions.EmailMessageSource.Create, L("Permission:Create"));
         emailMessageSourcePermission.AddChild(AlertSystemPermissions.EmailMessageSource.Update, L("Permission:Update"));
         emailMessageSourcePermission.AddChild(AlertSystemPermissions.EmailMessageSource.Delete, L("Permission:Delete"));
+
+        var rulePermission = myGroup.AddPermission(AlertSystemPermissions.Rule.Default, L("Permission:Rule"));
+        rulePermission.AddChild(AlertSystemPermissions.Rule.Create, L("Permission:Create"));
+        rulePermission.AddChild(AlertSystemPermissions.Rule.Update, L("Permission:Update"));
+        rulePermission.AddChild(AlertSystemPermissions.Rule.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

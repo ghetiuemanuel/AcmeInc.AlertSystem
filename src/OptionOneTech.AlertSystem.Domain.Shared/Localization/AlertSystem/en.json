@@ -74,6 +74,21 @@
     "EmailMessageSourceActive": "Active",
     "CreateEmailMessageSource": "Create",
     "EditEmailMessageSource": "Edit",
-    "EmailMessageSourceDeletionConfirmationMessage": "Are you sure to delete the emailMessageSource {0}?"
+    "EmailMessageSourceDeletionConfirmationMessage": "Are you sure to delete the emailMessageSource {0}?",
+    "Permission:Rule": "Rule",
+    "Menu:Rule": "Rule",
+    "Rule": "Rule",
+    "RuleFromRegex": "From Regex",
+    "RuleTitleRegex": "Title Regex",
+    "RuleBodyRegex": "Body Regex",
+    "RuleAnyCondition": "Any Condition",
+    "RuleAlertTitle": "Alert Title",
+    "RuleAlertBody": "Alert Body",
+    "RuleAlertDepartmentId": "Alert Department Id",
+    "RuleAlertStatusId": "Alert Status Id",
+    "RuleAlertLevelId": "Alert Level Id",
+    "CreateRule": "Create",
+    "EditRule": "Edit",
+    "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?"
   }
 }

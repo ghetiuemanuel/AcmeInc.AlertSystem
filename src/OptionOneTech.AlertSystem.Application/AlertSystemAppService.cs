@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OptionOneTech.AlertSystem.Localization;
+﻿using OptionOneTech.AlertSystem.Localization;
 using Volo.Abp.Application.Services;
 
 namespace OptionOneTech.AlertSystem;

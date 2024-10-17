@@ -309,6 +309,78 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.ToTable("AppMessages", (string)null);
                 });
 
+            modelBuilder.Entity("OptionOneTech.AlertSystem.Rules.Rule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AlertBody")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("AlertDepartmentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("AlertLevelId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("AlertStatusId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AlertTitle")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("AnyCondition")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("BodyRegex")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("FromRegex")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("TitleRegex")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppRules", (string)null);
+                });
+
             modelBuilder.Entity("OptionOneTech.AlertSystem.Statuses.Status", b =>
                 {
                     b.Property<Guid>("Id")
