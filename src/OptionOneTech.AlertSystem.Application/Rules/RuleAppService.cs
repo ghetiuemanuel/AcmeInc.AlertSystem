@@ -1,9 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Permissions;
 using OptionOneTech.AlertSystem.Rules.Dtos;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 
 namespace OptionOneTech.AlertSystem.Rules;
 
@@ -38,5 +42,16 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
             .WhereIf(input.AlertStatusId != null, x => x.AlertStatusId == input.AlertStatusId)
             .WhereIf(input.AlertLevelId != null, x => x.AlertLevelId == input.AlertLevelId)
             ;
+    }
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
+    {
+        var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
+
+        var totalCount = await _repository.CountAsync();
+
+        return new PagedResultDto<LookupDto<Guid>>(
+           totalCount,
+           ObjectMapper.Map<List<Rule>, List<LookupDto<Guid>>>(list)
+        );
     }
 }
