@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 public static class LookupAppServiceExtension
 {
-    public static async Task<List<LookupDto<TKey>>> FetchAll<TKey>(this ILookupAppService<TKey> service)
+    public static async Task<List<LookupDto<TKey>>> FetchAllLookups<TKey>(this ILookupAppService<TKey> service)
     {
         var pageSize = 1000;
         var totalItemsCount = 0;

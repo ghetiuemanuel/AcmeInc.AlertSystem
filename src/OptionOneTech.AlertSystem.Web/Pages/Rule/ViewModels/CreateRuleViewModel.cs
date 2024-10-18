@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
@@ -34,4 +36,10 @@ public class CreateRuleViewModel
 
     [Display(Name = "RuleAlertLevelId")]
     public Guid AlertLevelId { get; set; }
+
+    public List<SelectListItem> DepartmentOptions { get; set; } = new List<SelectListItem>();
+
+    public List<SelectListItem> StatusOptions { get; set; } = new List<SelectListItem>();
+
+    public List<SelectListItem> LevelOptions { get; set; } = new List<SelectListItem>();
 }

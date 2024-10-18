@@ -54,5 +54,7 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<Rule, RuleDto>();
         CreateMap<RuleCreateDto, Rule>(MemberList.Source);
         CreateMap<RuleUpdateDto, Rule>(MemberList.Source);
+        CreateMap<Rule, LookupDto<Guid>>()
+           .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.AlertTitle));
     }
 }

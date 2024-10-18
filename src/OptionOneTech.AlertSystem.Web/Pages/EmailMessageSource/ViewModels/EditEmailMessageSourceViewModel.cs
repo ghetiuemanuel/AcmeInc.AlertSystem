@@ -21,7 +21,6 @@ public class EditEmailMessageSourceViewModel
     public string Password { get; set; }
 
     [Display(Name = "EmailMessageSourceFolder")]
-    [TextArea(Rows = 4)]
     public string Folder { get; set; }
 
     [Display(Name = "EmailMessageSourceDeleteAfterDownload")]

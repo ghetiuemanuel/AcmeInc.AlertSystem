@@ -3,6 +3,7 @@
 abp.modals.messageEdit = function () {
     var initModal = function (publicApi, args) {
         var webhookMessageSourceService = optionOneTech.alertSystem.messageSources.webhookMessageSource;
+        var emailMessageSourceService = optionOneTech.alertSystem.messageSources.emailMessageSource;
 
         publicApi.onOpen(async function () {
             var form = publicApi.getForm();
@@ -27,7 +28,11 @@ abp.modals.messageEdit = function () {
                         text: item.name
                     }));
                 } else if (sourceType === '1') { //email
-                    return [];
+                    var result = await fetchAll(emailMessageSourceService.getLookup);
+                    return result.items.map(item => ({
+                        value: item.id,
+                        text: item.name
+                    }));
                 }
                 return [];
             }
