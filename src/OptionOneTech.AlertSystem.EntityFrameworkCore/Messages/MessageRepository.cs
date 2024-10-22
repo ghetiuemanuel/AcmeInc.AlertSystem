@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,18 +35,24 @@ namespace OptionOneTech.AlertSystem.Messages
         public async Task<IQueryable<MessageNavigation>> GetNavigationList()
         {
             var dbContext = await GetDbContextAsync();
+
             var query =
                 from message in dbContext.Messages
                 join webhookMessageSource in dbContext.WebhookMessageSources
                 on message.SourceId equals webhookMessageSource.Id into sourceGroup
                 from webhookMessageSource in sourceGroup.DefaultIfEmpty()
+                join emailMessageSource in dbContext.EmailMessageSources 
+                on message.SourceId equals emailMessageSource.Id into emailGroup 
+                from emailMessageSource in emailGroup.DefaultIfEmpty() 
                 select new MessageNavigation
                 {
                     Message = message,
-                    WebhookMessageSource = webhookMessageSource
+                    WebhookMessageSource = webhookMessageSource,
+                    EmailMessageSource = emailMessageSource 
                 };
 
-            return query; 
+            return query;
         }
+
     }
 }

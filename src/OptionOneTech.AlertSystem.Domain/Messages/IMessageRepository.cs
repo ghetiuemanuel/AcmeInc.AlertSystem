@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using Volo.Abp.Domain.Repositories;
 using System.Threading.Tasks;
+using OptionOneTech.AlertSystem.Alerts;
 
 
 namespace OptionOneTech.AlertSystem.Messages;

@@ -66,7 +66,6 @@ public class EditModalModel : AlertSystemPageModel
             Selected = level.Id == ViewModel.AlertLevelId
         }).ToList();
     }
-
     public virtual async Task<IActionResult> OnPostAsync()
     {
         var dto = ObjectMapper.Map<EditRuleViewModel, RuleUpdateDto>(ViewModel);

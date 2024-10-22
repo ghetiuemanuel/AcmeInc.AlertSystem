@@ -25,15 +25,17 @@ public class EditRuleViewModel
     public string AlertTitle { get; set; }
 
     [Display(Name = "RuleAlertBody")]
-    [TextArea(Rows = 4)]
     public string AlertBody { get; set; }
 
+    [SelectItems(nameof(DepartmentOptions))]
     [Display(Name = "RuleAlertDepartmentId")]
     public Guid AlertDepartmentId { get; set; }
 
+    [SelectItems(nameof(StatusOptions))]
     [Display(Name = "RuleAlertStatusId")]
     public Guid AlertStatusId { get; set; }
 
+    [SelectItems(nameof(LevelOptions))]
     [Display(Name = "RuleAlertLevelId")]
     public Guid AlertLevelId { get; set; }
 

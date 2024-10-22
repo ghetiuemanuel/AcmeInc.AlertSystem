@@ -3,12 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.MessageSources;
 using OptionOneTech.AlertSystem.Web.Pages.Message.ViewModels;
-using Volo.Abp.Application.Dtos;
 
 namespace OptionOneTech.AlertSystem.Web.Pages.Message;
 
@@ -30,19 +28,27 @@ public class CreateModalModel : AlertSystemPageModel
     {
         ViewModel = new CreateMessageViewModel();
 
-        var pagedRequest = new PagedResultRequestDto
-        {
-            MaxResultCount = 1000,
-            SkipCount = 0
-        };
-
         var emailSources = await _emailMessageSourceService.FetchAllLookups();
+        var webhookSources = await _webhookMessageSourceService.FetchAllLookups();
 
-        ViewModel.SourceOptions = emailSources.Select(email => new SelectListItem
+        ViewModel.SourceOptions = new List<SelectListItem>();
+
+        if (emailSources != null)
         {
-            Value = email.Id.ToString(), 
-            Text = email.Name,
-        }).ToList();
+            ViewModel.SourceOptions.AddRange(emailSources.Select(email => new SelectListItem
+            {
+                Value = email.Id.ToString(),
+                Text = email.Name,
+            }));
+        }
+        if (webhookSources != null)
+        {
+            ViewModel.SourceOptions.AddRange(webhookSources.Select(webhook => new SelectListItem
+            {
+                Value = webhook.Id.ToString(),
+                Text = webhook.Name,
+            }));
+        }
     }
     public virtual async Task<IActionResult> OnPostAsync()
     {

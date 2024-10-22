@@ -1,21 +1,17 @@
 $(function () {
-
     $("#RuleFilter :input").on('input', function () {
         dataTable.ajax.reload();
     });
-
-    //After abp v7.2 use dynamicForm 'column-size' instead of the following settings
-    //$('#RuleCollapse div').addClass('col-sm-3').parent().addClass('row');
 
     var getFilter = function () {
         var input = {};
         $("#RuleFilter")
             .serializeArray()
             .forEach(function (data) {
-                if (data.value != '') {
-                    input[abp.utils.toCamelCase(data.name.replace(/RuleFilter./g, ''))] = data.value;
+                if (data.value !== '') {
+                    input[abp.utils.toCamelCase(data.name.replace(/RuleFilter\./g, ''))] = data.value;
                 }
-            })
+            });
         return input;
     };
 
@@ -29,76 +25,93 @@ $(function () {
         processing: true,
         serverSide: true,
         paging: true,
-        searching: false,//disable default searchbox
+        searching: false,
         autoWidth: false,
         scrollCollapse: true,
         order: [[0, "asc"]],
-        ajax: abp.libs.datatables.createAjax(service.getList,getFilter),
+        ajax: abp.libs.datatables.createAjax(service.getNavigationList, getFilter),
         columnDefs: [
             {
                 rowAction: {
-                    items:
-                        [
-                            {
-                                text: l('Edit'),
-                                visible: abp.auth.isGranted('AlertSystem.Rule.Update'),
-                                action: function (data) {
-                                    editModal.open({ id: data.record.id });
-                                }
-                            },
-                            {
-                                text: l('Delete'),
-                                visible: abp.auth.isGranted('AlertSystem.Rule.Delete'),
-                                confirmMessage: function (data) {
-                                    return l('RuleDeletionConfirmationMessage', data.record.alertTitle);
-                                },
-                                action: function (data) {
-                                    service.delete(data.record.id)
-                                        .then(function () {
-                                            abp.notify.info(l('SuccessfullyDeleted'));
-                                            dataTable.ajax.reload();
-                                        });
-                                }
+                    items: [
+                        {
+                            text: l('Edit'),
+                            visible: abp.auth.isGranted('AlertSystem.Rule.Update'),
+                            action: function (data) {
+                                editModal.open({ id: data.record.rule.id });
                             }
-                        ]
+                        },
+                        {
+                            text: l('Delete'),
+                            visible: abp.auth.isGranted('AlertSystem.Rule.Delete'),
+                            confirmMessage: function (data) {
+                                return l('RuleDeletionConfirmationMessage', data.record.rule.name);
+                            },
+                            action: function (data) {
+                                service.delete(data.record.rule.name)
+                                    .then(function () {
+                                        abp.notify.info(l('SuccessfullyDeleted'));
+                                        dataTable.ajax.reload();
+                                    });
+                            }
+                        }
+                    ]
                 }
             },
             {
                 title: l('RuleFromRegex'),
-                data: "fromRegex"
+                data: "rule.fromRegex",
             },
             {
                 title: l('RuleTitleRegex'),
-                data: "titleRegex"
+                data: "rule.titleRegex"
             },
             {
                 title: l('RuleBodyRegex'),
-                data: "bodyRegex"
+                data: "rule.bodyRegex"
             },
             {
                 title: l('RuleAnyCondition'),
-                data: "anyCondition"
+                data: "rule.anyCondition"
             },
             {
                 title: l('RuleAlertTitle'),
-                data: "alertTitle"
+                data: "rule.alertTitle"
             },
             {
                 title: l('RuleAlertBody'),
-                data: "alertBody"
+                data: "rule.alertBody"
             },
             {
                 title: l('RuleAlertDepartmentId'),
-                data: "alertDepartmentId"
+                data: null,
+                render: function (data, type, row, meta) {
+                    if (row.department && row.department.name) {
+                        return row.department.name;
+                    }
+                    return '';
+                }
             },
             {
                 title: l('RuleAlertStatusId'),
-                data: "alertStatusId"
+                data: null,
+                render: function (data, type, row, meta) {
+                    if (row.status && row.status.name) {
+                        return row.status.name;
+                    }
+                    return '';
+                }
             },
             {
                 title: l('RuleAlertLevelId'),
-                data: "alertLevelId"
-            },
+                data: null,
+                render: function (data, type, row, meta) {
+                    if (row.level && row.level.name) {
+                        return row.level.name;
+                    }
+                    return '';
+                }
+            }
         ]
     }));
 

@@ -8,9 +8,11 @@ using OptionOneTech.AlertSystem.Rules.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
+using OptionOneTech.AlertSystem.Alerts;
 
 namespace OptionOneTech.AlertSystem.Rules;
-
 
 public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInput, RuleCreateDto, RuleUpdateDto>,
     IRuleAppService
@@ -27,10 +29,8 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
     {
         _repository = repository;
     }
-
     protected override async Task<IQueryable<Rule>> CreateFilteredQueryAsync(RuleGetListInput input)
     {
-        // TODO: AbpHelper generated
         return (await base.CreateFilteredQueryAsync(input))
             .WhereIf(!input.FromRegex.IsNullOrWhiteSpace(), x => x.FromRegex.Contains(input.FromRegex))
             .WhereIf(!input.TitleRegex.IsNullOrWhiteSpace(), x => x.TitleRegex.Contains(input.TitleRegex))
@@ -40,18 +40,53 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
             .WhereIf(!input.AlertBody.IsNullOrWhiteSpace(), x => x.AlertBody.Contains(input.AlertBody))
             .WhereIf(input.AlertDepartmentId != null, x => x.AlertDepartmentId == input.AlertDepartmentId)
             .WhereIf(input.AlertStatusId != null, x => x.AlertStatusId == input.AlertStatusId)
-            .WhereIf(input.AlertLevelId != null, x => x.AlertLevelId == input.AlertLevelId)
-            ;
+            .WhereIf(input.AlertLevelId != null, x => x.AlertLevelId == input.AlertLevelId);
     }
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
     {
         var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
-
         var totalCount = await _repository.CountAsync();
 
         return new PagedResultDto<LookupDto<Guid>>(
-           totalCount,
-           ObjectMapper.Map<List<Rule>, List<LookupDto<Guid>>>(list)
+            totalCount,
+            ObjectMapper.Map<List<Rule>, List<LookupDto<Guid>>>(list)
+        );
+    }
+    public async Task<PagedResultDto<RuleNavigationDto>> GetNavigationListAsync(RuleGetListInput input)
+    {
+        var query = await _repository.GetNavigationList();
+
+        query = query
+            .WhereIf(!input.FromRegex.IsNullOrWhiteSpace(), x => x.Rule.FromRegex.Contains(input.FromRegex))
+            .WhereIf(!input.TitleRegex.IsNullOrWhiteSpace(), x => x.Rule.TitleRegex.Contains(input.TitleRegex))
+            .WhereIf(!input.BodyRegex.IsNullOrWhiteSpace(), x => x.Rule.BodyRegex.Contains(input.BodyRegex))
+            .WhereIf(input.AnyCondition != null, x => x.Rule.AnyCondition == input.AnyCondition)
+            .WhereIf(input.AlertDepartmentId != null, x => x.Rule.AlertDepartmentId == input.AlertDepartmentId)
+            .WhereIf(input.AlertStatusId != null, x => x.Rule.AlertStatusId == input.AlertStatusId)
+            .WhereIf(input.AlertLevelId != null, x => x.Rule.AlertLevelId == input.AlertLevelId)
+            .WhereIf(!input.AlertTitle.IsNullOrWhiteSpace(), x => x.Rule.AlertTitle.Contains(input.AlertTitle))
+            .WhereIf(!input.AlertBody.IsNullOrWhiteSpace(), x => x.Rule.AlertBody.Contains(input.AlertBody));
+
+        if (!input.Sorting.IsNullOrWhiteSpace())
+        {
+            query = query.OrderBy(input.Sorting);
+        }
+        else
+        {
+            query = query.OrderBy(x => x.Rule.AlertTitle);
+        }
+
+        var totalCount = await query.CountAsync();
+
+        var ruleNavigations = await query
+            .Skip(input.SkipCount)
+            .Take(input.MaxResultCount)
+            .ToListAsync();
+
+        return new PagedResultDto<RuleNavigationDto>(
+            totalCount,
+            ObjectMapper.Map<List<RuleNavigation>, List<RuleNavigationDto>>(ruleNavigations)
         );
     }
 }
+

@@ -84,9 +84,9 @@
     "RuleAnyCondition": "Any Condition",
     "RuleAlertTitle": "Alert Title",
     "RuleAlertBody": "Alert Body",
-    "RuleAlertDepartmentId": "Alert Department Id",
-    "RuleAlertStatusId": "Alert Status Id",
-    "RuleAlertLevelId": "Alert Level Id",
+    "RuleAlertDepartmentId": "Alert Department",
+    "RuleAlertStatusId": "Alert Status",
+    "RuleAlertLevelId": "Alert Level",
     "CreateRule": "Create",
     "EditRule": "Edit",
     "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?"

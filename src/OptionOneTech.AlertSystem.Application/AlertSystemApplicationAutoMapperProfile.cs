@@ -12,6 +12,7 @@ using AutoMapper;
 using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Rules;
 using OptionOneTech.AlertSystem.Rules.Dtos;
+using OptionOneTech.AlertSystem.Alerts;
 using System;
 
 namespace OptionOneTech.AlertSystem;
@@ -56,5 +57,6 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<RuleUpdateDto, Rule>(MemberList.Source);
         CreateMap<Rule, LookupDto<Guid>>()
            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.AlertTitle));
+        CreateMap<RuleNavigation, RuleNavigationDto>();
     }
 }
