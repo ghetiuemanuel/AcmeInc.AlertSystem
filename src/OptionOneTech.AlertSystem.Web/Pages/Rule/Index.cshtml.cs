@@ -125,6 +125,26 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             [Display(Name = "RuleAlertLevelId")]
             public Guid? AlertLevelId { get; set; }
 
+            [FormControlSize(AbpFormControlSize.Small)]
+            [Display(Name = "RuleTriggerCount")]
+            public int? TriggerCount { get; set; }
+
+            [FormControlSize(AbpFormControlSize.Small)]
+            [Display(Name = "RuleTriggerWindowDuration")]
+            public int? TriggerWindowDuration { get; set; }
+
+            [FormControlSize(AbpFormControlSize.Small)]
+            [Display(Name = "RuleTriggerRequired")]
+            public int? TriggerRequired { get; set; }
+
+            [FormControlSize(AbpFormControlSize.Small)]
+            [Display(Name = "RuleTriggerTimestamp")]
+            public DateTime? TriggerTimestamp { get; set; }
+
+            [FormControlSize(AbpFormControlSize.Small)]
+            [Display(Name = "RuleActive")]
+            public bool? Active { get; set; }
+
             public List<SelectListItem> DepartmentOptions { get; set; } = new List<SelectListItem>();
             public List<SelectListItem> StatusOptions { get; set; } = new List<SelectListItem>();
             public List<SelectListItem> LevelOptions { get; set; } = new List<SelectListItem>();

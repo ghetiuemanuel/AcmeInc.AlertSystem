@@ -111,6 +111,29 @@
                     }
                     return '';
                 }
+            },
+            {
+                title: l('RuleTriggerCount'),
+                data: "rule.triggerCount"
+            },
+            {
+                title: l('RuleTriggerWindowDuration'),
+                data: "rule.triggerWindowDuration"
+            },
+            {
+                title: l('RuleTriggerRequired'),
+                data: "rule.triggerRequired"
+            },
+            {
+                title: l('RuleTriggerTimestamp'),
+                data: "rule.triggerTimestamp"
+            },
+            {
+                title: l('RuleActive'),
+                data: "rule.active",
+                render: function (data) {
+                    return data ? l('Yes') : l('No');
+                }
             }
         ]
     }));

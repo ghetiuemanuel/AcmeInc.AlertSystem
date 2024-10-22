@@ -25,7 +25,7 @@ public class RuleRepository : EfCoreRepository<AlertSystemDbContext, Rule, Guid>
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()
-            .Select(rule => new Rule(rule.Id, "", "", "", true, rule.AlertTitle, "", Guid.Empty, Guid.Empty, Guid.Empty))
+            .Select(rule => new Rule(rule.Id, "", "", "", true, rule.AlertTitle, "", Guid.Empty, Guid.Empty, Guid.Empty, 0, 0, 0, DateTime.Now , true))
             .Skip(skip)
             .Take(take)
             .ToListAsync();

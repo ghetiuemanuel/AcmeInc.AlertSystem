@@ -39,6 +39,21 @@ public class EditRuleViewModel
     [Display(Name = "RuleAlertLevelId")]
     public Guid AlertLevelId { get; set; }
 
+    [Display(Name = "RuleTriggerCount")]
+    public int TriggerCount { get; set; }
+
+    [Display(Name = "RuleTriggerWindowDuration")]
+    public int TriggerWindowDuration { get; set; }
+
+    [Display(Name = "RuleTriggerRequired")]
+    public int TriggerRequired { get; set; }
+
+    [Display(Name = "RuleTriggerTimestamp")]
+    public DateTime TriggerTimestamp { get; set; }
+
+    [Display(Name = "RuleActive")]
+    public bool Active { get; set; }
+
     public List<SelectListItem> DepartmentOptions { get; set; } = new List<SelectListItem>();
 
     public List<SelectListItem> StatusOptions { get; set; } = new List<SelectListItem>();
