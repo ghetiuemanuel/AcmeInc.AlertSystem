@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using OptionOneTech.AlertSystem.Departments;
 using OptionOneTech.AlertSystem.Levels;
 using OptionOneTech.AlertSystem.Statuses;
+using OptionOneTech.AlertSystem.Localization;
 
 namespace OptionOneTech.AlertSystem.Web.Pages.Rule
 {
@@ -16,17 +17,20 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
         private readonly IDepartmentAppService _departmentAppService;
         private readonly IStatusAppService _statusAppService;
         private readonly ILevelAppService _levelAppService;
+        private readonly IStringLocalizer<AlertSystemResource> _localizer;
 
         public RuleFilterInput RuleFilter { get; set; } = new RuleFilterInput();
 
         public IndexModel(
             IDepartmentAppService departmentAppService,
             IStatusAppService statusAppService,
-            ILevelAppService levelAppService)
+            ILevelAppService levelAppService,
+            IStringLocalizer<AlertSystemResource> localizer)
         {
             _departmentAppService = departmentAppService;
             _statusAppService = statusAppService;
             _levelAppService = levelAppService;
+            _localizer = localizer;
         }
 
         public virtual async Task OnGetAsync()
@@ -35,9 +39,11 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             var statuses = await _statusAppService.FetchAllLookups();
             var levels = await _levelAppService.FetchAllLookups();
 
+            string allLabel = _localizer["All"];
+
             RuleFilter.DepartmentOptions = new List<SelectListItem>
             {
-                new SelectListItem { Value = "", Text = "All" } 
+                new SelectListItem { Value = "", Text = allLabel } 
             };
 
             foreach (var department in departments)
@@ -51,7 +57,7 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
 
             RuleFilter.StatusOptions = new List<SelectListItem>
             {
-                new SelectListItem { Value = "", Text = "All" } 
+                new SelectListItem { Value = "", Text = allLabel }
             };
 
             foreach (var status in statuses)
@@ -65,7 +71,7 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
 
             RuleFilter.LevelOptions = new List<SelectListItem>
             {
-                new SelectListItem { Value = "", Text = "All" }
+                new SelectListItem { Value = "", Text = allLabel }
             };
 
             foreach (var level in levels)
