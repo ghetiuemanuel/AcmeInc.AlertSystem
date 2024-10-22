@@ -65,8 +65,8 @@
                     if (row.webhookMessageSource && row.webhookMessageSource.title) {
                         return row.webhookMessageSource.title;
                     }
-                    if (row.message && row.message.sourceId) {
-                        return row.message.sourceId;
+                    if (row.emailMessageSource && row.emailMessageSource.username) {
+                        return row.emailMessageSource.username;
                     }
                     return '';
                 }

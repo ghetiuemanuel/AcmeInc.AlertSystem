@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace OptionOneTech.AlertSystem.Web.Pages.EmailMessageSource.ViewModels;
 
@@ -21,7 +20,6 @@ public class CreateEmailMessageSourceViewModel
     public string Password { get; set; }
 
     [Display(Name = "EmailMessageSourceFolder")]
-    [TextArea(Rows = 4)]
     public string Folder { get; set; }
 
     [Display(Name = "EmailMessageSourceDeleteAfterDownload")]

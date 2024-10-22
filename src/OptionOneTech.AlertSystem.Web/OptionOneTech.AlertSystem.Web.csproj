@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -62,10 +63,6 @@
     <PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="8.2.1" />
     <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="8.2.1" />
     <PackageReference Include="Volo.Abp.SettingManagement.Web" Version="8.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\MessageSources\" />
   </ItemGroup>
 
 </Project>

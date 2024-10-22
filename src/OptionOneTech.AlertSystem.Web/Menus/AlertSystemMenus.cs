@@ -13,4 +13,5 @@ public class AlertSystemMenus
     public const string Message = Prefix + ".Message";
     public const string WebhookMessageSource = Prefix + ".WebhookMessageSource";
     public const string EmailMessageSource = Prefix + ".EmailMessageSource";
+    public const string Rule = Prefix + ".Rule";
 }

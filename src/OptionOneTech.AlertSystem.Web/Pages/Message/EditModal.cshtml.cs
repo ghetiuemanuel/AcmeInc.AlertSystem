@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,29 +23,44 @@ public class EditModalModel : AlertSystemPageModel
 
     private readonly IMessageAppService _service;
     private readonly IWebhookMessageSourceAppService _webhookMessageSourceAppService;
+    private readonly IEmailMessageSourceAppService _emailMessageSourceAppService;
 
-    public EditModalModel(IMessageAppService service, IWebhookMessageSourceAppService webhookMessageSourceAppService)
+    public EditModalModel(IMessageAppService service, IWebhookMessageSourceAppService webhookMessageSourceAppService, IEmailMessageSourceAppService emailMessageSourceAppService)
     {
         _service = service;
         _webhookMessageSourceAppService = webhookMessageSourceAppService;
+        _emailMessageSourceAppService = emailMessageSourceAppService;
     }
 
     public virtual async Task OnGetAsync()
-    {  
-        var allItems = await _webhookMessageSourceAppService.FetchAll();
+    {
+        var allItems = await _webhookMessageSourceAppService.FetchAllLookups();
+        var emailItems = await _emailMessageSourceAppService.FetchAllLookups();
 
         var dto = await _service.GetAsync(Id);
 
         ViewModel = ObjectMapper.Map<MessageDto, EditMessageViewModel>(dto);
-        
-        ViewModel.SourceOptions = allItems.Select(item => new SelectListItem
-        {
-            Value = item.Id.ToString(),
-            Text = item.Name,
-            Selected = item.Id == ViewModel.SourceId
-        }).ToList();
-    }
+        ViewModel.SourceOptions = new List<SelectListItem>();
 
+        if (ViewModel.SourceType == SourceType.Webhook)
+        {
+            ViewModel.SourceOptions.AddRange(allItems.Select(item => new SelectListItem
+            {
+                Value = item.Id.ToString(),
+                Text = item.Name,
+                Selected = item.Id == ViewModel.SourceId
+            }));
+        }
+        else if (ViewModel.SourceType == SourceType.Email)
+        {
+            ViewModel.SourceOptions.AddRange(emailItems.Select(item => new SelectListItem
+            {
+                Value = item.Id.ToString(),
+                Text = item.Name,
+                Selected = item.Id == ViewModel.SourceId
+            }));
+        }
+    }
     public virtual async Task<IActionResult> OnPostAsync()
     {
         var dto = ObjectMapper.Map<EditMessageViewModel, UpdateMessageDto>(ViewModel);

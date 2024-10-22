@@ -6,5 +6,6 @@ namespace OptionOneTech.AlertSystem.Messages.Dtos
     {
         public MessageDto? Message { get; set; }
         public WebhookMessageSourceDto? WebhookMessageSource { get; set; }
+        public EmailMessageSourceDto? EmailMessageSource { get; set; }
     }
 }

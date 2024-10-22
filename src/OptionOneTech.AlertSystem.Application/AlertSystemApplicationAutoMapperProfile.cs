@@ -10,6 +10,9 @@ using OptionOneTech.AlertSystem.MessageSources;
 using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using AutoMapper;
 using OptionOneTech.AlertSystem.Lookup;
+using OptionOneTech.AlertSystem.Rules;
+using OptionOneTech.AlertSystem.Rules.Dtos;
+using OptionOneTech.AlertSystem.Alerts;
 using System;
 
 namespace OptionOneTech.AlertSystem;
@@ -49,5 +52,11 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
         CreateMap<EmailMessageSourceUpdateDto, EmailMessageSource>(MemberList.Source);
         CreateMap<EmailMessageSource, LookupDto<Guid>>()
            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Username));
+        CreateMap<Rule, RuleDto>();
+        CreateMap<RuleCreateDto, Rule>(MemberList.Source);
+        CreateMap<RuleUpdateDto, Rule>(MemberList.Source);
+        CreateMap<Rule, LookupDto<Guid>>()
+           .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.AlertTitle));
+        CreateMap<RuleNavigation, RuleNavigationDto>();
     }
 }

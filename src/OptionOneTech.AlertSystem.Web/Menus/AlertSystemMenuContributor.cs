@@ -94,5 +94,12 @@ public class AlertSystemMenuContributor : IMenuContributor
           icon: "fas fa-paper-plane",
           requiredPermissionName: AlertSystemPermissions.EmailMessageSource.Default
         ));
+        context.Menu.Items.Add(new ApplicationMenuItem(
+          AlertSystemMenus.Rule,
+          l["Menu:Rule"],
+          "/Rule",
+          icon: "fas fa-exclamation-triangle",
+          requiredPermissionName: AlertSystemPermissions.Rule.Default
+        ));
     }
 }
