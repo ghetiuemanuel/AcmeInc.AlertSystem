@@ -89,6 +89,7 @@
     "RuleAlertLevelId": "Alert Level",
     "CreateRule": "Create",
     "EditRule": "Edit",
-    "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?"
+    "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?",
+    "FilterAllText": "All"
   }
 }

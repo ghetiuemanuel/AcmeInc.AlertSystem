@@ -39,11 +39,11 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             var statuses = await _statusAppService.FetchAllLookups();
             var levels = await _levelAppService.FetchAllLookups();
 
-            string allLabel = _localizer["All"];
+            string allLabel = _localizer["FilterAllText"];
 
             RuleFilter.DepartmentOptions = new List<SelectListItem>
             {
-                new SelectListItem { Value = "", Text = allLabel } 
+                new SelectListItem { Value = "", Text = allLabel }
             };
 
             foreach (var department in departments)
