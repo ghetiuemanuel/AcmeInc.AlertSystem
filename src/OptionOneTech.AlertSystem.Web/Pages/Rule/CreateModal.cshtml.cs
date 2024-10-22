@@ -50,21 +50,18 @@ public class CreateModalModel : AlertSystemPageModel
         {
             Value = department.Id.ToString(),
             Text = department.Name,
-            Selected = department.Id == ViewModel.AlertDepartmentId
         }).ToList();
 
         ViewModel.StatusOptions = statuses.Select(status => new SelectListItem
         {
             Value = status.Id.ToString(),
             Text = status.Name,
-            Selected = status.Id == ViewModel.AlertStatusId
         }).ToList();
 
         ViewModel.LevelOptions = levels.Select(level => new SelectListItem
         {
             Value = level.Id.ToString(),
             Text = level.Name,
-            Selected = level.Id == ViewModel.AlertLevelId
         }).ToList();
     }
     public virtual async Task<IActionResult> OnPostAsync()

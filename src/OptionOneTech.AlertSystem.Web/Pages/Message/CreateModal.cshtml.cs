@@ -33,7 +33,7 @@ public class CreateModalModel : AlertSystemPageModel
 
         ViewModel.SourceOptions = new List<SelectListItem>();
 
-        if (emailSources != null)
+        if (ViewModel.SourceType == SourceType.Email)
         {
             ViewModel.SourceOptions.AddRange(emailSources.Select(email => new SelectListItem
             {
@@ -41,7 +41,7 @@ public class CreateModalModel : AlertSystemPageModel
                 Text = email.Name,
             }));
         }
-        if (webhookSources != null)
+        else if (ViewModel.SourceType == SourceType.Webhook)
         {
             ViewModel.SourceOptions.AddRange(webhookSources.Select(webhook => new SelectListItem
             {

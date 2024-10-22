@@ -1,4 +1,4 @@
-$(function () {
+﻿$(function () {
     $("#RuleFilter :input").on('input', function () {
         dataTable.ajax.reload();
     });
