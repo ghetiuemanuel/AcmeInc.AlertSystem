@@ -78,6 +78,10 @@
             {
                 title: l('MessageBody'),
                 data: "message.body"
+            },
+            {
+                title: l('MessageProcessedAt'),
+                data: "message.processedAt"
             }
         ]
     }));

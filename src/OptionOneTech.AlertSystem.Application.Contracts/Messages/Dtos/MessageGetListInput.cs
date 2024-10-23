@@ -15,4 +15,5 @@ public class MessageGetListInput : PagedAndSortedResultRequestDto
     public SourceType? SourceType { get; set; }
 
     public string? Body { get; set; }
+    public DateTime? ProcessedAt { get; set; }
 }

@@ -37,7 +37,8 @@ namespace OptionOneTech.AlertSystem.Webhooks
                     from: webhookData.From,
                     sourceId: id,                    
                     sourceType: SourceType.Webhook,
-                    body: webhookData.Body
+                    body: webhookData.Body,
+                    processedAt: DateTime.Now
                 );
 
                 await _messageRepository.InsertAsync(message, autoSave: true);

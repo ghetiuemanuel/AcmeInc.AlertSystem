@@ -28,5 +28,9 @@ public class EditMessageViewModel
     [TextArea(Rows = 4)]
     public string Body { get; set; }
 
+    [Display(Name = "MessageProcessedAt")]
+    public DateTime? ProcessedAt { get; set; }
+
+
     public List<SelectListItem> SourceOptions { get; set; } = new List<SelectListItem>();
 }
