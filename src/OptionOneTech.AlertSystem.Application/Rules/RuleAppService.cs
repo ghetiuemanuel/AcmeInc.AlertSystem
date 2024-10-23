@@ -71,7 +71,7 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
             .WhereIf(input.AlertLevelId != null, x => x.Rule.AlertLevelId == input.AlertLevelId)
             .WhereIf(!input.AlertTitle.IsNullOrWhiteSpace(), x => x.Rule.AlertTitle.Contains(input.AlertTitle))
             .WhereIf(!input.AlertBody.IsNullOrWhiteSpace(), x => x.Rule.AlertBody.Contains(input.AlertBody))
-            .WhereIf(input.TriggerCount != null, x => x.Rule.TriggerCount == input.TriggerCount)
+            .WhereIf(input.TriggerCount != null, x => x.Rule.TriggerCount >= input.TriggerCount)
             .WhereIf(input.TriggerWindowDuration != null, x => x.Rule.TriggerWindowDuration >= input.TriggerWindowDuration)
             .WhereIf(input.TriggersRequired != null, x => x.Rule.TriggersRequired == input.TriggersRequired)
             .WhereIf(input.TriggerTimestamp != null, x => x.Rule.TriggerTimestamp.Value.Date == input.TriggerTimestamp.Value.Date)

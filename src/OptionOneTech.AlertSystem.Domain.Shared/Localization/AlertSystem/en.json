@@ -91,9 +91,9 @@
     "EditRule": "Edit",
     "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?",
     "RuleTriggerCount": "Trigger Count",
-    "RuleTriggerWindowDuration": "Trigger Window Duration",
-    "RuleTriggersRequired": "Triggers Required",
-    "RuleTriggerTimestamp": "Trigger Timestamp",
+    "RuleTriggerWindowDuration": "Trigger Window Duration in seconds",
+    "RuleTriggersRequired": "Required Triggers to create alert",
+    "RuleTriggerTimestamp": "Last Trigger Timestamp",
     "RuleActive": "Active",
     "FilterAllText": "All"
   }
