@@ -42,9 +42,9 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             string allLabel = _localizer["FilterAllText"];
 
             RuleFilter.DepartmentOptions = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "", Text = allLabel }
-            };
+        {
+            new SelectListItem { Value = "", Text = allLabel }
+        };
 
             foreach (var department in departments)
             {
@@ -56,9 +56,9 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             }
 
             RuleFilter.StatusOptions = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "", Text = allLabel }
-            };
+        {
+            new SelectListItem { Value = "", Text = allLabel }
+        };
 
             foreach (var status in statuses)
             {
@@ -70,9 +70,9 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             }
 
             RuleFilter.LevelOptions = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "", Text = allLabel }
-            };
+        {
+            new SelectListItem { Value = "", Text = allLabel }
+        };
 
             foreach (var level in levels)
             {
@@ -82,6 +82,13 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
                     Text = level.Name,
                 });
             }
+
+            RuleFilter.ActiveOptions = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "", Text = allLabel }, 
+            new SelectListItem { Value = "true", Text = _localizer["Yes"] }, 
+            new SelectListItem { Value = "false", Text = _localizer["No"] } 
+        };
         }
 
         public class RuleFilterInput
@@ -142,12 +149,15 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             public DateTime? TriggerTimestamp { get; set; }
 
             [FormControlSize(AbpFormControlSize.Small)]
+            [SelectItems(nameof(ActiveOptions))] 
             [Display(Name = "RuleActive")]
             public bool? Active { get; set; }
 
+            public List<SelectListItem> ActiveOptions { get; set; } = new List<SelectListItem>(); 
             public List<SelectListItem> DepartmentOptions { get; set; } = new List<SelectListItem>();
             public List<SelectListItem> StatusOptions { get; set; } = new List<SelectListItem>();
             public List<SelectListItem> LevelOptions { get; set; } = new List<SelectListItem>();
         }
     }
+
 }
