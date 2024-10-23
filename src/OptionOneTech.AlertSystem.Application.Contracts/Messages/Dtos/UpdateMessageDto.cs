@@ -14,4 +14,5 @@ public class UpdateMessageDto
     public SourceType SourceType { get; set; }
 
     public string Body { get; set; }
+    public DateTime? ProcessedAt { get; set; }
 }

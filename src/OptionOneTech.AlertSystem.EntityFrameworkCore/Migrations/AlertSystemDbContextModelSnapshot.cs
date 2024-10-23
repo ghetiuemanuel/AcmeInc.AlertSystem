@@ -294,6 +294,9 @@ namespace OptionOneTech.AlertSystem.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("LastModifierId");
 
+                    b.Property<DateTime?>("ProcessedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<Guid>("SourceId")
                         .HasColumnType("char(36)");
 

@@ -34,7 +34,8 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
             .WhereIf(!input.From.IsNullOrWhiteSpace(), x => x.From.Contains(input.From))
             .WhereIf(input.SourceId != null, x => x.SourceId == input.SourceId)
             .WhereIf(input.SourceType != null, x => x.SourceType == input.SourceType)
-            .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Body.Contains(input.Body));
+            .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Body.Contains(input.Body))
+            .WhereIf(input.ProcessedAt != null, x => x.ProcessedAt.Value.Date == input.ProcessedAt.Value.Date);
 
     }
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
@@ -57,7 +58,8 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
             .WhereIf(input.SourceId != null, x => x.Message.SourceId == input.SourceId)
             .WhereIf(input.SourceType != null, x => x.Message.SourceType == input.SourceType)
             .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Message.Body.Contains(input.Body))
-            .WhereIf(!input.Title.IsNullOrWhiteSpace(), x => x.Message.Title.Contains(input.Title));
+            .WhereIf(!input.Title.IsNullOrWhiteSpace(), x => x.Message.Title.Contains(input.Title))
+            .WhereIf(input.ProcessedAt != null, x => x.Message.ProcessedAt.Value.Date == input.ProcessedAt.Value.Date);
 
         if (!input.Sorting.IsNullOrWhiteSpace())
         {

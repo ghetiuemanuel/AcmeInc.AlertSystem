@@ -20,8 +20,9 @@ namespace OptionOneTech.AlertSystem.Messages
 
         [Required]
         public string Body { get; set; }
+        public DateTime? ProcessedAt { get; set; }
 
-    protected Message()
+        protected Message()
     {
     }
 
@@ -31,7 +32,8 @@ namespace OptionOneTech.AlertSystem.Messages
         string from,
         Guid sourceId,
         SourceType sourceType,
-        string body
+        string body,
+        DateTime? processedAt
     ) : base(id)
     {
         Title = title;
@@ -39,6 +41,7 @@ namespace OptionOneTech.AlertSystem.Messages
         SourceId = sourceId;
         SourceType = sourceType;
         Body = body;
+        ProcessedAt = processedAt; 
     }
     }
 }

@@ -27,7 +27,7 @@ namespace OptionOneTech.AlertSystem.Messages
         {
             return await (await GetQueryableAsync())
                 .AsNoTracking()
-                .Select(message => new Message(message.Id, message.Title, "", Guid.Empty, SourceType.Email, ""))
+                .Select(message => new Message(message.Id, message.Title, "", Guid.Empty, SourceType.Email, "", DateTime.Now))
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync();
