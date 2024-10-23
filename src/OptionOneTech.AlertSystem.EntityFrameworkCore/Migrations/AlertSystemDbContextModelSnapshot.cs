@@ -314,6 +314,9 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("AlertBody")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -375,6 +378,18 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.Property<string>("TitleRegex")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("TriggerCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("TriggerTimestamp")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("TriggerWindowDuration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TriggersRequired")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

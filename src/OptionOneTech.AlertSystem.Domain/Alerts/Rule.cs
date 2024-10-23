@@ -14,6 +14,11 @@ namespace OptionOneTech.AlertSystem.Rules
         public Guid AlertDepartmentId { get; set; }
         public Guid AlertStatusId { get; set; }
         public Guid AlertLevelId { get; set; }
+        public int TriggerCount { get; set; }
+        public int TriggerWindowDuration { get; set; }
+        public int TriggersRequired { get; set; }
+        public DateTime? TriggerTimestamp { get; set; }
+        public bool Active { get; set; }
 
     protected Rule()
     {
@@ -29,7 +34,12 @@ namespace OptionOneTech.AlertSystem.Rules
             string alertBody,
             Guid alertDepartmentId,
             Guid alertStatusId,     
-            Guid alertLevelId
+            Guid alertLevelId,
+            int triggerCount,
+            int triggerWindowDuration,
+            int triggersRequired,
+            DateTime? triggerTimestamp,
+            bool Active
         )    : base(id)
         {
             FromRegex = fromRegex;
@@ -41,6 +51,11 @@ namespace OptionOneTech.AlertSystem.Rules
             AlertDepartmentId = alertDepartmentId;
             AlertStatusId = alertStatusId;
             AlertLevelId = alertLevelId; 
+            TriggerCount = triggerCount;
+            TriggerWindowDuration = triggerWindowDuration;
+            TriggersRequired = triggersRequired;
+            TriggerTimestamp = triggerTimestamp;
+            Active = Active;
         }
     }
 }
