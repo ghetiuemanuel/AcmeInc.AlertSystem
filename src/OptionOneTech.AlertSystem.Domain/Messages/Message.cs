@@ -33,7 +33,7 @@ namespace OptionOneTech.AlertSystem.Messages
         Guid sourceId,
         SourceType sourceType,
         string body,
-        DateTime processedAt
+        DateTime? processedAt
     ) : base(id)
     {
         Title = title;

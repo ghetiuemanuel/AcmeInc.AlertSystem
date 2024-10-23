@@ -49,6 +49,7 @@
     "MessageBody": "Body",
     "CreateMessage": "Create",
     "EditMessage": "Edit",
+    "MessageProcessedAt": "Processed at",
     "MessageDeletionConfirmationMessage": "Are you sure to delete the message {0}?",
     "Permission:WebhookMessageSource": "Webhook Message Source",
     "Menu:WebhookMessageSource": "Webhook Message Source",
