@@ -58,50 +58,50 @@
                     ]
                 }
             },
-            {
-                title: l('RuleFromRegex'),
-                data: "rule.fromRegex",
-            },
-            {
-                title: l('RuleTitleRegex'),
-                data: "rule.titleRegex"
-            },
-            {
-                title: l('RuleBodyRegex'),
-                data: "rule.bodyRegex"
-            },
-            {
-                title: l('RuleAnyCondition'),
-                data: "rule.anyCondition"
-            },
+            //{
+            //    title: l('RuleFromRegex'),
+            //    data: "rule.fromRegex",
+            //},
+            //{
+            //    title: l('RuleTitleRegex'),
+            //    data: "rule.titleRegex"
+            //},
+            //{
+            //    title: l('RuleBodyRegex'),
+            //    data: "rule.bodyRegex"
+            //},
+            //{
+            //    title: l('RuleAnyCondition'),
+            //    data: "rule.anyCondition"
+            //},
             {
                 title: l('RuleAlertTitle'),
                 data: "rule.alertTitle"
             },
-            {
-                title: l('RuleAlertBody'),
-                data: "rule.alertBody"
-            },
-            {
-                title: l('RuleAlertDepartmentId'),
-                data: null,
-                render: function (data, type, row, meta) {
-                    if (row.department && row.department.name) {
-                        return row.department.name;
-                    }
-                    return '';
-                }
-            },
-            {
-                title: l('RuleAlertStatusId'),
-                data: null,
-                render: function (data, type, row, meta) {
-                    if (row.status && row.status.name) {
-                        return row.status.name;
-                    }
-                    return '';
-                }
-            },
+            //{
+            //    title: l('RuleAlertBody'),
+            //    data: "rule.alertBody"
+            //},
+            //{
+            //    title: l('RuleAlertDepartmentId'),
+            //    data: null,
+            //    render: function (data, type, row, meta) {
+            //        if (row.department && row.department.name) {
+            //            return row.department.name;
+            //        }
+            //        return '';
+            //    }
+            //},
+            //{
+            //    title: l('RuleAlertStatusId'),
+            //    data: null,
+            //    render: function (data, type, row, meta) {
+            //        if (row.status && row.status.name) {
+            //            return row.status.name;
+            //        }
+            //        return '';
+            //    }
+            //},
             {
                 title: l('RuleAlertLevelId'),
                 data: null,
@@ -116,14 +116,14 @@
                 title: l('RuleTriggerCount'),
                 data: "rule.triggerCount"
             },
-            {
-                title: l('RuleTriggerWindowDuration'),
-                data: "rule.triggerWindowDuration"
-            },
-            {
-                title: l('RuleTriggerRequired'),
-                data: "rule.triggerRequired"
-            },
+            //{
+            //    title: l('RuleTriggerWindowDuration'),
+            //    data: "rule.triggerWindowDuration"
+            //},
+            //{
+            //    title: l('RuleTriggersRequired'),
+            //    data: "rule.triggersRequired"
+            //},
             {
                 title: l('RuleTriggerTimestamp'),
                 data: "rule.triggerTimestamp"

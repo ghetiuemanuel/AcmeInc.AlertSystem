@@ -41,10 +41,10 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
             .WhereIf(input.AlertDepartmentId != null, x => x.AlertDepartmentId == input.AlertDepartmentId)
             .WhereIf(input.AlertStatusId != null, x => x.AlertStatusId == input.AlertStatusId)
             .WhereIf(input.AlertLevelId != null, x => x.AlertLevelId == input.AlertLevelId)
-            .WhereIf(input.TriggerCount != null, x => x.TriggerCount == input.TriggerCount)
+            .WhereIf(input.TriggerCount != null, x => x.TriggerCount >= input.TriggerCount)
             .WhereIf(input.TriggerWindowDuration != null, x => x.TriggerWindowDuration == input.TriggerWindowDuration)
-            .WhereIf(input.TriggerRequired != null, x => x.TriggerRequired == input.TriggerRequired)
-            .WhereIf(input.TriggerTimestamp != null, x => x.TriggerTimestamp == input.TriggerTimestamp)
+            .WhereIf(input.TriggersRequired != null, x => x.TriggersRequired == input.TriggersRequired)
+            .WhereIf(input.TriggerTimestamp != null, x => x.TriggerTimestamp.Value.Date == input.TriggerTimestamp.Value.Date)
             .WhereIf(input.Active != null, x => x.Active == input.Active);
     }
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
@@ -72,9 +72,9 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
             .WhereIf(!input.AlertTitle.IsNullOrWhiteSpace(), x => x.Rule.AlertTitle.Contains(input.AlertTitle))
             .WhereIf(!input.AlertBody.IsNullOrWhiteSpace(), x => x.Rule.AlertBody.Contains(input.AlertBody))
             .WhereIf(input.TriggerCount != null, x => x.Rule.TriggerCount == input.TriggerCount)
-            .WhereIf(input.TriggerWindowDuration != null, x => x.Rule.TriggerWindowDuration == input.TriggerWindowDuration)
-            .WhereIf(input.TriggerRequired != null, x => x.Rule.TriggerRequired == input.TriggerRequired)
-            .WhereIf(input.TriggerTimestamp != null, x => x.Rule.TriggerTimestamp == input.TriggerTimestamp)
+            .WhereIf(input.TriggerWindowDuration != null, x => x.Rule.TriggerWindowDuration >= input.TriggerWindowDuration)
+            .WhereIf(input.TriggersRequired != null, x => x.Rule.TriggersRequired == input.TriggersRequired)
+            .WhereIf(input.TriggerTimestamp != null, x => x.Rule.TriggerTimestamp.Value.Date == input.TriggerTimestamp.Value.Date)
             .WhereIf(input.Active != null, x => x.Rule.Active == input.Active);
 
         if (!input.Sorting.IsNullOrWhiteSpace())

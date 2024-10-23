@@ -382,13 +382,13 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.Property<int>("TriggerCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("TriggerRequired")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("TriggerTimestamp")
+                    b.Property<DateTime?>("TriggerTimestamp")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("TriggerWindowDuration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TriggersRequired")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

@@ -16,8 +16,8 @@ namespace OptionOneTech.AlertSystem.Rules
         public Guid AlertLevelId { get; set; }
         public int TriggerCount { get; set; }
         public int TriggerWindowDuration { get; set; }
-        public int TriggerRequired { get; set; }
-        public DateTime TriggerTimestamp { get; set; }
+        public int TriggersRequired { get; set; }
+        public DateTime? TriggerTimestamp { get; set; }
         public bool Active { get; set; }
 
     protected Rule()
@@ -37,8 +37,8 @@ namespace OptionOneTech.AlertSystem.Rules
             Guid alertLevelId,
             int triggerCount,
             int triggerWindowDuration,
-            int triggerRequired,
-            DateTime triggerTimestamp,
+            int triggersRequired,
+            DateTime? triggerTimestamp,
             bool Active
         )    : base(id)
         {
@@ -53,7 +53,7 @@ namespace OptionOneTech.AlertSystem.Rules
             AlertLevelId = alertLevelId; 
             TriggerCount = triggerCount;
             TriggerWindowDuration = triggerWindowDuration;
-            TriggerRequired = triggerRequired;
+            TriggersRequired = triggersRequired;
             TriggerTimestamp = triggerTimestamp;
             Active = Active;
         }

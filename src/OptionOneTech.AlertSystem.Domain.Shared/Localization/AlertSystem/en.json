@@ -92,7 +92,7 @@
     "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?",
     "RuleTriggerCount": "Trigger Count",
     "RuleTriggerWindowDuration": "Trigger Window Duration",
-    "RuleTriggerRequired": "Trigger Required",
+    "RuleTriggersRequired": "Triggers Required",
     "RuleTriggerTimestamp": "Trigger Timestamp",
     "RuleActive": "Active",
     "FilterAllText": "All"

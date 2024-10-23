@@ -45,11 +45,11 @@ public class EditRuleViewModel
     [Display(Name = "RuleTriggerWindowDuration")]
     public int TriggerWindowDuration { get; set; }
 
-    [Display(Name = "RuleTriggerRequired")]
-    public int TriggerRequired { get; set; }
+    [Display(Name = "RuleTriggersRequired")]
+    public int TriggersRequired { get; set; }
 
     [Display(Name = "RuleTriggerTimestamp")]
-    public DateTime TriggerTimestamp { get; set; }
+    public DateTime? TriggerTimestamp { get; set; }
 
     [Display(Name = "RuleActive")]
     public bool Active { get; set; }

@@ -134,8 +134,8 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             public int? TriggerWindowDuration { get; set; }
 
             [FormControlSize(AbpFormControlSize.Small)]
-            [Display(Name = "RuleTriggerRequired")]
-            public int? TriggerRequired { get; set; }
+            [Display(Name = "RuleTriggersRequired")]
+            public int? TriggersRequired { get; set; }
 
             [FormControlSize(AbpFormControlSize.Small)]
             [Display(Name = "RuleTriggerTimestamp")]

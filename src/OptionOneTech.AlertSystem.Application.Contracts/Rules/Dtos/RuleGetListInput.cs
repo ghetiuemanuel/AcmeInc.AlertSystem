@@ -26,7 +26,7 @@ public class RuleGetListInput : PagedAndSortedResultRequestDto
     public Guid? AlertLevelId { get; set; }
     public int? TriggerCount { get; set; }
     public int? TriggerWindowDuration { get; set; }
-    public int? TriggerRequired { get; set; }
+    public int? TriggersRequired { get; set; }
     public DateTime? TriggerTimestamp { get; set; }
     public bool? Active { get; set; }
 }
