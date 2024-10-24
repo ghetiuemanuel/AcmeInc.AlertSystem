@@ -96,6 +96,19 @@
     "RuleTriggersRequired": "Required Triggers to create alert",
     "RuleTriggerTimestamp": "Last Trigger Timestamp",
     "RuleActive": "Active",
-    "FilterAllText": "All"
+    "FilterAllText": "All",
+    "Permission:Alert": "Alert",
+    "Menu:Alert": "Alert",
+    "Alert": "Alert",
+    "AlertTitle": "Title",
+    "AlertBody": "Body",
+    "AlertMessageId": "Message",
+    "AlertRuleId": "Rule",
+    "AlertDepartmentId": "Department",
+    "AlertStatusId": "Status",
+    "AlertLevelId": "Level",
+    "CreateAlert": "Create",
+    "EditAlert": "Edit",
+    "AlertDeletionConfirmationMessage": "Are you sure to delete the alert {0}?"
   }
 }

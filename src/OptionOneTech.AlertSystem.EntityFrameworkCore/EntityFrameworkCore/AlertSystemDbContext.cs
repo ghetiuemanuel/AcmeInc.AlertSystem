@@ -19,6 +19,7 @@ using OptionOneTech.AlertSystem.Statuses;
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.MessageSources;
 using OptionOneTech.AlertSystem.Rules;
+using OptionOneTech.AlertSystem.Alerts;
 
 namespace OptionOneTech.AlertSystem.EntityFrameworkCore;
 
@@ -66,6 +67,7 @@ public class AlertSystemDbContext :
     public DbSet<WebhookMessageSource> WebhookMessageSources { get; set; }
     public DbSet<EmailMessageSource> EmailMessageSources { get; set; }
     public DbSet<Rule> Rules { get; set; }
+    public DbSet<Alert> Alerts { get; set; }
 
     public AlertSystemDbContext(DbContextOptions<AlertSystemDbContext> options)
         : base(options)
@@ -161,6 +163,16 @@ public class AlertSystemDbContext :
         builder.Entity<Rule>(b =>
         {
             b.ToTable(AlertSystemConsts.DbTablePrefix + "Rules", AlertSystemConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<Alert>(b =>
+        {
+            b.ToTable(AlertSystemConsts.DbTablePrefix + "Alerts", AlertSystemConsts.DbSchema);
             b.ConfigureByConvention(); 
             
 

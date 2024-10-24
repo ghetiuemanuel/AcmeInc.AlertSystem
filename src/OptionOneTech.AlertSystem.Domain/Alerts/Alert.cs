@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace OptionOneTech.AlertSystem.Alerts
@@ -12,5 +12,29 @@ namespace OptionOneTech.AlertSystem.Alerts
         public Guid DepartmentId { get; set; }
         public Guid StatusId { get; set; }
         public Guid LevelId { get; set; }
+
+    protected Alert()
+    {
+    }
+
+    public Alert(
+        Guid id,
+        string title,
+        string body,
+        Guid messageId,
+        Guid ruleId,
+        Guid departmentId,
+        Guid statusId,
+        Guid levelId
+    ) : base(id)
+    {
+        Title = title;
+        Body = body;
+        MessageId = messageId;
+        RuleId = ruleId;
+        DepartmentId = departmentId;
+        StatusId = statusId;
+        LevelId = levelId;
+    }
     }
 }
