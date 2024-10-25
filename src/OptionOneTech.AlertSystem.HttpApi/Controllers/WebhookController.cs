@@ -34,13 +34,13 @@ namespace OptionOneTech.AlertSystem.Webhooks
             {
                 Guid messageId = _guidGenerator.Create();
                
-                var webhookData = await _webhookMessageSourceRepository.GetAsync(messageId);
+                var webhookData = await _webhookMessageSourceRepository.GetAsync(id);
 
                 var message = new Message(
                     id: messageId,
                     title: webhookData.Title,
                     from: webhookData.From,
-                    sourceId: messageId,                    
+                    sourceId: id,                    
                     sourceType: SourceType.Webhook,
                     body: webhookData.Body,
                     processedAt: null
