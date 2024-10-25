@@ -19,9 +19,6 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
     public class EmailSourceBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, ITransientDependency
     {
         private readonly ILogger<EmailSourceBackgroundWorker> _logger;
-        private readonly IServiceScopeFactory _serviceScopeFactory;
-        private readonly IGuidGenerator _guidGenerator;
-
         public EmailSourceBackgroundWorker(
             AbpAsyncTimer timer,
             IServiceScopeFactory serviceScopeFactory,
@@ -31,7 +28,6 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
         {
             Timer.Period = 10000;
             _logger = logger;
-            _serviceScopeFactory = serviceScopeFactory;
         }
 
         protected override async Task DoWorkAsync(PeriodicBackgroundWorkerContext workerContext)
@@ -41,6 +37,8 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             var emailMessageSourceRepository = workerContext.ServiceProvider.GetRequiredService<IEmailMessageSourceRepository>();
             var emailSources = await emailMessageSourceRepository.GetListAsync(x => x.Active);
             var messageRepository = workerContext.ServiceProvider.GetRequiredService<IMessageRepository>();
+            var guidGenerator = workerContext.ServiceProvider.GetRequiredService<IGuidGenerator>();
+
 
             foreach (var emailSource in emailSources)
             {
@@ -63,7 +61,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                                 var message = await inbox.GetMessageAsync(uid);
                                 _logger.LogInformation($"Subject: {message.Subject}");
 
-                                await CreateEmailMessageAsync(message, emailSource.Id, messageRepository);
+                                await CreateEmailMessageAsync(message, emailSource.Id, messageRepository, guidGenerator);
                                 await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
                             }
 
@@ -80,9 +78,9 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             _logger.LogInformation("Finished checking email sources.");
         }
 
-        private async Task CreateEmailMessageAsync(MimeMessage message, Guid sourceId, IMessageRepository messageRepository)
+        private async Task CreateEmailMessageAsync(MimeMessage message, Guid sourceId, IMessageRepository messageRepository, IGuidGenerator guidGenerator)
         {
-            Guid emailId = _guidGenerator.Create();
+            Guid emailId = guidGenerator.Create();
             
             var newMessage = new Message(
                 id:emailId,
