@@ -70,7 +70,7 @@ public class AlertSystemMenuContributor : IMenuContributor
            AlertSystemMenus.Status,
            l["Menu:Status"],
            "/Status",
-           icon: "fas fa-spinner fa-spin",
+           icon: "fas fa-clock",
            requiredPermissionName: AlertSystemPermissions.Status.Default
         ));
         context.Menu.Items.Add(new ApplicationMenuItem(
@@ -101,5 +101,12 @@ public class AlertSystemMenuContributor : IMenuContributor
           icon: "fas fa-exclamation-triangle",
           requiredPermissionName: AlertSystemPermissions.Rule.Default
         ));
+        context.Menu.Items.Add(new ApplicationMenuItem(
+           AlertSystemMenus.Alert,
+           l["Menu:Alert"],
+           "/Alert",
+           icon: "fas fa-shield-alt",
+           requiredPermissionName: AlertSystemPermissions.Alert.Default
+         ));
     }
 }

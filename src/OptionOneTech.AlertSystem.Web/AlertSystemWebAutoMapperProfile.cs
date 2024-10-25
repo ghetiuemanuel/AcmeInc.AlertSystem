@@ -8,10 +8,11 @@ using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Message.ViewModels;
 using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using AutoMapper;
-using OptionOneTech.AlertSystem.MessageSources.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.WebhookMessageSource.ViewModels;
 using OptionOneTech.AlertSystem.Rules.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.EmailMessageSource.ViewModels;
+using OptionOneTech.AlertSystem.Alerts.Dtos;
+using OptionOneTech.AlertSystem.Web.Pages.Alert.ViewModels;
 using OptionOneTech.AlertSystem.Web.Pages.Rule.ViewModels;
 
 namespace OptionOneTech.AlertSystem.Web;
@@ -43,5 +44,8 @@ public class AlertSystemWebAutoMapperProfile : Profile
         CreateMap<RuleDto, EditRuleViewModel>();
         CreateMap<CreateRuleViewModel, RuleCreateDto>();
         CreateMap<EditRuleViewModel, RuleUpdateDto>();
+        CreateMap<AlertDto, EditAlertViewModel>();
+        CreateMap<CreateAlertViewModel, AlertCreateDto>();
+        CreateMap<EditAlertViewModel, AlertUpdateDto>();
     }
 }

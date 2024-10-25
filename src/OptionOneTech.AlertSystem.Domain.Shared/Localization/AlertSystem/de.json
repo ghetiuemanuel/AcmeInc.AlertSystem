@@ -84,6 +84,19 @@
     "RuleAlertLevelId": "RuleAlertLevelId",
     "CreateRule": "CreateRule",
     "EditRule": "EditRule",
-    "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?"
+    "RuleDeletionConfirmationMessage": "Are you sure to delete the rule {0}?",
+    "Permission:Alert": "Alert",
+    "Menu:Alert": "MenuAlert",
+    "Alert": "Alert",
+    "AlertTitle": "AlertTitle",
+    "AlertBody": "AlertBody",
+    "AlertMessageId": "AlertMessageId",
+    "AlertRuleId": "AlertRuleId",
+    "AlertDepartmentId": "AlertDepartmentId",
+    "AlertStatusId": "AlertStatusId",
+    "AlertLevelId": "AlertLevelId",
+    "CreateAlert": "CreateAlert",
+    "EditAlert": "EditAlert",
+    "AlertDeletionConfirmationMessage": "Are you sure to delete the alert {0}?"
   }
 }

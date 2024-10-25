@@ -46,6 +46,11 @@ public class AlertSystemPermissionDefinitionProvider : PermissionDefinitionProvi
         rulePermission.AddChild(AlertSystemPermissions.Rule.Create, L("Permission:Create"));
         rulePermission.AddChild(AlertSystemPermissions.Rule.Update, L("Permission:Update"));
         rulePermission.AddChild(AlertSystemPermissions.Rule.Delete, L("Permission:Delete"));
+
+        var alertPermission = myGroup.AddPermission(AlertSystemPermissions.Alert.Default, L("Permission:Alert"));
+        alertPermission.AddChild(AlertSystemPermissions.Alert.Create, L("Permission:Create"));
+        alertPermission.AddChild(AlertSystemPermissions.Alert.Update, L("Permission:Update"));
+        alertPermission.AddChild(AlertSystemPermissions.Alert.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

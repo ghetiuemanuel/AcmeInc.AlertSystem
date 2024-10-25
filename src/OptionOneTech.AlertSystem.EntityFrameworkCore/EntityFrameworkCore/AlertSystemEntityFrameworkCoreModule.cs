@@ -1,3 +1,4 @@
+using OptionOneTech.AlertSystem.Alerts;
 using OptionOneTech.AlertSystem.Rules;
 using OptionOneTech.AlertSystem.MessageSources;
 using OptionOneTech.AlertSystem.Messages;
@@ -54,6 +55,7 @@ public class AlertSystemEntityFrameworkCoreModule : AbpModule
             options.AddRepository<WebhookMessageSource, WebhookMessageSourceRepository>();
             options.AddRepository<EmailMessageSource, EmailMessageSourceRepository>();
             options.AddRepository<Rule, RuleRepository>();
+            options.AddRepository<Alert, AlertRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

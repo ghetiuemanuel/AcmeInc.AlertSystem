@@ -9,7 +9,6 @@ using OptionOneTech.AlertSystem.Rules;
 using OptionOneTech.AlertSystem.Rules.Dtos;
 using OptionOneTech.AlertSystem.Statuses;
 using OptionOneTech.AlertSystem.Web.Pages;
-using OptionOneTech.AlertSystem.Web.Pages.Message.ViewModels;
 using OptionOneTech.AlertSystem.Web.Pages.Rule.ViewModels;
 
 namespace OptionOneTech.AlertSystem.Web.ViewModels.Rule;
