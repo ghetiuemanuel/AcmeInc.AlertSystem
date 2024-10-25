@@ -1,5 +1,9 @@
-﻿using Volo.Abp.Account;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
+using Volo.Abp;
+using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -18,7 +22,7 @@ namespace OptionOneTech.AlertSystem;
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule)
-    )]
+)]
 public class AlertSystemApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -27,5 +31,11 @@ public class AlertSystemApplicationModule : AbpModule
         {
             options.AddMaps<AlertSystemApplicationModule>();
         });
+        context.Services.AddTransient<EmailBackgroundWorker>();
+    }
+    public override async Task OnApplicationInitializationAsync(
+        ApplicationInitializationContext context)
+    {
+        await context.AddBackgroundWorkerAsync<EmailBackgroundWorker>();
     }
 }
