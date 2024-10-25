@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Guids;
+using Message = OptionOneTech.AlertSystem.Messages.Message;
 
 namespace OptionOneTech.AlertSystem.Webhooks
 {
@@ -14,12 +15,14 @@ namespace OptionOneTech.AlertSystem.Webhooks
     public class WebhookController : AlertSystemController
     {
         private readonly IMessageRepository _messageRepository;
-
         private readonly IWebhookMessageSourceRepository _webhookMessageSourceRepository;
+        private readonly IGuidGenerator _guidGenerator;
+
         public WebhookController(IMessageRepository messageRepository, IWebhookMessageSourceRepository webhookMessageSourceRepository, IGuidGenerator guidGenerator)
         {
             _messageRepository = messageRepository;
             _webhookMessageSourceRepository = webhookMessageSourceRepository;
+            _guidGenerator = guidGenerator;
         }
 
         [HttpPost("{id}")]
@@ -29,10 +32,12 @@ namespace OptionOneTech.AlertSystem.Webhooks
         {
             try
             {
+                Guid messageId = _guidGenerator.Create();
+               
                 var webhookData = await _webhookMessageSourceRepository.GetAsync(id);
 
                 var message = new Message(
-                    id: id,
+                    id: messageId,
                     title: webhookData.Title,
                     from: webhookData.From,
                     sourceId: id,                    

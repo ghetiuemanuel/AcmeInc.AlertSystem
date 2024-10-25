@@ -22,7 +22,7 @@ namespace OptionOneTech.AlertSystem.Messages
         public string Body { get; set; }
         public DateTime? ProcessedAt { get; set; }
 
-        protected Message()
+    public Message()
     {
     }
 
