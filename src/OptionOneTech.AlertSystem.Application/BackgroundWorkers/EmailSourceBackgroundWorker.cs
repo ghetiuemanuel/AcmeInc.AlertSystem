@@ -54,14 +54,14 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                             var inbox = client.Inbox;
                             await inbox.OpenAsync(FolderAccess.ReadWrite);
                             var unreadMessages = await inbox.SearchAsync(SearchQuery.NotSeen);
-                            _logger.LogInformation($"Unread messages: {unreadMessages.Count}");
+                            _logger.LogDebug($"Email Identifier: {emailSource.Id}, Unread messages: {unreadMessages.Count}");
 
                             foreach (var uid in unreadMessages)
                             {
                                 var message = await inbox.GetMessageAsync(uid);
-                                _logger.LogInformation($"Subject: {message.Subject}");
+                                _logger.LogDebug($"Email Identifier: {emailSource.Id}, Subject: {message.Subject}");
 
-                                await CreateEmailMessageAsync(message, emailSource.Id, messageRepository, guidGenerator);
+                            await CreateEmailMessageAsync(message, emailSource.Id, messageRepository, guidGenerator);
                                 await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
                             }
 
