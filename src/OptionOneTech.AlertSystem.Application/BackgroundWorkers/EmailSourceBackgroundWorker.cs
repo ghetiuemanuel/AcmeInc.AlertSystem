@@ -17,82 +17,81 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
     public class EmailSourceBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, ITransientDependency
     {
         private readonly ILogger<EmailSourceBackgroundWorker> _logger;
-        private readonly IMessageRepository _messageRepository;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public EmailSourceBackgroundWorker(
             AbpAsyncTimer timer,
             IServiceScopeFactory serviceScopeFactory,
-            ILogger<EmailSourceBackgroundWorker> logger,
-            IMessageRepository messageRepository)
+            ILogger<EmailSourceBackgroundWorker> logger
+             )
             : base(timer, serviceScopeFactory)
         {
             Timer.Period = 10000;
             _logger = logger;
-            _messageRepository = messageRepository;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         protected override async Task DoWorkAsync(PeriodicBackgroundWorkerContext workerContext)
         {
-            _logger.LogInformation("Starting email source check...");
+            _logger.LogInformation("Starting to check email sources...");
 
-            using (var scope = workerContext.ServiceProvider.CreateScope())
+            var emailMessageSourceRepository = workerContext.ServiceProvider.GetRequiredService<IEmailMessageSourceRepository>();
+            var emailSources = await emailMessageSourceRepository.GetListAsync(x => x.Active);
+            var messageRepository = workerContext.ServiceProvider.GetRequiredService<IMessageRepository>();
+
+
+            foreach (var emailSource in emailSources)
             {
-                var emailMessageSourceRepository = scope.ServiceProvider.GetRequiredService<IEmailMessageSourceRepository>();
-                var emailSources = await emailMessageSourceRepository.GetListAsync(x => x.Active);
+                _logger.LogInformation($"Checking emails for source: {emailSource.Hostname}");
 
-                foreach (var emailSource in emailSources)
+
+                using (var client = new ImapClient())
                 {
-                    _logger.LogInformation($"Checking emails for source: {emailSource.Hostname}");
-
-                    using (var client = new ImapClient())
+                    try
                     {
-                        try
+                        await client.ConnectAsync(emailSource.Hostname, emailSource.Port, emailSource.SSL);
+                        await client.AuthenticateAsync(emailSource.Username, emailSource.Password);
+                        var inbox = client.Inbox;
+                        await inbox.OpenAsync(FolderAccess.ReadWrite);
+                        var unreadMessages = await inbox.SearchAsync(SearchQuery.NotSeen);
+                        _logger.LogInformation($"Unread messages: {unreadMessages.Count}");
+
+                        foreach (var uid in unreadMessages)
                         {
-                            await client.ConnectAsync(emailSource.Hostname, emailSource.Port, emailSource.SSL);
-                            await client.AuthenticateAsync(emailSource.Username, emailSource.Password);
+                            var message = await inbox.GetMessageAsync(uid);
+                            _logger.LogInformation($"Subject: {message.Subject}");
 
-                            var inbox = client.Inbox;
-                            await inbox.OpenAsync(FolderAccess.ReadWrite);
-
-                            var unreadMessages = await inbox.SearchAsync(SearchQuery.NotSeen);
-                            _logger.LogInformation($"Unread messages: {unreadMessages.Count}");
-
-                            foreach (var uid in unreadMessages)
-                            {
-                                var message = await inbox.GetMessageAsync(uid);
-                                _logger.LogInformation($"Subject: {message.Subject}");
-
-                                await SaveMessageToDatabaseAsync(message, emailSource.Id); 
-
-                                await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
-                            }
-
-                            await client.DisconnectAsync(true);
+                            await CreateEmailMessageAsync(message, emailSource.Id, messageRepository);
+                            await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
                         }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError($"Could not check emails for source {emailSource.Hostname}: {ex.Message}");
-                        }
+
+                        await client.DisconnectAsync(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Could not check emails for source {emailSource.Hostname}");
                     }
                 }
+
             }
 
             _logger.LogInformation("Finished checking email sources.");
         }
-        private async Task SaveMessageToDatabaseAsync(MimeMessage email, Guid sourceId)
-        {
-            var message = new Message
-            {
-                Title = email.Subject,
-                From = email.From.ToString(),
-                SourceId = sourceId, 
-                SourceType = SourceType.Email,
-                Body = email.TextBody ?? email.HtmlBody ?? string.Empty,
-                ProcessedAt = DateTime.Now 
-            };
 
-            await _messageRepository.InsertAsync(message);
-            _logger.LogInformation("Message saved to database.");
+        private async Task CreateEmailMessageAsync(MimeMessage message, Guid sourceId, IMessageRepository messageRepository)
+        {
+            var newMessage = new Message(
+                Guid.NewGuid(),
+                message.Subject,
+                message.From.ToString(),
+                sourceId,
+                SourceType.Email,
+                message.TextBody,
+                DateTime.Now
+            );
+
+            await messageRepository.InsertAsync(newMessage);
+            _logger.LogInformation($"Saved new message to database: Title: {newMessage.Title}, From: {newMessage.From}, Date: {message.Date}");
         }
     }
 }
