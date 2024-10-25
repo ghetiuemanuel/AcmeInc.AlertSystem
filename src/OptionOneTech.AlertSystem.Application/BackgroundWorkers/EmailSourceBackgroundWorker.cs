@@ -78,10 +78,10 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             _logger.LogInformation("Finished checking email sources.");
         }
 
-        private async Task CreateEmailMessageAsync(MimeMessage message, Guid sourceId, IMessageRepository messageRepository)
+        private async Task CreateEmailMessageAsync(Guid id, MimeMessage message, Guid sourceId, IMessageRepository messageRepository)
         {
             var newMessage = new Message(
-                Guid.Empty,
+                id: id,
                 message.Subject,
                 message.From.ToString(),
                 sourceId,
