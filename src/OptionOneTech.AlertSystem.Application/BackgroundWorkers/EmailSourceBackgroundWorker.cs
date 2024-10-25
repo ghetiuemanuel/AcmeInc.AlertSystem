@@ -43,36 +43,36 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             foreach (var emailSource in emailSources)
             {
                 _logger.LogInformation($"Checking emails for source: {emailSource.Hostname}");
+           
 
-
-                using (var client = new ImapClient())
-                {
-                    try
+                    using (var client = new ImapClient())
                     {
-                        await client.ConnectAsync(emailSource.Hostname, emailSource.Port, emailSource.SSL);
-                        await client.AuthenticateAsync(emailSource.Username, emailSource.Password);
-                        var inbox = client.Inbox;
-                        await inbox.OpenAsync(FolderAccess.ReadWrite);
-                        var unreadMessages = await inbox.SearchAsync(SearchQuery.NotSeen);
-                        _logger.LogInformation($"Unread messages: {unreadMessages.Count}");
-
-                        foreach (var uid in unreadMessages)
+                        try
                         {
-                            var message = await inbox.GetMessageAsync(uid);
-                            _logger.LogInformation($"Subject: {message.Subject}");
+                            await client.ConnectAsync(emailSource.Hostname, emailSource.Port, emailSource.SSL);
+                            await client.AuthenticateAsync(emailSource.Username, emailSource.Password);
+                            var inbox = client.Inbox;
+                            await inbox.OpenAsync(FolderAccess.ReadWrite);
+                            var unreadMessages = await inbox.SearchAsync(SearchQuery.NotSeen);
+                            _logger.LogInformation($"Unread messages: {unreadMessages.Count}");
 
-                            await CreateEmailMessageAsync(message, emailSource.Id, messageRepository);
-                            await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
+                            foreach (var uid in unreadMessages)
+                            {
+                                var message = await inbox.GetMessageAsync(uid);
+                                _logger.LogInformation($"Subject: {message.Subject}");
+
+                                await CreateEmailMessageAsync(message, emailSource.Id, messageRepository);
+                                await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
+                            }
+
+                            await client.DisconnectAsync(true);
                         }
-
-                        await client.DisconnectAsync(true);
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, $"Could not check emails for source {emailSource.Hostname}");
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, $"Could not check emails for source {emailSource.Hostname}");
-                    }
-                }
-
+                
             }
 
             _logger.LogInformation("Finished checking email sources.");
@@ -81,7 +81,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
         private async Task CreateEmailMessageAsync(MimeMessage message, Guid sourceId, IMessageRepository messageRepository)
         {
             var newMessage = new Message(
-                Guid.NewGuid(),
+                Guid.Empty,
                 message.Subject,
                 message.From.ToString(),
                 sourceId,
