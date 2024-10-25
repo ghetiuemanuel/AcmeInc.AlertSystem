@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Threading;
 using MimeKit;
 using OptionOneTech.AlertSystem.Messages;
+using Volo.Abp.Guids;
+using Message = OptionOneTech.AlertSystem.Messages.Message;
 
 namespace OptionOneTech.AlertSystem.BackgroundWorkers
 {
@@ -18,10 +20,12 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
     {
         private readonly ILogger<EmailSourceBackgroundWorker> _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly IGuidGenerator _guidGenerator;
 
         public EmailSourceBackgroundWorker(
             AbpAsyncTimer timer,
             IServiceScopeFactory serviceScopeFactory,
+            IGuidGenerator guidGenerator,
             ILogger<EmailSourceBackgroundWorker> logger
              )
             : base(timer, serviceScopeFactory)
@@ -29,6 +33,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             Timer.Period = 10000;
             _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
+            _guidGenerator = guidGenerator;
         }
 
         protected override async Task DoWorkAsync(PeriodicBackgroundWorkerContext workerContext)
@@ -80,8 +85,10 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
 
         private async Task CreateEmailMessageAsync(Guid id, MimeMessage message, Guid sourceId, IMessageRepository messageRepository)
         {
+            Guid emailId = _guidGenerator.Create();
+            
             var newMessage = new Message(
-                id: id,
+                id:emailId,
                 message.Subject,
                 message.From.ToString(),
                 sourceId,
