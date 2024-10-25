@@ -61,7 +61,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                                 var message = await inbox.GetMessageAsync(uid);
                                 _logger.LogInformation($"Subject: {message.Subject}");
 
-                                await CreateEmailMessageAsync(message, emailSource.Id, messageRepository);
+                                await CreateEmailMessageAsync(Guid.NewGuid(),message, emailSource.Id, messageRepository);
                                 await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
                             }
 
