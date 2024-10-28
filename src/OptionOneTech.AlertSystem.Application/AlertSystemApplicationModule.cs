@@ -22,7 +22,8 @@ namespace OptionOneTech.AlertSystem;
     typeof(AbpPermissionManagementApplicationModule),
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
-    typeof(AbpSettingManagementApplicationModule)
+    typeof(AbpSettingManagementApplicationModule),
+    typeof(AbpBackgroundWorkersModule)
 )]
 public class AlertSystemApplicationModule : AbpModule
 {
@@ -38,5 +39,6 @@ public class AlertSystemApplicationModule : AbpModule
         ApplicationInitializationContext context)
     {
         await context.AddBackgroundWorkerAsync<EmailSourceBackgroundWorker>();
+        await context.AddBackgroundWorkerAsync<AlertBackgroundWorker>();
     }
 }

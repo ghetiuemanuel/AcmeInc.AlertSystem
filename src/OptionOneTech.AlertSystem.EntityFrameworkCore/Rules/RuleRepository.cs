@@ -54,4 +54,12 @@ public class RuleRepository : EfCoreRepository<AlertSystemDbContext, Rule, Guid>
             };
         return query;
     }
+    public async Task<List<Rule>> GetActiveRulesAsync()
+    {
+        return await (await GetQueryableAsync())
+            .AsNoTracking()
+            .Where(rule => rule.Active)
+            .ToListAsync();
+    }
+
 }
