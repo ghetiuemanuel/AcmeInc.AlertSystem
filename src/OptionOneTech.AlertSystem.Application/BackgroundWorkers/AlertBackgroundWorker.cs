@@ -44,21 +44,25 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                 {
                     foreach (var rule in rules)
                     {
-                        try
+                        int matchCount = 0;
+
+                        if (EvaluateRule(message, rule))
                         {
-                            if (EvaluateRule(message, rule))
+                            matchCount++;
+
+                            if (matchCount >= rule.TriggersRequired)
                             {
                                 _logger.LogInformation($"Message '{message.Title}' matched rule '{rule.AlertTitle}'.");
                                 Guid alertId = guidGenerator.Create();
                                 var alert = new Alert(
-                                    id: alertId,
-                                    rule.AlertTitle,
-                                    rule.AlertBody,
-                                    message.Id,
-                                    rule.Id,
-                                    rule.AlertDepartmentId,
-                                    rule.AlertStatusId,
-                                    rule.AlertLevelId
+                                id: alertId,
+                                rule.AlertTitle,
+                                rule.AlertBody,
+                                message.Id,
+                                rule.Id,
+                                rule.AlertDepartmentId,
+                                rule.AlertStatusId,
+                                rule.AlertLevelId
                                 );
 
                                 await alertRepository.InsertAsync(alert);
@@ -68,10 +72,6 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                                 await messageRepository.UpdateAsync(message);
                                 _logger.LogInformation($"Message '{message.Title}' marked as processed.");
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, $"Error processing message '{message.Title}' with rule '{rule.AlertTitle}'.");
                         }
                     }
                 }
@@ -87,7 +87,14 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             bool titleMatches = System.Text.RegularExpressions.Regex.IsMatch(message.Title, rule.TitleRegex);
             bool bodyMatches = System.Text.RegularExpressions.Regex.IsMatch(message.Body, rule.BodyRegex);
 
-            return rule.AnyCondition ? fromMatches || titleMatches || bodyMatches : fromMatches && titleMatches && bodyMatches;
+            if (rule.AnyCondition)
+            {
+                return fromMatches || titleMatches || bodyMatches;
+            }
+            else
+            {
+                return fromMatches && titleMatches && bodyMatches;
+            }
         }
     }
 }
