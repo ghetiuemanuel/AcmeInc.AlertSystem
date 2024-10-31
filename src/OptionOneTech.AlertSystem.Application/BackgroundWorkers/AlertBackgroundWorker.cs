@@ -38,7 +38,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
 
 
                 var messages = await messageRepository.GetAllMessagesAsync();
-                _logger.LogDebug($"Found {messages.Count} messages to evaluate.");
+                _logger.LogTrace($"Found {messages.Count} messages to evaluate.");
 
                 var rules = await ruleRepository.GetActiveRulesAsync();
                 _logger.LogTrace($"Found {rules.Count} active rules.");
