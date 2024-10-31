@@ -45,10 +45,10 @@
                             text: l('Delete'),
                             visible: abp.auth.isGranted('AlertSystem.Rule.Delete'),
                             confirmMessage: function (data) {
-                                return l('RuleDeletionConfirmationMessage', data.record.rule.name);
+                                return l('RuleDeletionConfirmationMessage', data.record.rule.alertTitle);
                             },
                             action: function (data) {
-                                service.delete(data.record.rule.name)
+                                service.delete(data.record.rule.id)
                                     .then(function () {
                                         abp.notify.info(l('SuccessfullyDeleted'));
                                         dataTable.ajax.reload();

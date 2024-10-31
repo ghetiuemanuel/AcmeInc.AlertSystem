@@ -53,6 +53,28 @@ namespace OptionOneTech.AlertSystem.Messages
 
             return query;
         }
-
+        public async Task<List<Message>> GetMessagesByProcessedStatusAsync(bool isProcessed, int skip, int take)
+        {
+            return await (await GetQueryableAsync())
+                .Where(message => isProcessed ? message.ProcessedAt != null : message.ProcessedAt == null)
+                .AsNoTracking()
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+        }
+        public async Task<List<Message>> GetUnprocessedMessagesAsync()
+        {
+   
+            return await (await GetQueryableAsync())
+                .Where(message => message.ProcessedAt == null)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+        public async Task<List<Message>> GetAllMessagesAsync()
+        {
+            return await (await GetQueryableAsync())
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

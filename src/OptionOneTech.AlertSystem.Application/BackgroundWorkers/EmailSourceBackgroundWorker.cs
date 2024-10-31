@@ -29,7 +29,6 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             Timer.Period = 10000;
             _logger = logger;
         }
-
         protected override async Task DoWorkAsync(PeriodicBackgroundWorkerContext workerContext)
         {
             _logger.LogInformation("Starting to check email sources...");
@@ -39,51 +38,46 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
             var messageRepository = workerContext.ServiceProvider.GetRequiredService<IMessageRepository>();
             var guidGenerator = workerContext.ServiceProvider.GetRequiredService<IGuidGenerator>();
 
-
             foreach (var emailSource in emailSources)
             {
                 _logger.LogInformation($"Checking emails for source: {emailSource.Hostname}");
-           
 
-                    using (var client = new ImapClient())
+                using (var client = new ImapClient())
+                {
+                    try
                     {
-                        try
-                        {
-                            await client.ConnectAsync(emailSource.Hostname, emailSource.Port, emailSource.SSL);
-                            await client.AuthenticateAsync(emailSource.Username, emailSource.Password);
-                            var inbox = client.Inbox;
-                            await inbox.OpenAsync(FolderAccess.ReadWrite);
-                            var unreadMessages = await inbox.SearchAsync(SearchQuery.NotSeen);
-                            _logger.LogDebug($"Email Identifier: {emailSource.Id}, Unread messages: {unreadMessages.Count}");
+                        await client.ConnectAsync(emailSource.Hostname, emailSource.Port, emailSource.SSL);
+                        await client.AuthenticateAsync(emailSource.Username, emailSource.Password);
+                        var inbox = client.Inbox;
+                        await inbox.OpenAsync(FolderAccess.ReadWrite);
+                        var unreadMessages = await inbox.SearchAsync(SearchQuery.NotSeen);
+                        _logger.LogDebug($"Email Identifier: {emailSource.Id}, Unread messages: {unreadMessages.Count}");
 
-                            foreach (var uid in unreadMessages)
-                            {
-                                var message = await inbox.GetMessageAsync(uid);
-                                _logger.LogDebug($"Email Identifier: {emailSource.Id}, Subject: {message.Subject}");
+                        foreach (var uid in unreadMessages)
+                        {
+                            var message = await inbox.GetMessageAsync(uid);
+                            _logger.LogDebug($"Email Identifier: {emailSource.Id}, Subject: {message.Subject}");
 
                             await CreateEmailMessageAsync(message, emailSource.Id, messageRepository, guidGenerator);
-                                await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
-                            }
+                            await inbox.AddFlagsAsync(uid, MessageFlags.Seen, true);
+                        }
 
-                            await client.DisconnectAsync(true);
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, $"Could not check emails for source {emailSource.Hostname}");
-                        }
+                        await client.DisconnectAsync(true);
                     }
-                
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Could not check emails for source {emailSource.Hostname}");
+                    }
+                }
             }
-
             _logger.LogInformation("Finished checking email sources.");
         }
-
         private async Task CreateEmailMessageAsync(MimeMessage message, Guid sourceId, IMessageRepository messageRepository, IGuidGenerator guidGenerator)
         {
             Guid emailId = guidGenerator.Create();
-            
+
             var newMessage = new Message(
-                id:emailId,
+                id: emailId,
                 message.Subject,
                 message.From.ToString(),
                 sourceId,
@@ -91,7 +85,6 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                 message.TextBody,
                 DateTime.Now
             );
-
             await messageRepository.InsertAsync(newMessage);
             _logger.LogInformation($"Saved new message to database: Title: {newMessage.Title}, From: {newMessage.From}, Date: {message.Date}");
         }
