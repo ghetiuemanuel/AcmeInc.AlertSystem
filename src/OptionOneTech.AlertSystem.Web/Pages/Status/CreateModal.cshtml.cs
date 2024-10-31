@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OptionOneTech.AlertSystem;
 using OptionOneTech.AlertSystem.Statuses;
 using OptionOneTech.AlertSystem.Statuses.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Status.ViewModels;

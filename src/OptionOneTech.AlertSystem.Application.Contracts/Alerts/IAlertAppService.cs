@@ -19,4 +19,6 @@ public interface IAlertAppService :
         ILookupAppService<Guid>
 {
     Task<PagedResultDto<AlertNavigationDto>> GetNavigationListAsync(AlertGetListInput input);
+    Task UpdateAlertStatusAsync(Guid alertId, Guid statusId);
+
 }

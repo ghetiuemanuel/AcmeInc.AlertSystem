@@ -5,7 +5,7 @@ using OptionOneTech.AlertSystem.Statuses;
 using OptionOneTech.AlertSystem.Statuses.Dtos;
 using OptionOneTech.AlertSystem.Web.Pages.Status.ViewModels;
 
-namespace OptionOneTech.AlertSystem.Web.Pages.Statuses.Status;
+namespace OptionOneTech.AlertSystem.Web.Pages.Status;
 
 public class EditModalModel : AlertSystemPageModel
 {

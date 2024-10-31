@@ -8,6 +8,7 @@ using OptionOneTech.AlertSystem.Statuses.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace OptionOneTech.AlertSystem.Statuses;
 
@@ -33,6 +34,7 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
             .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
             .WhereIf(input.Active != null, x => x.Active == input.Active);
     }
+    [HttpGet("api/status/lookup")]
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
     {
         var statuses = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
@@ -43,5 +45,12 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
            totalCount,
            ObjectMapper.Map<List<Status>, List<LookupDto<Guid>>>(statuses)
         );
+    }
+    // eroare AmbiguousMatchException - endpointuri ce au acelasi request path/ metoda pentru a obtine statusurile existente
+    [HttpGet("api/status/all")]
+    public async Task<List<StatusDto>> GetAllAsync() 
+    {
+        var statuses = await _repository.GetAllListAsync(); // obtin statusuri di db
+        return ObjectMapper.Map<List<Status>, List<StatusDto>>(statuses); //mapare pt a fi expuse api-ului
     }
 }

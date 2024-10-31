@@ -24,7 +24,7 @@ $(function () {
                                 text: l('Edit'),
                                 visible: abp.auth.isGranted('AlertSystem.Status.Update'),
                                 action: function (data) {
-                                    editModal.open({ id: data.record.id });
+                                    editModal.open({ id: data.record.id});
                                 }
                             },
                             {

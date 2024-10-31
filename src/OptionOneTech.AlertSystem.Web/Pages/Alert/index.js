@@ -1,12 +1,25 @@
 $(function () {
+    var ViewModel = {
+        StatusOptions: []
+    };
+    function loadStatusOptions() {
+        $.ajax({
+            url: '/api/status', 
+            type: 'GET',
+            success: function (data) {
+                ViewModel.StatusOptions = data.map(status => ({ id: status.id, name: status.name }));
+                dataTable.ajax.reload(); 
+            },
+            error: function () {
+                abp.notify.error(l('FailedToLoadStatusOptions'));
+            }
+        });
+    }
 
+    loadStatusOptions();
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
     });
-
-    //After abp v7.2 use dynamicForm 'column-size' instead of the following settings
-    //$('#AlertCollapse div').addClass('col-sm-3').parent().addClass('row');
-
     var getFilter = function () {
         var input = {};
         $("#AlertFilter")
@@ -15,7 +28,7 @@ $(function () {
                 if (data.value != '') {
                     input[abp.utils.toCamelCase(data.name.replace(/AlertFilter./g, ''))] = data.value;
                 }
-            })
+            });
         return input;
     };
 
@@ -33,34 +46,33 @@ $(function () {
         autoWidth: false,
         scrollCollapse: true,
         order: [[0, "asc"]],
-        ajax: abp.libs.datatables.createAjax(service.getNavigationList,getFilter),
+        ajax: abp.libs.datatables.createAjax(service.getNavigationList, getFilter),
         columnDefs: [
             {
                 rowAction: {
-                    items:
-                        [
-                            {
-                                text: l('Edit'),
-                                visible: abp.auth.isGranted('AlertSystem.Alert.Update'),
-                                action: function (data) {
-                                    editModal.open({ id: data.record.alert.id });
-                                }
-                            },
-                            {
-                                text: l('Delete'),
-                                visible: abp.auth.isGranted('AlertSystem.Alert.Delete'),
-                                confirmMessage: function (data) {
-                                    return l('AlertDeletionConfirmationMessage', data.record.alert.title);
-                                },
-                                action: function (data) {
-                                    service.delete(data.record.alert.id)
-                                        .then(function () {
-                                            abp.notify.info(l('SuccessfullyDeleted'));
-                                            dataTable.ajax.reload();
-                                        });
-                                }
+                    items: [
+                        {
+                            text: l('Edit'),
+                            visible: abp.auth.isGranted('AlertSystem.Alert.Update'),
+                            action: function (data) {
+                                editModal.open({ id: data.record.alert.id });
                             }
-                        ]
+                        },
+                        {
+                            text: l('Delete'),
+                            visible: abp.auth.isGranted('AlertSystem.Alert.Delete'),
+                            confirmMessage: function (data) {
+                                return l('AlertDeletionConfirmationMessage', data.record.alert.title);
+                            },
+                            action: function (data) {
+                                service.delete(data.record.alert.id)
+                                    .then(function () {
+                                        abp.notify.info(l('SuccessfullyDeleted'));
+                                        dataTable.ajax.reload();
+                                    });
+                            }
+                        }
+                    ]
                 }
             },
             {
@@ -105,10 +117,10 @@ $(function () {
                 title: l('AlertStatusId'),
                 data: null,
                 render: function (data, type, row, meta) {
-                    if (row.status && row.status.name) {
-                        return row.status.name;
-                    }
-                    return '';
+                    let options = ViewModel.StatusOptions.map(option => {
+                        return `<option value="${option.id}" ${row.status && row.status.id === option.id ? 'selected' : ''}>${option.name}</option>`;
+                    }).join('');
+                    return `<select class="form-control status-dropdown" data-alert-id="${row.alert.id}">${options}</select>`;
                 }
             },
             {
@@ -136,4 +148,24 @@ $(function () {
         e.preventDefault();
         createModal.open();
     });
+
+    $(document).on('change', '.status-dropdown', function () {
+        let alertId = $(this).data('alert-id');
+        let newStatusId = $(this).val();
+
+        $.ajax({
+            url: `/api/alert/update-status`, 
+            type: 'POST',
+            data: JSON.stringify({ alertId: alertId, statusId: newStatusId }),
+            contentType: 'application/json',
+            success: function () {
+                abp.notify.success(l('StatusUpdatedSuccessfully'));
+                dataTable.ajax.reload();
+            },
+            error: function () {
+                abp.notify.error(l('StatusUpdateFailed'));
+            }
+        });
+    });
 });
+
