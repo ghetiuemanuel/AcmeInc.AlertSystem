@@ -10,6 +10,4 @@ public interface IAlertRepository : IRepository<Alert, Guid>
 {
     Task<List<Alert>> GetLookupListAsync(int skipCount, int maxResultCount);
     Task<IQueryable<AlertNavigation>> GetNavigationList();
-    Task<Alert> GetExistingAlertAsync(Guid messageId, Guid ruleId);
-
 }

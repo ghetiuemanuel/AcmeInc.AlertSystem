@@ -28,7 +28,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
         }
         protected override async Task DoWorkAsync(PeriodicBackgroundWorkerContext workerContext)
         {
-            _logger.LogInformation("Starting to process messages in AlertBackgroundWorker.");
+            _logger.LogDebug("Starting to process messages in AlertBackgroundWorker.");
             try
             {
                 var messageRepository = workerContext.ServiceProvider.GetRequiredService<IMessageRepository>();
@@ -38,30 +38,29 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
 
 
                 var messages = await messageRepository.GetAllMessagesAsync();
-                _logger.LogInformation($"Found {messages.Count} messages to evaluate.");
+                _logger.LogDebug($"Found {messages.Count} messages to evaluate.");
 
                 var rules = await ruleRepository.GetActiveRulesAsync();
-                _logger.LogInformation($"Found {rules.Count} active rules.");
+                _logger.LogTrace($"Found {rules.Count} active rules.");
 
                 foreach (var message in messages)
                 {
-                    _logger.LogInformation($"Message found: {message.Title}, From: {message.From}, Body: {message.Body}");
+                    _logger.LogDebug($"Message found: {message.Title}, From: {message.From}, Body: {message.Body}");
 
                     foreach (var rule in rules)
                     {
-                        _logger.LogInformation($"Active rule found: {rule.AlertTitle}, FromRegex: {rule.FromRegex}, TitleRegex: {rule.TitleRegex}, BodyRegex: {rule.BodyRegex}");
+                        _logger.LogTrace($"Active rule found: {rule.AlertTitle}, FromRegex: {rule.FromRegex}, TitleRegex: {rule.TitleRegex}, BodyRegex: {rule.BodyRegex}");
+
                         if (EvaluateRule(message, rule))
                         {
-                            if (LogicOfCreateAlert(message, rule))
+                            if (IsAlertRequiredByRuleTriggers(message, rule))
                             {
-                                var existingAlert = await alertRepository.GetExistingAlertAsync(message.Id, rule.Id);
-                                if (existingAlert == null)
-                                {
-                                    await CreateAlert(message, rule, alertRepository, guidGenerator);
-                                }
+                                await CreateAlert(message, rule, alertRepository, guidGenerator);
                             }
                             await ruleRepository.UpdateAsync(rule);
                         }
+                        message.ProcessedAt = DateTime.Now;
+                        await messageRepository.UpdateAsync(message);
                     }
                 }
             }
@@ -73,13 +72,13 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
         private bool EvaluateRule(Message message, Rule rule)
         {
 
-            _logger.LogInformation($"Evaluating rule for message '{message.Title}' with rule '{rule.AlertTitle}'.");
+            _logger.LogDebug($"Evaluating rule for message '{message.Title}' with rule '{rule.AlertTitle}'.");
 
             bool fromMatches = System.Text.RegularExpressions.Regex.IsMatch(message.From, rule.FromRegex);
             bool titleMatches = System.Text.RegularExpressions.Regex.IsMatch(message.Title, rule.TitleRegex);
             bool bodyMatches = System.Text.RegularExpressions.Regex.IsMatch(message.Body, rule.BodyRegex);
 
-            _logger.LogInformation($"From matches: {fromMatches}, Title matches: {titleMatches}, Body matches: {bodyMatches}");
+            _logger.LogTrace($"From matches: {fromMatches}, Title matches: {titleMatches}, Body matches: {bodyMatches}");
 
             if (rule.AnyCondition)
             {
@@ -90,7 +89,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                 return fromMatches && titleMatches && bodyMatches;
             }
         }
-        private bool LogicOfCreateAlert(Message message, Rule rule)
+        private bool IsAlertRequiredByRuleTriggers(Message message, Rule rule)
         {
             var currentTime = DateTime.Now;
 
@@ -113,7 +112,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
 
         private async Task CreateAlert(Message message, Rule rule, IAlertRepository alertRepository, IGuidGenerator guidGenerator)
         {
-            _logger.LogInformation($"Creating alert for message '{message.Title}' with rule '{rule.AlertTitle}'.");
+            _logger.LogDebug($"Creating alert for message '{message.Title}' with rule '{rule.AlertTitle}'.");
 
             Guid alertId = guidGenerator.Create();
             var alert = new Alert(
@@ -127,7 +126,6 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                 rule.AlertLevelId
             );
 
-            _logger.LogInformation("Alert created!!!");
             await alertRepository.InsertAsync(alert);
         }
     }
