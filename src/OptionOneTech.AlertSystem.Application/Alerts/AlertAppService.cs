@@ -85,23 +85,14 @@ public class AlertAppService : CrudAppService<Alert, AlertDto, Guid, AlertGetLis
 
         var totalCount = await query.CountAsync();
 
-        var alerts = await query // selecteaza alertele si le mapeaza intr-un nou tip de DTO
-            .Select(alert => new AlertNavigationDto
-            {
-                Alert = ObjectMapper.Map<Alert, AlertDto>(alert.Alert),// mapeaza alert la dto-ul bun
-                Department = ObjectMapper.Map<Department, DepartmentDto>(alert.Department),
-                Level = ObjectMapper.Map<Level, LevelDto>(alert.Level),
-                Status = ObjectMapper.Map<Status, StatusDto>(alert.Status), 
-                Message = ObjectMapper.Map<Message, MessageDto>(alert.Message), 
-                Rule = ObjectMapper.Map<Rule, RuleDto>(alert.Rule) 
-            })
-            .Skip(input.SkipCount)
-            .Take(input.MaxResultCount)
-            .ToListAsync();
-        //returneaza rezultatul paginat
+        var alerts = await query
+           .Skip(input.SkipCount)
+           .Take(input.MaxResultCount)
+           .ToListAsync();
+
         return new PagedResultDto<AlertNavigationDto>(
             totalCount,
-            alerts
+            ObjectMapper.Map<List<AlertNavigation>, List<AlertNavigationDto>>(alerts)
         );
     }
     public async Task UpdateAlertStatusAsync(Guid alertId, Guid statusId)// e creata pentru a actualiza statusul fara edit
