@@ -13,4 +13,6 @@ public interface IMessageRepository : IRepository<Message, Guid>, ILookupReposit
 {
     Task<IQueryable<MessageNavigation>> GetNavigationList();
     Task<List<Message>> GetUnprocessedMessagesAsync();
+
+    Task<List<Message>> GetAllMessagesAsync();
 }

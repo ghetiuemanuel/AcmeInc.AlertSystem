@@ -61,4 +61,10 @@ public class AlertRepository : EfCoreRepository<AlertSystemDbContext, Alert, Gui
 
         return query;
     }
+    public async Task<Alert> GetExistingAlertAsync(Guid messageId, Guid ruleId)
+    {
+        return await (await GetQueryableAsync())
+            .Where(alert => alert.MessageId == messageId && alert.RuleId == ruleId)
+            .FirstOrDefaultAsync();
+    }
 }

@@ -70,5 +70,11 @@ namespace OptionOneTech.AlertSystem.Messages
                 .AsNoTracking()
                 .ToListAsync();
         }
+        public async Task<List<Message>> GetAllMessagesAsync()
+        {
+            return await (await GetQueryableAsync())
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }
