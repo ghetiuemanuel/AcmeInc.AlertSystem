@@ -17,5 +17,4 @@ public interface IStatusAppService :
         UpdateStatusDto>,
         ILookupAppService<Guid>
 {
-    Task<List<StatusDto>> GetAllAsync();
 }

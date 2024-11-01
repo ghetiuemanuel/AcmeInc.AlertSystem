@@ -5,6 +5,9 @@ using OptionOneTech.AlertSystem.Statuses.Dtos;
 using OptionOneTech.AlertSystem.Statuses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
+
+
 
 namespace OptionOneTech.AlertSystem.Controllers
 {
@@ -40,9 +43,9 @@ namespace OptionOneTech.AlertSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<StatusDto>>> GetStatuses()
+        public async Task<ActionResult<List<StatusDto>>> GetStatuses([FromQuery] PagedResultRequestDto input)
         {
-            var statuses = await _statusAppService.GetAllAsync();
+            var statuses = await _statusAppService.GetLookupAsync(input);
             return Ok(statuses);
         }
     }

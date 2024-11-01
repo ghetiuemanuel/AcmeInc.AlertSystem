@@ -7,5 +7,4 @@ namespace OptionOneTech.AlertSystem.Lookup
     {
         Task<List<TEntity>> GetLookupListAsync(int skip, int take);
     }
-
 }

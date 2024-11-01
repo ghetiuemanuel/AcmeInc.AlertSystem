@@ -10,16 +10,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
-using OptionOneTech.AlertSystem.Messages;
-using OptionOneTech.AlertSystem.Departments.Dtos;
-using OptionOneTech.AlertSystem.Levels.Dtos;
-using OptionOneTech.AlertSystem.Messages.Dtos;
-using OptionOneTech.AlertSystem.Rules.Dtos;
-using OptionOneTech.AlertSystem.Statuses.Dtos;
-using OptionOneTech.AlertSystem.Rules;
-using OptionOneTech.AlertSystem.Departments;
-using OptionOneTech.AlertSystem.Levels;
-using OptionOneTech.AlertSystem.Statuses;
+
 
 namespace OptionOneTech.AlertSystem.Alerts;
 

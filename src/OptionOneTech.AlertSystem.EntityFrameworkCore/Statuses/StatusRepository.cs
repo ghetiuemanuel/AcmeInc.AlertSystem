@@ -29,8 +29,4 @@ public class StatusRepository : EfCoreRepository<AlertSystemDbContext, Status, G
             .Take(take)
             .ToListAsync();
     }
-    public async Task<List<Status>> GetAllListAsync()
-    {
-        return await DbSet.ToListAsync(); 
-    }
 }

@@ -4,11 +4,11 @@ $(function () {
     };
     function loadStatusOptions() {
         $.ajax({
-            url: '/api/status', 
+            url: '/api/status',
             type: 'GET',
             success: function (data) {
-                ViewModel.StatusOptions = data.map(status => ({ id: status.id, name: status.name }));
-                dataTable.ajax.reload(); 
+                ViewModel.StatusOptions = data.items.map(status => ({ id: status.id, name: status.name }));
+                dataTable.ajax.reload();
             },
             error: function () {
                 abp.notify.error(l('FailedToLoadStatusOptions'));
@@ -17,9 +17,11 @@ $(function () {
     }
 
     loadStatusOptions();
+
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
     });
+
     var getFilter = function () {
         var input = {};
         $("#AlertFilter")
@@ -154,7 +156,7 @@ $(function () {
         let newStatusId = $(this).val();
 
         $.ajax({
-            url: `/api/alert/update-status`, 
+            url: `/api/alert/update-status`,
             type: 'POST',
             data: JSON.stringify({ alertId: alertId, statusId: newStatusId }),
             contentType: 'application/json',
@@ -168,4 +170,3 @@ $(function () {
         });
     });
 });
-

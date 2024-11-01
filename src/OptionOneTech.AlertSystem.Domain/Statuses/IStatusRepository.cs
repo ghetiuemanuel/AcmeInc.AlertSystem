@@ -8,5 +8,4 @@ namespace OptionOneTech.AlertSystem.Statuses;
 
 public interface IStatusRepository : IRepository<Status, Guid>, ILookupRepository<Status>
 {
-    Task<List<Status>> GetAllListAsync();
 }
