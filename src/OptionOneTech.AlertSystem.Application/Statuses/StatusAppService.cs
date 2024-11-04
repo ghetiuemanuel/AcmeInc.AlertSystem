@@ -8,7 +8,6 @@ using OptionOneTech.AlertSystem.Statuses.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace OptionOneTech.AlertSystem.Statuses;
 
@@ -43,6 +42,6 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
         return new PagedResultDto<LookupDto<Guid>>(
           totalCount,
           ObjectMapper.Map<List<Status>, List<LookupDto<Guid>>>(statuses)
-       );
+        );
     }
 }

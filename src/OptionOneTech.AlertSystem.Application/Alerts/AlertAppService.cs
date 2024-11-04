@@ -86,10 +86,10 @@ public class AlertAppService : CrudAppService<Alert, AlertDto, Guid, AlertGetLis
             ObjectMapper.Map<List<AlertNavigation>, List<AlertNavigationDto>>(alerts)
         );
     }
-    public async Task UpdateAlertStatusAsync(Guid alertId, Guid statusId)// e creata pentru a actualiza statusul fara edit
+    public async Task UpdateStatusAsync(Guid Id, Guid statusId)
     {
-        var alert = await _repository.GetAsync(alertId);// ia alerta dupa id
-        alert.StatusId = statusId;// modifica statusid al alertei
-        await _repository.UpdateAsync(alert);// salveaza schimbarile in repository
+        var alert = await _repository.GetAsync(Id);
+        alert.StatusId = statusId;
+        await _repository.UpdateAsync(alert);
     }
 }

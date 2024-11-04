@@ -3,7 +3,7 @@ using OptionOneTech.AlertSystem.Levels.Dtos;
 using OptionOneTech.AlertSystem.Messages.Dtos;
 using OptionOneTech.AlertSystem.Rules.Dtos;
 using OptionOneTech.AlertSystem.Statuses.Dtos;
-using static OptionOneTech.AlertSystem.Permissions.AlertSystemPermissions;
+using System.Collections.Generic;
 
 namespace OptionOneTech.AlertSystem.Alerts.Dtos
 {

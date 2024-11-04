@@ -1,22 +1,7 @@
-$(function () {
-    var ViewModel = {
-        StatusOptions: []
-    };
-    function loadStatusOptions() {
-        $.ajax({
-            url: '/api/status',
-            type: 'GET',
-            success: function (data) {
-                ViewModel.StatusOptions = data.items.map(status => ({ id: status.id, name: status.name }));
-                dataTable.ajax.reload();
-            },
-            error: function () {
-                abp.notify.error(l('FailedToLoadStatusOptions'));
-            }
-        });
-    }
-
-    loadStatusOptions();
+﻿$(async function () {
+    var statusService = optionOneTech.alertSystem.statuses.status;
+    var allStatusesResponse = await fetchAll(statusService.getLookup);
+    var allStatuses = allStatusesResponse.items;
 
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
@@ -119,10 +104,17 @@ $(function () {
                 title: l('AlertStatusId'),
                 data: null,
                 render: function (data, type, row, meta) {
-                    let options = ViewModel.StatusOptions.map(option => {
-                        return `<option value="${option.id}" ${row.status && row.status.id === option.id ? 'selected' : ''}>${option.name}</option>`;
-                    }).join('');
-                    return `<select class="form-control status-dropdown" data-alert-id="${row.alert.id}">${options}</select>`;
+
+                    var statuses = " ";
+                    for (var i = 0; i < allStatuses.length; i++) {
+                        var status = allStatuses[i];
+                        statuses += `<option value="${status.id}">${status.name}</option>`;
+                    }
+                    return `
+                       <select>
+                           ${statuses}
+                       </select>
+                   `;
                 }
             },
             {

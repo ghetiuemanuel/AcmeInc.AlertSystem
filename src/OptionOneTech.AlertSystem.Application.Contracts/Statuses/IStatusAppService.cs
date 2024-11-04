@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Statuses.Dtos;
 using Volo.Abp.Application.Services;
