@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using Volo.Abp.Domain.Repositories;
 using System.Threading.Tasks;
-using OptionOneTech.AlertSystem.Alerts;
 using System.Collections.Generic;
 
 
@@ -13,6 +12,4 @@ public interface IMessageRepository : IRepository<Message, Guid>, ILookupReposit
 {
     Task<IQueryable<MessageNavigation>> GetNavigationList();
     Task<List<Message>> GetUnprocessedMessagesAsync();
-
-    Task<List<Message>> GetAllMessagesAsync();
 }

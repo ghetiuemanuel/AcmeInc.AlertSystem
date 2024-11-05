@@ -3,14 +3,15 @@
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
 @using OptionOneTech.AlertSystem.Localization
 @inject IHtmlLocalizer<AlertSystemResource> L
-@model OptionOneTech.AlertSystem.Web.Pages.Status.CreateModalModel
+@model OptionOneTech.AlertSystem.Web.Pages.Status.EditModalModel
 @{
     Layout = null;
 }
-<abp-dynamic-form abp-model="ViewModel" data-ajaxForm="true" asp-page="CreateModal">
+<abp-dynamic-form abp-model="ViewModel" data-ajaxForm="true" asp-page="EditModal">
     <abp-modal>
-        <abp-modal-header title="@L["CreateStatus"].Value"></abp-modal-header>
+        <abp-modal-header title="@L["EditStatus"].Value"></abp-modal-header>
         <abp-modal-body>
+            <abp-input asp-for="Id" />
             <abp-form-content />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>

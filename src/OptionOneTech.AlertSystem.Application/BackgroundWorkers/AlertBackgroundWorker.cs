@@ -37,7 +37,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                 var guidGenerator = workerContext.ServiceProvider.GetRequiredService<IGuidGenerator>();
 
 
-                var messages = await messageRepository.GetAllMessagesAsync();
+                var messages = await messageRepository.GetUnprocessedMessagesAsync();
                 _logger.LogTrace($"Found {messages.Count} messages to evaluate.");
 
                 var rules = await ruleRepository.GetActiveRulesAsync();

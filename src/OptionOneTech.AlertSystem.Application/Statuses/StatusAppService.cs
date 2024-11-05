@@ -40,8 +40,8 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
         var totalCount = await _repository.CountAsync(p => p.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
-           totalCount,
-           ObjectMapper.Map<List<Status>, List<LookupDto<Guid>>>(statuses)
+          totalCount,
+          ObjectMapper.Map<List<Status>, List<LookupDto<Guid>>>(statuses)
         );
     }
 }

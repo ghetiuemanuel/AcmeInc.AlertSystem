@@ -11,8 +11,8 @@ using Volo.Abp.Domain.Repositories;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace OptionOneTech.AlertSystem.Alerts;
 
+namespace OptionOneTech.AlertSystem.Alerts;
 
 public class AlertAppService : CrudAppService<Alert, AlertDto, Guid, AlertGetListInput, AlertCreateDto, AlertUpdateDto>,
     IAlertAppService
@@ -32,7 +32,6 @@ public class AlertAppService : CrudAppService<Alert, AlertDto, Guid, AlertGetLis
 
     protected override async Task<IQueryable<Alert>> CreateFilteredQueryAsync(AlertGetListInput input)
     {
-        // TODO: AbpHelper generated
         return (await base.CreateFilteredQueryAsync(input))
             .WhereIf(!input.Title.IsNullOrWhiteSpace(), x => x.Title.Contains(input.Title))
             .WhereIf(!input.Body.IsNullOrWhiteSpace(), x => x.Body.Contains(input.Body))
@@ -78,13 +77,19 @@ public class AlertAppService : CrudAppService<Alert, AlertDto, Guid, AlertGetLis
         var totalCount = await query.CountAsync();
 
         var alerts = await query
-            .Skip(input.SkipCount)
-            .Take(input.MaxResultCount)
-            .ToListAsync();
+           .Skip(input.SkipCount)
+           .Take(input.MaxResultCount)
+           .ToListAsync();
 
         return new PagedResultDto<AlertNavigationDto>(
             totalCount,
             ObjectMapper.Map<List<AlertNavigation>, List<AlertNavigationDto>>(alerts)
         );
+    }
+    public async Task UpdateStatusAsync(Guid Id, Guid statusId)
+    {
+        var alert = await _repository.GetAsync(Id);
+        alert.StatusId = statusId;
+        await _repository.UpdateAsync(alert);
     }
 }

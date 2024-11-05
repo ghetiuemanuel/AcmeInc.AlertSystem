@@ -7,13 +7,12 @@ namespace OptionOneTech.AlertSystem.Statuses;
 
 
 public interface IStatusAppService :
-    ICrudAppService< 
-        StatusDto, 
+    ICrudAppService<
+        StatusDto,
         Guid,
         StatusGetListInput,
         CreateStatusDto,
         UpdateStatusDto>,
         ILookupAppService<Guid>
 {
-
 }

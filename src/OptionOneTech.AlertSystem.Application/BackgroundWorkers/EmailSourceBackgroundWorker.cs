@@ -83,7 +83,7 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                 sourceId,
                 SourceType.Email,
                 message.TextBody,
-                DateTime.Now
+                null
             );
             await messageRepository.InsertAsync(newMessage);
             _logger.LogInformation($"Saved new message to database: Title: {newMessage.Title}, From: {newMessage.From}, Date: {message.Date}");
