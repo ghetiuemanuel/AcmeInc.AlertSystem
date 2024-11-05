@@ -114,10 +114,9 @@
                         } else {
                             statuses += `<option value="${status.id}">${status.name}</option>`;
                         }
-
                     }
                     return `
-                       <select>
+                       <select class="status-select form-control" alert-id="${row.alert.id}">
                            ${statuses}
                        </select>
                    `;
@@ -149,22 +148,11 @@
         createModal.open();
     });
 
-    $(document).on('change', '.status-dropdown', function () {
-        let alertId = $(this).data('alert-id');
-        let newStatusId = $(this).val();
-
-        $.ajax({
-            url: `/api/alert/update-status`,
-            type: 'POST',
-            data: JSON.stringify({ alertId: alertId, statusId: newStatusId }),
-            contentType: 'application/json',
-            success: function () {
-                abp.notify.success(l('StatusUpdatedSuccessfully'));
-                dataTable.ajax.reload();
-            },
-            error: function () {
-                abp.notify.error(l('StatusUpdateFailed'));
-            }
-        });
-    });
+    function NotifyOnStatusChanges()
+    {
+        var selectedValue = $(this).val();
+        var alertId = $(this).attr('alert-id');
+        service.updateStatus(alertId, selectedValue)
+    }
+    $(document).on('change', '.status-select', NotifyOnStatusChanges);
 });
