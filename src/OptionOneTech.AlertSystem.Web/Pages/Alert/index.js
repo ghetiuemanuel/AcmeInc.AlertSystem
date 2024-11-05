@@ -108,7 +108,13 @@
                     var statuses = " ";
                     for (var i = 0; i < allStatuses.length; i++) {
                         var status = allStatuses[i];
-                        statuses += `<option value="${status.id}">${status.name}</option>`;
+
+                        if (row.alert.statusId === status.id) {
+                            statuses += `<option value="${status.id}" selected>${status.name}</option>`;
+                        } else {
+                            statuses += `<option value="${status.id}">${status.name}</option>`;
+                        }
+
                     }
                     return `
                        <select>
