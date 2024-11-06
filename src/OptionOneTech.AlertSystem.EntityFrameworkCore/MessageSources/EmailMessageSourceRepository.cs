@@ -19,7 +19,7 @@ public class EmailMessageSourceRepository : EfCoreRepository<AlertSystemDbContex
     {
         return (await GetQueryableAsync()).IncludeDetails();
     }
-    public async Task<List<EmailMessageSource>> GetLookupListAsync(int skip, int take)
+    public async Task<List<EmailMessageSource>> GetLookupListAsync(int skip, int take, bool includeInActive)
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()

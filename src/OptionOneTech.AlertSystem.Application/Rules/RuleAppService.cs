@@ -47,10 +47,19 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
             .WhereIf(input.TriggerTimestamp != null, x => x.TriggerTimestamp.Value.Date == input.TriggerTimestamp.Value.Date)
             .WhereIf(input.Active != null, x => x.Active == input.Active);
     }
-    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
     {
-        var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
-        var totalCount = await _repository.CountAsync();
+        var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInActive);
+
+        int totalCount;
+        if (input.IncludeInActive)
+        {
+            totalCount = await _repository.CountAsync();
+        }
+        else
+        {
+            totalCount = await _repository.CountAsync(p => p.Active);
+        }
 
         return new PagedResultDto<LookupDto<Guid>>(
             totalCount,

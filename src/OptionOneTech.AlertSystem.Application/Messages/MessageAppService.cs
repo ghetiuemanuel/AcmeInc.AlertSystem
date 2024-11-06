@@ -38,9 +38,9 @@ public class MessageAppService : CrudAppService<Message, MessageDto, Guid, Messa
             .WhereIf(input.ProcessedAt != null, x => x.ProcessedAt.Value.Date == input.ProcessedAt.Value.Date);
 
     }
-    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
     {
-        var messages = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
+        var messages = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInActive);
 
         var totalCount = await _repository.CountAsync(p => p.SourceId != Guid.Empty);
 

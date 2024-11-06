@@ -12,7 +12,7 @@ public static class LookupAppServiceExtension
         var currentPage = 0;
         var allItems = new List<LookupDto<TKey>>();
 
-        var page = await service.GetLookupAsync(new PagedResultRequestDto() { SkipCount = currentPage * pageSize, MaxResultCount = pageSize });
+        var page = await service.GetLookupAsync(new LookupRequestDto() { SkipCount = currentPage * pageSize, MaxResultCount = pageSize });
 
         totalItemsCount = (int)page.TotalCount;
 
@@ -23,7 +23,7 @@ public static class LookupAppServiceExtension
         while (currentPage < totalPages - 1)
         {
             currentPage++;
-            page = await service.GetLookupAsync(new PagedResultRequestDto()
+            page = await service.GetLookupAsync(new LookupRequestDto()
             {
                 SkipCount = currentPage * pageSize,
                 MaxResultCount = pageSize

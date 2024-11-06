@@ -10,6 +10,6 @@ namespace OptionOneTech.AlertSystem.Alerts;
 public interface IRuleRepository : IRepository<Rule, Guid>
 {
     public Task<List<Rule>> GetActiveRulesAsync();
-    Task<List<Rule>> GetLookupListAsync(int skipCount, int maxResultCount);
+    Task<List<Rule>> GetLookupListAsync(int skipCount, int maxResultCount, bool includeInActive);
     Task<IQueryable<RuleNavigation>> GetNavigationList();
 }

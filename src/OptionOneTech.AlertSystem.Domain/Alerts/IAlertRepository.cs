@@ -8,6 +8,6 @@ namespace OptionOneTech.AlertSystem.Alerts;
 
 public interface IAlertRepository : IRepository<Alert, Guid>
 {
-    Task<List<Alert>> GetLookupListAsync(int skipCount, int maxResultCount);
+    Task<List<Alert>> GetLookupListAsync(int skipCount, int maxResultCount, bool includeIsActive);
     Task<IQueryable<AlertNavigation>> GetNavigationList();
 }

@@ -21,7 +21,7 @@ namespace OptionOneTech.AlertSystem.Departments
         {
             return (await GetQueryableAsync()).IncludeDetails();
         }
-        public async Task<List<Department>> GetLookupListAsync(int skip, int take)
+        public async Task<List<Department>> GetLookupListAsync(int skip, int take, bool includeInActive)
         {
             return await (await GetQueryableAsync())
                 .AsNoTracking()

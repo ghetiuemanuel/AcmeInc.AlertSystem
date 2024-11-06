@@ -19,7 +19,7 @@ public class WebhookMessageSourceRepository : EfCoreRepository<AlertSystemDbCont
     {
         return (await GetQueryableAsync()).IncludeDetails();
     }
-    public async Task<List<WebhookMessageSource>> GetLookupListAsync(int skip, int take)
+    public async Task<List<WebhookMessageSource>> GetLookupListAsync(int skip, int take, bool includeInActive)
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()

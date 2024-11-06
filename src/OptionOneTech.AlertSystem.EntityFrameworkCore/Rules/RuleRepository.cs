@@ -21,7 +21,7 @@ public class RuleRepository : EfCoreRepository<AlertSystemDbContext, Rule, Guid>
     {
         return (await GetQueryableAsync()).IncludeDetails();
     }
-    public async Task<List<Rule>> GetLookupListAsync(int skip, int take)
+    public async Task<List<Rule>> GetLookupListAsync(int skip, int take, bool includeInActive)
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()
