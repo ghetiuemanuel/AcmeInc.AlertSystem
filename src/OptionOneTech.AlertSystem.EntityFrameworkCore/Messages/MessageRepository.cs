@@ -23,7 +23,7 @@ namespace OptionOneTech.AlertSystem.Messages
             return (await GetQueryableAsync()).IncludeDetails();
         }
 
-        public async Task<List<Message>> GetLookupListAsync(int skip, int take, bool includeInActive)
+        public async Task<List<Message>> GetLookupListAsync(int skip, int take, bool includeInactive)
         {
             return await (await GetQueryableAsync())
                 .AsNoTracking()

@@ -19,19 +19,14 @@ public class StatusRepository : EfCoreRepository<AlertSystemDbContext, Status, G
     {
         return (await GetQueryableAsync()).IncludeDetails();
     }
-    public async Task<List<Status>> GetLookupListAsync(int skip, int take, bool includeInActive)
+    public async Task<List<Status>> GetLookupListAsync(int skip, int take, bool includeInactive)
     {
-        var query = await GetQueryableAsync();
-
-        if (!includeInActive)
-        {
-            query = query.Where(status => status.Active);
-        }
-        return await query
-            .AsNoTracking()
-            .Select(status => new Status(status.Id, status.Name, "", true))
-            .Skip(skip)
-            .Take(take)
-            .ToListAsync();
+        return await (await GetQueryableAsync())
+                .AsNoTracking()
+                .WhereIf(!includeInactive, status => status.Active)
+                .Select(status => new Status(status.Id, status.Name, "", true))
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
     }
 }

@@ -23,13 +23,9 @@ namespace OptionOneTech.AlertSystem.Departments
         }
         public async Task<List<Department>> GetLookupListAsync(int skip, int take, bool includeInactive)
         {
-            var query = await GetQueryableAsync();
-            if (!includeInactive)
-            {
-                query = query.Where(department => department.Active);
-            }
-            return await query
+            return await (await GetQueryableAsync())
                 .AsNoTracking()
+                .WhereIf(!includeInactive, department => department.Active)
                 .Select(department => new Department(department.Id, department.Name, "", true))
                 .Skip(skip)
                 .Take(take)
