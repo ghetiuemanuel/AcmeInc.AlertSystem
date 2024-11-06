@@ -30,7 +30,6 @@ namespace OptionOneTech.AlertSystem.Departments
             }
             return await query
                 .AsNoTracking()
-                .Where(department => department.Active)
                 .Select(department => new Department(department.Id, department.Name, "", true))
                 .Skip(skip)
                 .Take(take)

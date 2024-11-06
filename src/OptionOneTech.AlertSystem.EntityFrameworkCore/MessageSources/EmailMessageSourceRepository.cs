@@ -28,7 +28,6 @@ public class EmailMessageSourceRepository : EfCoreRepository<AlertSystemDbContex
         }
         return await query
             .AsNoTracking()
-            .Where(emailMessageSource => emailMessageSource.Active)
             .Select(emailMessageSource => new EmailMessageSource(emailMessageSource.Id, "", 0 ,true, emailMessageSource.Username, "","", true, true))
             .Skip(skip)
             .Take(take)

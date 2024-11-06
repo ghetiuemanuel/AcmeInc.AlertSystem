@@ -30,7 +30,6 @@ public class WebhookMessageSourceRepository : EfCoreRepository<AlertSystemDbCont
         }
         return await query
             .AsNoTracking()
-            .Where(webhookMessageSource => webhookMessageSource.Active)
             .Select(webhookMessageSource => new WebhookMessageSource(webhookMessageSource.Id, webhookMessageSource.Title, "", "", true))
             .Skip(skip)
             .Take(take)

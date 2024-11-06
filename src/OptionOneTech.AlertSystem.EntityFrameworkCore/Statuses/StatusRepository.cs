@@ -29,7 +29,6 @@ public class StatusRepository : EfCoreRepository<AlertSystemDbContext, Status, G
         }
         return await query
             .AsNoTracking()
-            .Where(status => status.Active)
             .Select(status => new Status(status.Id, status.Name, "", true))
             .Skip(skip)
             .Take(take)

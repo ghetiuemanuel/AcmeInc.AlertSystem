@@ -28,7 +28,6 @@ public class LevelRepository : EfCoreRepository<AlertSystemDbContext, Level, Gui
         }
         return await query
             .AsNoTracking()
-            .Where(level => level.Active)
             .Select(level => new Level(level.Id, level.Name, "", true))
             .Skip(skip)
             .Take(take)
