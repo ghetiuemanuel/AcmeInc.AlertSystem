@@ -21,9 +21,14 @@ namespace OptionOneTech.AlertSystem.Departments
         {
             return (await GetQueryableAsync()).IncludeDetails();
         }
-        public async Task<List<Department>> GetLookupListAsync(int skip, int take, bool includeInActive)
+        public async Task<List<Department>> GetLookupListAsync(int skip, int take, bool includeInactive)
         {
-            return await (await GetQueryableAsync())
+            var query = await GetQueryableAsync();
+            if (!includeInactive)
+            {
+                query = query.Where(department => department.Active);
+            }
+            return await query
                 .AsNoTracking()
                 .Where(department => department.Active)
                 .Select(department => new Department(department.Id, department.Name, "", true))

@@ -1,3 +1,4 @@
+using OptionOneTech.AlertSystem.Lookup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace OptionOneTech.AlertSystem.Alerts;
 
-public interface IAlertRepository : IRepository<Alert, Guid>
+public interface IAlertRepository : IRepository<Alert, Guid>, ILookupRepository<Alert>
 {
-    Task<List<Alert>> GetLookupListAsync(int skipCount, int maxResultCount, bool includeIsActive);
     Task<IQueryable<AlertNavigation>> GetNavigationList();
 }

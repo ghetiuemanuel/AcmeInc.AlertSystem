@@ -21,7 +21,12 @@ public class LevelRepository : EfCoreRepository<AlertSystemDbContext, Level, Gui
     }
     public async Task<List<Level>> GetLookupListAsync(int skip, int take, bool includeInActive)
     {
-        return await (await GetQueryableAsync())
+        var query = await GetQueryableAsync();
+        if(!includeInActive)
+        {
+            query = query.Where(level => level.Active);
+        }
+        return await query
             .AsNoTracking()
             .Where(level => level.Active)
             .Select(level => new Level(level.Id, level.Name, "", true))

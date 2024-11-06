@@ -37,10 +37,10 @@ namespace OptionOneTech.AlertSystem.Departments
         }
         public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
         {
-            var departments = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInActive);
+            var departments = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
             int totalCount;
-            if(input.IncludeInActive)
+            if(input.IncludeInactive)
             {
                 totalCount = await _repository.CountAsync();
             }

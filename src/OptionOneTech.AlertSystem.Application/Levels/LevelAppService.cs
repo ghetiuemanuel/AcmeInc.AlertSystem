@@ -36,10 +36,10 @@ public class LevelAppService : CrudAppService<Level, LevelDto, Guid, LevelGetLis
     }
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
     {
-        var levels = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInActive);
+        var levels = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
         int totalCount;
-        if (input.IncludeInActive)
+        if (input.IncludeInactive)
         {
             totalCount = await _repository.CountAsync();
         }

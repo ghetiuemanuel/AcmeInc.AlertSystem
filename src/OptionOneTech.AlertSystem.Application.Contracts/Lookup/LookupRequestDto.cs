@@ -4,6 +4,6 @@ namespace OptionOneTech.AlertSystem.Lookup
 {
     public class LookupRequestDto: PagedResultRequestDto
     {
-        public bool IncludeInActive { get; set; }
+        public bool IncludeInactive { get; set; }
     }
 }

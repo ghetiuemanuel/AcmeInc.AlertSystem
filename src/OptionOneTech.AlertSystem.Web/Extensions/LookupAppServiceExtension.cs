@@ -5,14 +5,14 @@ using Volo.Abp.Application.Dtos;
 
 public static class LookupAppServiceExtension
 {
-    public static async Task<List<LookupDto<TKey>>> FetchAllLookups<TKey>(this ILookupAppService<TKey> service)
+    public static async Task<List<LookupDto<TKey>>> FetchAllLookups<TKey>(this ILookupAppService<TKey> service, bool includeInactive = false)
     {
         var pageSize = 1000;
         var totalItemsCount = 0;
         var currentPage = 0;
         var allItems = new List<LookupDto<TKey>>();
 
-        var page = await service.GetLookupAsync(new LookupRequestDto() { SkipCount = currentPage * pageSize, MaxResultCount = pageSize });
+        var page = await service.GetLookupAsync(new LookupRequestDto() { SkipCount = currentPage * pageSize, MaxResultCount = pageSize, IncludeInactive = includeInactive});
 
         totalItemsCount = (int)page.TotalCount;
 
@@ -26,7 +26,8 @@ public static class LookupAppServiceExtension
             page = await service.GetLookupAsync(new LookupRequestDto()
             {
                 SkipCount = currentPage * pageSize,
-                MaxResultCount = pageSize
+                MaxResultCount = pageSize,
+                IncludeInactive = includeInactive
             });
 
             allItems.AddRange(page.Items);
