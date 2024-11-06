@@ -25,7 +25,7 @@ namespace OptionOneTech.AlertSystem.Departments
         {
             return await (await GetQueryableAsync())
                 .AsNoTracking()
-                .WhereIf(!includeInactive, department => department.Active)
+                .Where(department => includeInactive || department.Active)
                 .Select(department => new Department(department.Id, department.Name, "", true))
                 .Skip(skip)
                 .Take(take)

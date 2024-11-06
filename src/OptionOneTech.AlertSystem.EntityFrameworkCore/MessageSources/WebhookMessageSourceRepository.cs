@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using OptionOneTech.AlertSystem.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace OptionOneTech.AlertSystem.MessageSources;
 
@@ -24,7 +23,7 @@ public class WebhookMessageSourceRepository : EfCoreRepository<AlertSystemDbCont
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()
-            .WhereIf(!includeInactive, webhookMessageSource => webhookMessageSource.Active)
+            .Where(webhookMessageSource => includeInactive || webhookMessageSource.Active)
             .Select(webhookMessageSource => new WebhookMessageSource(webhookMessageSource.Id, webhookMessageSource.Title, "", "", true))
             .Skip(skip)
             .Take(take)

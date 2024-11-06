@@ -23,7 +23,7 @@ public class LevelRepository : EfCoreRepository<AlertSystemDbContext, Level, Gui
     {
         return await (await GetQueryableAsync())
                 .AsNoTracking()
-                .WhereIf(!includeInactive, level => level.Active)
+                .Where(level => includeInactive || level.Active)
                 .Select(level => new Level(level.Id, level.Name, "", true))
                 .Skip(skip)
                 .Take(take)

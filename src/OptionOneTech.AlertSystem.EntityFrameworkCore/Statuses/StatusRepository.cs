@@ -23,7 +23,7 @@ public class StatusRepository : EfCoreRepository<AlertSystemDbContext, Status, G
     {
         return await (await GetQueryableAsync())
                 .AsNoTracking()
-                .WhereIf(!includeInactive, status => status.Active)
+                .Where(status => includeInactive || status.Active)
                 .Select(status => new Status(status.Id, status.Name, "", true))
                 .Skip(skip)
                 .Take(take)
