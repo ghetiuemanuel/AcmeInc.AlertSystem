@@ -1,23 +1,30 @@
-﻿async function fetchAll(getLookup, options) {
+﻿async function fetchAll(apiFunction, options = {}) {
     var pageSize = 1000;
     var totalItemCount = 0;
     var currentPage = 0;
     var allItems = [];
 
-    var page = await getLookup({ skipCount: currentPage * pageSize, maxResultCount: pageSize, IncludeInactive: options.includeInactive });
+    var params = {
+        skipCount: currentPage * pageSize,
+        maxResultCount: pageSize
+    };
+
+    for (var key in options) {
+        params[key] = options[key];
+    }
+
+    var page = await apiFunction(params);
     totalItemCount = page.totalCount;
 
-    for (var i = 0; i < page.items.length; i++) {
-        allItems.push(page.items[i]);
-    }
-    var pages = totalItemCount / pageSize;
+    allItems = allItems.concat(page.items);
 
-    while (currentPage < pages - 1) {
+    var totalPages = Math.ceil(totalItemCount / pageSize);
+
+    while (currentPage < totalPages - 1) {
         currentPage++;
-        page = await getLookup({ skipCount: currentPage * pageSize, maxResultCount: pageSize, IncludeInactive: options.includeInactive })
-        for (var i = 0; i < page.items.length; i++) {
-            allItems.push(page.items[i]);
-        }
+        params.skipCount = currentPage * pageSize;
+        page = await apiFunction(params);
+        allItems = allItems.concat(page.items);
     }
-    return { totalItemCount, items: allItems };
+    return { totalItemCount: totalItemCount, items: allItems };
 }

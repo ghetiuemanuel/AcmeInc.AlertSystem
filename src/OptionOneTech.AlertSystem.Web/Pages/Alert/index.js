@@ -1,22 +1,16 @@
 ﻿$(async function () {
-    var options = { includeInactive: true }
+    var options = { maxResultCount: 1000, includeInactive: true };
+
     var statusService = optionOneTech.alertSystem.statuses.status;
     var allStatusesResponse = await fetchAll(statusService.getLookup, options); 
     var allStatuses = allStatusesResponse.items;
 
-
     var activeStatuses = allStatuses.filter(status => status.active === true);
     var inactiveStatuses = allStatuses.filter(status => status.active === false);
-
-    console.log("Toate statusurile:", allStatuses);
-    console.log("Statusuri active:", activeStatuses);
-    console.log("Statusuri inactive:", inactiveStatuses);
-
 
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
     });
-
     var getFilter = function () {
         var input = {};
         $("#AlertFilter")
