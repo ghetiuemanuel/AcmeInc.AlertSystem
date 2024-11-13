@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ public class StatusRepository : EfCoreRepository<AlertSystemDbContext, Status, G
         return await (await GetQueryableAsync())
                 .AsNoTracking()
                 .Where(status => includeInactive || status.Active)
-                .Select(status => new Status(status.Id, status.Name, "", true))
+                .Select(status => new Status(status.Id, status.Name, "", status.Active))
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync();

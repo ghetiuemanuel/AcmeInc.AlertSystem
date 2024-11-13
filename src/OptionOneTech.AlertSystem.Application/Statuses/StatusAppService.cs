@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using OptionOneTech.AlertSystem.Lookup;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +35,7 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
     }
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
     {
-        var statuses = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
+        var statuses = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, true);
 
         int totalCount;
         if(input.IncludeInactive)

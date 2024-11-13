@@ -1,7 +1,17 @@
 ﻿$(async function () {
+    var options = { includeInactive: true }
     var statusService = optionOneTech.alertSystem.statuses.status;
-    var allStatusesResponse = await fetchAll(statusService.getLookup);
+    var allStatusesResponse = await fetchAll(statusService.getLookup, options); 
     var allStatuses = allStatusesResponse.items;
+
+
+    var activeStatuses = allStatuses.filter(status => status.active === true);
+    var inactiveStatuses = allStatuses.filter(status => status.active === false);
+
+    console.log("Toate statusurile:", allStatuses);
+    console.log("Statusuri active:", activeStatuses);
+    console.log("Statusuri inactive:", inactiveStatuses);
+
 
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
@@ -104,10 +114,10 @@
                 title: l('AlertStatusId'),
                 data: null,
                 render: function (data, type, row, meta) {
+                    var statuses = "";
 
-                    var statuses = " ";
-                    for (var i = 0; i < allStatuses.length; i++) {
-                        var status = allStatuses[i];
+                    for (var i = 0; i < activeStatuses.length; i++) {
+                        var status = activeStatuses[i];
 
                         if (row.alert.statusId === status.id) {
                             statuses += `<option value="${status.id}" selected>${status.name}</option>`;
@@ -115,6 +125,15 @@
                             statuses += `<option value="${status.id}">${status.name}</option>`;
                         }
                     }
+
+                    for (var i = 0; i < inactiveStatuses.length; i++) {
+                        var status = inactiveStatuses[i];
+
+                        if (row.alert.statusId === status.id) {
+                            statuses += `<option value="${status.id}" selected disabled>${status.name} (Inactiv)</option>`;
+                        } 
+                    }
+
                     return `
                        <select class="status-select form-control" alert-id="${row.alert.id}">
                            ${statuses}
@@ -148,8 +167,7 @@
         createModal.open();
     });
 
-    function NotifyOnStatusChanges()
-    {
+    function NotifyOnStatusChanges() {
         var selectedValue = $(this).val();
         var alertId = $(this).attr('alert-id');
         service.updateStatus(alertId, selectedValue)

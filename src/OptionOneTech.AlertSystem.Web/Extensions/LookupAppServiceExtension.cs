@@ -1,11 +1,10 @@
 ﻿using OptionOneTech.AlertSystem.Lookup;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
 
 public static class LookupAppServiceExtension
 {
-    public static async Task<List<LookupDto<TKey>>> FetchAllLookups<TKey>(this ILookupAppService<TKey> service, bool includeInactive = false)
+    public static async Task<List<LookupDto<TKey>>> FetchAllLookups<TKey>(this ILookupAppService<TKey> service, bool includeInactive = true)
     {
         var pageSize = 1000;
         var totalItemsCount = 0;

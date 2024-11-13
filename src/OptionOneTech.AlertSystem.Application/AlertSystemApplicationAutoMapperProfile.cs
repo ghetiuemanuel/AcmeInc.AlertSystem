@@ -45,7 +45,8 @@ public class AlertSystemApplicationAutoMapperProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title));
         CreateMap<WebhookMessageSource, LookupDto<Guid>>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title));
-        CreateMap<Status, LookupDto<Guid>>();
+        CreateMap<Status, LookupDto<Guid>>()
+            .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.Active));
         CreateMap<Level, LookupDto<Guid>>();
         CreateMap<MessageNavigation, MessageNavigationDto>();
         CreateMap<EmailMessageSource, EmailMessageSourceDto>();

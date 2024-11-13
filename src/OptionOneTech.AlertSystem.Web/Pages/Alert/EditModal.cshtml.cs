@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -64,12 +65,35 @@ public class EditModalModel : AlertSystemPageModel
             Selected = department.Id == ViewModel.DepartmentId
         }).ToList();
 
-        ViewModel.StatusOptions = statuses.Select(status => new SelectListItem
+        var activeStatuses = statuses.Where(status => status.Active).ToList();
+
+        var inactiveStatusesAssignedToAlert = statuses.Where(status => !status.Active && status.Id == ViewModel.StatusId).ToList();
+
+        var availableStatuses = activeStatuses.Concat(inactiveStatusesAssignedToAlert).ToList();
+
+        ViewModel.StatusOptions = new List<SelectListItem>();
+
+        foreach (var status in availableStatuses)
         {
-            Value = status.Id.ToString(),
-            Text = status.Name,
-            Selected = status.Id == ViewModel.StatusId
-        }).ToList();
+            var statusItem = new SelectListItem
+            {
+                Value = status.Id.ToString(),
+                Selected = status.Id == ViewModel.StatusId
+            };
+
+            if (!status.Active && status.Id == ViewModel.StatusId)
+            {
+                statusItem.Text = status.Name + " (Inactiv)";  
+                statusItem.Disabled = true;  
+            }
+            else
+            {
+                statusItem.Text = status.Name;  
+                statusItem.Disabled = !status.Active;  
+            }
+
+            ViewModel.StatusOptions.Add(statusItem);
+        }
 
         ViewModel.LevelOptions = levels.Select(level => new SelectListItem
         {
