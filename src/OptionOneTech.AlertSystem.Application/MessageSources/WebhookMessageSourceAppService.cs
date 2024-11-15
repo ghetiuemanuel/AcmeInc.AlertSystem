@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace OptionOneTech.AlertSystem.MessageSources;
 
@@ -42,9 +41,7 @@ public class WebhookMessageSourceAppService : CrudAppService<WebhookMessageSourc
     {
         var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
-        var queryable = await _repository.GetQueryableAsync();
-
-        int totalCount = await queryable.Where(w => input.IncludeInactive || w.Active).CountAsync();
+        int totalCount = await _repository.CountAsync(s => input.IncludeInactive || s.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,

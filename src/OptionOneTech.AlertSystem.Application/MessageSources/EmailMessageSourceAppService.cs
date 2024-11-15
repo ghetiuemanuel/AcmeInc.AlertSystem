@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Security.Encryption;
-using Microsoft.EntityFrameworkCore;
 
 namespace OptionOneTech.AlertSystem.MessageSources;
 
@@ -59,9 +58,7 @@ public class EmailMessageSourceAppService : CrudAppService<EmailMessageSource, E
     {
         var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
-        var queryable = await _repository.GetQueryableAsync();
-
-        int totalCount = await queryable.Where(e => input.IncludeInactive || e.Active).CountAsync();
+        int totalCount = await _repository.CountAsync(s => input.IncludeInactive || s.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,

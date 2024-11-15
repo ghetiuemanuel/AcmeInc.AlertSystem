@@ -38,9 +38,7 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
     {
         var statuses = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
-        var queryable = await _repository.GetQueryableAsync();
-
-        int totalCount = await queryable.Where(s => input.IncludeInactive || s.Active).CountAsync();
+        int totalCount = await _repository.CountAsync(s => input.IncludeInactive || s.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
           totalCount,

@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace OptionOneTech.AlertSystem.Levels;
 
@@ -39,9 +38,7 @@ public class LevelAppService : CrudAppService<Level, LevelDto, Guid, LevelGetLis
     {
         var levels = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
-        var queryable = await _repository.GetQueryableAsync();
-
-        int totalCount = await queryable.Where(l => input.IncludeInactive || l.Active).CountAsync();
+        int totalCount = await _repository.CountAsync(s => input.IncludeInactive || s.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,
