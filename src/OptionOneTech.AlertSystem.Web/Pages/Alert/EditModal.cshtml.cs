@@ -68,9 +68,9 @@ public class EditModalModel : AlertSystemPageModel
             Selected = department.Id == ViewModel.DepartmentId
         }).ToList();
 
-        LookupDto<Guid> currentStatus = null;//initial presupun ca e nul
+        LookupDto<Guid> currentStatus = null;
 
-        foreach (var status in allStatuses)// search manually the status with the same id as in viewmodel
+        foreach (var status in allStatuses)
         {
             if (status.Id == ViewModel.StatusId)
             {
@@ -78,13 +78,13 @@ public class EditModalModel : AlertSystemPageModel
             }
         }
 
-        var inactiveStatuses = new List<LookupDto<Guid>>();// create a list
+        LookupDto<Guid> inactiveStatus = null;
 
         if (currentStatus != null)
         {
             bool isActive = false;
 
-            foreach (var active in activeStatuses)// search the statuses with other id's compared to activestatuses
+            foreach (var active in activeStatuses)
             {
                 if (active.Id == currentStatus.Id)
                 {
@@ -94,13 +94,13 @@ public class EditModalModel : AlertSystemPageModel
 
             if (!isActive)
             {
-                inactiveStatuses = new List<LookupDto<Guid>> { currentStatus };
+                inactiveStatus = currentStatus ;
             }
         }
 
         ViewModel.StatusOptions = new List<SelectListItem>();
 
-        foreach (var status in activeStatuses)// active statuses in StatusOption
+        foreach (var status in activeStatuses)
         {
             ViewModel.StatusOptions.Add(new SelectListItem
             {
@@ -110,13 +110,13 @@ public class EditModalModel : AlertSystemPageModel
             });
         }
 
-        foreach (var status in inactiveStatuses)//inactivestatuses logic from the list
+        if (inactiveStatus != null)
         {
             ViewModel.StatusOptions.Add(new SelectListItem
             {
-                Value = status.Id.ToString(),
-                Text = $"{status.Name} (Inactiv)",
-                Selected = status.Id == ViewModel.StatusId,
+                Value = inactiveStatus.Id.ToString(),
+                Text = $"{inactiveStatus.Name} (Inactiv)",
+                Selected = inactiveStatus.Id == ViewModel.StatusId,
                 Disabled = true 
             });
         }

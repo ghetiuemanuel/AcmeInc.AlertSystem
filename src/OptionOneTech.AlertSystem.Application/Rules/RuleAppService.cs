@@ -50,8 +50,10 @@ public class RuleAppService : CrudAppService<Rule, RuleDto, Guid, RuleGetListInp
     public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
     {
         var list = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
+        
+        var queryable = await _repository.GetQueryableAsync();
 
-        int totalCount = await (input.IncludeInactive ? _repository.CountAsync() : _repository.CountAsync(p => p.Active));
+        int totalCount = await queryable.Where(r => input.IncludeInactive || r.Active).CountAsync();
 
         return new PagedResultDto<LookupDto<Guid>>(
             totalCount,
