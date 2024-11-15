@@ -1,12 +1,33 @@
 ﻿$(async function () {
-    var options = { maxResultCount: 1000, includeInactive: true };
+    var options = { includeInactive: true };
 
     var statusService = optionOneTech.alertSystem.statuses.status;
     var allStatusesResponse = await fetchAll(statusService.getLookup, options); 
     var allStatuses = allStatusesResponse.items;
 
-    var activeStatuses = allStatuses.filter(status => status.active === true);
-    var inactiveStatuses = allStatuses.filter(status => status.active === false);
+    var activeStatusesResponse = await fetchAll(statusService.getLookup, { includeInactive: false });
+    var activeStatuses = activeStatusesResponse.items;
+    var inactiveStatuses = [];
+    var index = 0;
+
+    for (var i = 0; i < allStatuses.length; i++) {
+        var status = allStatuses[i];
+        var found = false;
+
+        for (var j = 0; j < activeStatuses.length; j++) {
+            var active = activeStatuses[j];
+            if (active.id === status.id) {
+                found = true;
+            }
+        }
+        if (!found) {
+            inactiveStatuses[index] = status; 
+            index++;
+        }
+    }
+    console.log("Toate statusurile: ", allStatuses);
+    console.log("Toate statusurile active: ", activeStatuses);
+    console.log("Toate statusurile inactive: ", inactiveStatuses);
 
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
@@ -156,7 +177,7 @@
         dataTable.ajax.reload();
     });
 
-    $('#NewAlertButton').click(function (e) {
+    $('#NewAlertButton').on('click', function (e) {
         e.preventDefault();
         createModal.open();
     });

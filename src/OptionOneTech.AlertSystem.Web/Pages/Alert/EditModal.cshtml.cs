@@ -8,10 +8,12 @@ using OptionOneTech.AlertSystem.Alerts;
 using OptionOneTech.AlertSystem.Alerts.Dtos;
 using OptionOneTech.AlertSystem.Departments;
 using OptionOneTech.AlertSystem.Levels;
+using OptionOneTech.AlertSystem.Lookup;
 using OptionOneTech.AlertSystem.Messages;
 using OptionOneTech.AlertSystem.Rules;
 using OptionOneTech.AlertSystem.Statuses;
 using OptionOneTech.AlertSystem.Web.Pages.Alert.ViewModels;
+
 
 namespace OptionOneTech.AlertSystem.Web.Pages.Alert;
 
@@ -50,10 +52,11 @@ public class EditModalModel : AlertSystemPageModel
     public virtual async Task OnGetAsync()
     {
         var departments = await _departmentAppService.FetchAllLookups();
-        var statuses = await _statusAppService.FetchAllLookups();
         var levels = await _levelAppService.FetchAllLookups();
         var messages = await _messageAppService.FetchAllLookups();
         var rules = await _ruleAppService.FetchAllLookups();
+        var allStatuses = await _statusAppService.FetchAllLookups(includeInactive: true);
+        var activeStatuses = await _statusAppService.FetchAllLookups(includeInactive: false);
 
         var dto = await _service.GetAsync(Id);
         ViewModel = ObjectMapper.Map<AlertDto, EditAlertViewModel>(dto);
@@ -65,34 +68,57 @@ public class EditModalModel : AlertSystemPageModel
             Selected = department.Id == ViewModel.DepartmentId
         }).ToList();
 
-        var activeStatuses = statuses.Where(status => status.Active).ToList();
+        LookupDto<Guid> currentStatus = null;//initial presupun ca e nul
 
-        var inactiveStatusesAssignedToAlert = statuses.Where(status => !status.Active && status.Id == ViewModel.StatusId).ToList();
+        foreach (var status in allStatuses)// search manually the status with the same id as in viewmodel
+        {
+            if (status.Id == ViewModel.StatusId)
+            {
+                currentStatus = status;
+            }
+        }
 
-        var availableStatuses = activeStatuses.Concat(inactiveStatusesAssignedToAlert).ToList();
+        var inactiveStatuses = new List<LookupDto<Guid>>();// create a list
+
+        if (currentStatus != null)
+        {
+            bool isActive = false;
+
+            foreach (var active in activeStatuses)// search the statuses with other id's compared to activestatuses
+            {
+                if (active.Id == currentStatus.Id)
+                {
+                    isActive = true;
+                }
+            }
+
+            if (!isActive)
+            {
+                inactiveStatuses = new List<LookupDto<Guid>> { currentStatus };
+            }
+        }
 
         ViewModel.StatusOptions = new List<SelectListItem>();
 
-        foreach (var status in availableStatuses)
+        foreach (var status in activeStatuses)// active statuses in StatusOption
         {
-            var statusItem = new SelectListItem
+            ViewModel.StatusOptions.Add(new SelectListItem
             {
                 Value = status.Id.ToString(),
-                Selected = status.Id == ViewModel.StatusId
-            };
+                Text = status.Name,
+                Selected = status.Id == ViewModel.StatusId 
+            });
+        }
 
-            if (!status.Active && status.Id == ViewModel.StatusId)
+        foreach (var status in inactiveStatuses)//inactivestatuses logic from the list
+        {
+            ViewModel.StatusOptions.Add(new SelectListItem
             {
-                statusItem.Text = status.Name + " (Inactiv)";  
-                statusItem.Disabled = true;  
-            }
-            else
-            {
-                statusItem.Text = status.Name;  
-                statusItem.Disabled = !status.Active;  
-            }
-
-            ViewModel.StatusOptions.Add(statusItem);
+                Value = status.Id.ToString(),
+                Text = $"{status.Name} (Inactiv)",
+                Selected = status.Id == ViewModel.StatusId,
+                Disabled = true 
+            });
         }
 
         ViewModel.LevelOptions = levels.Select(level => new SelectListItem
@@ -116,7 +142,6 @@ public class EditModalModel : AlertSystemPageModel
             Selected = rule.Id == ViewModel.RuleId
         }).ToList();
     }
-
     public virtual async Task<IActionResult> OnPostAsync()
     {
         var dto = ObjectMapper.Map<EditAlertViewModel, AlertUpdateDto>(ViewModel);

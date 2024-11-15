@@ -6,7 +6,7 @@
 
     var params = {
         skipCount: currentPage * pageSize,
-        maxResultCount: pageSize
+        maxResultCount: pageSize,
     };
 
     for (var key in options) {
@@ -14,17 +14,25 @@
     }
 
     var page = await apiFunction(params);
+
     totalItemCount = page.totalCount;
 
-    allItems = allItems.concat(page.items);
+    for (var i = 0; i < page.items.length; i++) {
+        allItems.push(page.items[i]);
+    }
 
     var totalPages = Math.ceil(totalItemCount / pageSize);
 
     while (currentPage < totalPages - 1) {
         currentPage++;
+
         params.skipCount = currentPage * pageSize;
+
         page = await apiFunction(params);
-        allItems = allItems.concat(page.items);
+
+        for (var i = 0; i < page.items.length; i++) {
+            allItems.push(page.items[i]);
+        }
     }
-    return { totalItemCount: totalItemCount, items: allItems };
+    return { totalItemCount, items: allItems };
 }
