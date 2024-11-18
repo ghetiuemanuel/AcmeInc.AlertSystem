@@ -21,7 +21,7 @@
         allItems.push(page.items[i]);
     }
 
-    var totalPages = Math.ceil(totalItemCount / pageSize);
+    var totalPages = totalItemCount / pageSize;
 
     while (currentPage < totalPages - 1) {
         currentPage++;

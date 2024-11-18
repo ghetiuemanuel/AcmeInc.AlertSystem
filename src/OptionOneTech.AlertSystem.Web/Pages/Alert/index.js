@@ -21,8 +21,7 @@
             }
         }
         if (!found) {
-            inactiveStatuses[index] = status; 
-            index++;
+            inactiveStatuses.push(status);
         }
     }
     console.log("Toate statusurile: ", allStatuses);
