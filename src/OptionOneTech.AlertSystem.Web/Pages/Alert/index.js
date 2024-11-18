@@ -24,9 +24,6 @@
             inactiveStatuses.push(status);
         }
     }
-    console.log("Toate statusurile: ", allStatuses);
-    console.log("Toate statusurile active: ", activeStatuses);
-    console.log("Toate statusurile inactive: ", inactiveStatuses);
 
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
