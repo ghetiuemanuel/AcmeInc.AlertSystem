@@ -5,7 +5,7 @@ namespace OptionOneTech.AlertSystem.Lookup
 {
     public interface ILookupAppService<TKey>
     {
-        Task<PagedResultDto<LookupDto<TKey>>> GetLookupAsync(PagedResultRequestDto input);
+        Task<PagedResultDto<LookupDto<TKey>>> GetLookupAsync(LookupRequestDto input);
         
     }
 }

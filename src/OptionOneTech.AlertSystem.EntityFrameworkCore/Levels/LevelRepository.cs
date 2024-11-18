@@ -19,14 +19,14 @@ public class LevelRepository : EfCoreRepository<AlertSystemDbContext, Level, Gui
     {
         return (await GetQueryableAsync()).IncludeDetails();
     }
-    public async Task<List<Level>> GetLookupListAsync(int skip, int take)
+    public async Task<List<Level>> GetLookupListAsync(int skip, int take, bool includeInactive)
     {
         return await (await GetQueryableAsync())
-            .AsNoTracking()
-            .Where(level => level.Active)
-            .Select(level => new Level(level.Id, level.Name, "", true))
-            .Skip(skip)
-            .Take(take)
-            .ToListAsync();
+                .AsNoTracking()
+                .Where(level => includeInactive || level.Active)
+                .Select(level => new Level(level.Id, level.Name, "", true))
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
     }
 }

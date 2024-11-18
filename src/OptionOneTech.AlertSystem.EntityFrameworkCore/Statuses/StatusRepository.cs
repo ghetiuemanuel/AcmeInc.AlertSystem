@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,14 +19,14 @@ public class StatusRepository : EfCoreRepository<AlertSystemDbContext, Status, G
     {
         return (await GetQueryableAsync()).IncludeDetails();
     }
-    public async Task<List<Status>> GetLookupListAsync(int skip, int take)
+    public async Task<List<Status>> GetLookupListAsync(int skip, int take, bool includeInactive)
     {
         return await (await GetQueryableAsync())
-            .AsNoTracking()
-            .Where(status => status.Active)
-            .Select(status => new Status(status.Id, status.Name, "", true))
-            .Skip(skip)
-            .Take(take)
-            .ToListAsync();
+                .AsNoTracking()
+                .Where(status => includeInactive || status.Active)
+                .Select(status => new Status(status.Id, status.Name, "", status.Active))
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
     }
 }

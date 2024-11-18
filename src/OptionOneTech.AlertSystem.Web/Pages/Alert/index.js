@@ -1,12 +1,33 @@
 ﻿$(async function () {
+    var options = { includeInactive: true };
+
     var statusService = optionOneTech.alertSystem.statuses.status;
-    var allStatusesResponse = await fetchAll(statusService.getLookup);
+    var allStatusesResponse = await fetchAll(statusService.getLookup, options); 
     var allStatuses = allStatusesResponse.items;
+
+    var activeStatusesResponse = await fetchAll(statusService.getLookup, { includeInactive: false });
+    var activeStatuses = activeStatusesResponse.items;
+    var inactiveStatuses = [];
+    var index = 0;
+
+    for (var i = 0; i < allStatuses.length; i++) {
+        var status = allStatuses[i];
+        var found = false;
+
+        for (var j = 0; j < activeStatuses.length; j++) {
+            var active = activeStatuses[j];
+            if (active.id === status.id) {
+                found = true;
+            }
+        }
+        if (!found) {
+            inactiveStatuses.push(status);
+        }
+    }
 
     $("#AlertFilter :input").on('input', function () {
         dataTable.ajax.reload();
     });
-
     var getFilter = function () {
         var input = {};
         $("#AlertFilter")
@@ -104,10 +125,10 @@
                 title: l('AlertStatusId'),
                 data: null,
                 render: function (data, type, row, meta) {
+                    var statuses = "";
 
-                    var statuses = " ";
-                    for (var i = 0; i < allStatuses.length; i++) {
-                        var status = allStatuses[i];
+                    for (var i = 0; i < activeStatuses.length; i++) {
+                        var status = activeStatuses[i];
 
                         if (row.alert.statusId === status.id) {
                             statuses += `<option value="${status.id}" selected>${status.name}</option>`;
@@ -115,6 +136,15 @@
                             statuses += `<option value="${status.id}">${status.name}</option>`;
                         }
                     }
+
+                    for (var i = 0; i < inactiveStatuses.length; i++) {
+                        var status = inactiveStatuses[i];
+
+                        if (row.alert.statusId === status.id) {
+                            statuses += `<option value="${status.id}" selected disabled>${status.name} (Inactiv)</option>`;
+                        } 
+                    }
+
                     return `
                        <select class="status-select form-control" alert-id="${row.alert.id}">
                            ${statuses}
@@ -143,13 +173,12 @@
         dataTable.ajax.reload();
     });
 
-    $('#NewAlertButton').click(function (e) {
+    $('#NewAlertButton').on('click', function (e) {
         e.preventDefault();
         createModal.open();
     });
 
-    function NotifyOnStatusChanges()
-    {
+    function NotifyOnStatusChanges() {
         var selectedValue = $(this).val();
         var alertId = $(this).attr('alert-id');
         service.updateStatus(alertId, selectedValue)

@@ -19,11 +19,11 @@ public class EmailMessageSourceRepository : EfCoreRepository<AlertSystemDbContex
     {
         return (await GetQueryableAsync()).IncludeDetails();
     }
-    public async Task<List<EmailMessageSource>> GetLookupListAsync(int skip, int take)
+    public async Task<List<EmailMessageSource>> GetLookupListAsync(int skip, int take, bool includeInactive)
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()
-            .Where(emailMessageSource => emailMessageSource.Active)
+            .Where(emailMessageSource => includeInactive || emailMessageSource.Active)
             .Select(emailMessageSource => new EmailMessageSource(emailMessageSource.Id, "", 0 ,true, emailMessageSource.Username, "","", true, true))
             .Skip(skip)
             .Take(take)

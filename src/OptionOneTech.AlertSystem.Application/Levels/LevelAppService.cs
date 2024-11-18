@@ -34,11 +34,11 @@ public class LevelAppService : CrudAppService<Level, LevelDto, Guid, LevelGetLis
             .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
             .WhereIf(input.Active != null, x => x.Active == input.Active);
     }
-    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
     {
-        var levels = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
+        var levels = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
-        var totalCount = await _repository.CountAsync(p => p.Active);
+        int totalCount = await _repository.CountAsync(s => input.IncludeInactive || s.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
            totalCount,

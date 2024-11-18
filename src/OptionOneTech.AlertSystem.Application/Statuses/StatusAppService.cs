@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using OptionOneTech.AlertSystem.Lookup;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,7 @@ using OptionOneTech.AlertSystem.Statuses.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace OptionOneTech.AlertSystem.Statuses;
 
@@ -33,11 +34,11 @@ public class StatusAppService : CrudAppService<Status, StatusDto, Guid, StatusGe
             .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
             .WhereIf(input.Active != null, x => x.Active == input.Active);
     }
-    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(PagedResultRequestDto input)
+    public async Task<PagedResultDto<LookupDto<Guid>>> GetLookupAsync(LookupRequestDto input)
     {
-        var statuses = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount);
+        var statuses = await _repository.GetLookupListAsync(input.SkipCount, input.MaxResultCount, input.IncludeInactive);
 
-        var totalCount = await _repository.CountAsync(p => p.Active);
+        int totalCount = await _repository.CountAsync(s => input.IncludeInactive || s.Active);
 
         return new PagedResultDto<LookupDto<Guid>>(
           totalCount,
