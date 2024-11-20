@@ -23,7 +23,7 @@ public class NotificationBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, I
 
     protected override async Task DoWorkAsync(PeriodicBackgroundWorkerContext workerContext)
     {
-        _logger.LogInformation("Periodic task started.");
+        _logger.LogDebug("Periodic task started.");
 
         try
         {
@@ -35,13 +35,13 @@ public class NotificationBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, I
 
             if (alerts.Count == 0)
             {
-                _logger.LogInformation("No pending alerts to process.");
+                _logger.LogDebug("No pending alerts to process.");
                 return;
             }
 
             foreach (var alert in alerts)
             {
-                _logger.LogInformation($"Processing alert ID: {alert.Id}");
+                _logger.LogDebug($"Processing alert ID: {alert.Id}");
                 await ProcessAlertAsync(alert, emailSender, ruleRepository, alertRepository, workerContext.CancellationToken);
             }
         }
@@ -50,7 +50,7 @@ public class NotificationBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, I
             _logger.LogError(ex, "An error occurred during periodic task execution.");
         }
 
-        _logger.LogInformation("Periodic task finished.");
+        _logger.LogDebug("Periodic task finished.");
     }
 
     public async Task ProcessAlertAsync(Alert alert, IEmailSender emailSender, IRuleRepository ruleRepository, IAlertRepository alertRepository, CancellationToken cancellationToken)
@@ -58,12 +58,6 @@ public class NotificationBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, I
         try
         {
             var rule = await ruleRepository.GetAsync(alert.RuleId);
-
-            if (string.IsNullOrEmpty(rule.NotificationEmails))
-            {
-                _logger.LogWarning($"No emails configured for rule ID: {rule.Id}");
-                return;
-            }
 
             var emails = rule.NotificationEmails
                 .Split(',')
@@ -78,26 +72,26 @@ public class NotificationBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, I
 
             foreach (var email in emails)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                    _logger.LogInformation($"Sending email to: {email}");
-
-                try
+                if (!string.IsNullOrEmpty(email))
                 {
-                    await emailSender.SendAsync(
-                        to: email,
-                        subject: subject,
-                        body: body,
-                        isBodyHtml: false
-                    );
+                    _logger.LogTrace($"Sending email to: {email}");
+                    try
+                    {
+                        await emailSender.SendAsync(
+                            to: email,
+                            subject: subject,
+                            body: body,
+                            isBodyHtml: false
+                        );
 
-                    _logger.LogInformation($"Email sent successfully to {email}.");
+                        _logger.LogDebug($"Email sent successfully to {email}.");
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Error occurred while sending email to {email}.");
+                    };
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error occurred while sending email to {email}.");
-                }
-
+                
                 if (cancellationToken.IsCancellationRequested)
                 {
                     _logger.LogWarning("Cancellation requested. Stopping execution after sending email.");
@@ -108,7 +102,7 @@ public class NotificationBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, I
             alert.NotificationSent = true;
             await alertRepository.UpdateAsync(alert);
 
-            _logger.LogInformation($"Notification sent successfully for alert ID: {alert.Id}");
+            _logger.LogDebug($"Notification sent successfully for alert ID: {alert.Id}");
         }
         catch (Exception ex)
         {
