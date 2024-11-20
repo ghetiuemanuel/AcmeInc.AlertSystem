@@ -10,6 +10,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using OptionOneTech.AlertSystem.Notifications;
+using Volo.Abp.Emailing;
+using OptionOneTech.AlertSystem.MessageSources;
 
 
 namespace OptionOneTech.AlertSystem.Alerts;
@@ -24,10 +28,53 @@ public class AlertAppService : CrudAppService<Alert, AlertDto, Guid, AlertGetLis
     protected override string DeletePolicyName { get; set; } = AlertSystemPermissions.Alert.Delete;
 
     private readonly IAlertRepository _repository;
+    private readonly NotificationBackgroundWorker _notificationBackgroundWorker;
+    private readonly IRuleRepository _ruleRepository;
+    private readonly IEmailSender _emailSender;
+    private readonly IEmailMessageSourceRepository _emailMessageSourceRepository; 
 
-    public AlertAppService(IAlertRepository repository) : base(repository)
+
+    public AlertAppService(IAlertRepository repository, NotificationBackgroundWorker notificationBackgroundWorker, IRuleRepository ruleRepository, IEmailSender emailSender, IEmailMessageSourceRepository emailMessageSourceRepository) : base(repository)
     {
         _repository = repository;
+        _notificationBackgroundWorker = notificationBackgroundWorker;
+        _ruleRepository = ruleRepository;
+        _emailSender = emailSender;
+        _emailMessageSourceRepository = emailMessageSourceRepository;
+    }
+
+    public async Task<AlertDto> CreateAsync(AlertCreateDto input)
+    {
+        var alert = ObjectMapper.Map<AlertCreateDto, Alert>(input);
+
+        alert = await _repository.InsertAsync(alert);
+
+        var emailSource = (await _emailMessageSourceRepository.GetListAsync(x => x.Active)).FirstOrDefault();
+        if (emailSource == null)
+        {
+            throw new InvalidOperationException("No active email source found.");
+        }
+
+        await _notificationBackgroundWorker.ProcessAlertAsync(alert, _emailSender, _ruleRepository, _repository, CancellationToken.None);
+
+        return ObjectMapper.Map<Alert, AlertDto>(alert);
+    }
+    public async Task<AlertDto> UpdateAsync(Guid id, AlertUpdateDto input)
+    {
+        var alert = await _repository.GetAsync(id);
+
+        ObjectMapper.Map(input, alert);
+        alert = await _repository.UpdateAsync(alert);
+
+        var emailSource = (await _emailMessageSourceRepository.GetListAsync(x => x.Active)).FirstOrDefault();
+        if (emailSource == null)
+        {
+            throw new InvalidOperationException("No active email source found.");
+        }
+
+        await _notificationBackgroundWorker.ProcessAlertAsync(alert, _emailSender, _ruleRepository, _repository, CancellationToken.None);
+
+        return ObjectMapper.Map<Alert, AlertDto>(alert);
     }
 
     protected override async Task<IQueryable<Alert>> CreateFilteredQueryAsync(AlertGetListInput input)

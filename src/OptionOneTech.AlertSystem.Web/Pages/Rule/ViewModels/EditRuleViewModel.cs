@@ -54,6 +54,9 @@ public class EditRuleViewModel
     [Display(Name = "RuleActive")]
     public bool Active { get; set; }
 
+    [Display(Name = "RuleNotificationEmails")]
+    public string NotificationEmails { get; set; }
+
     public List<SelectListItem> DepartmentOptions { get; set; } = new List<SelectListItem>();
 
     public List<SelectListItem> StatusOptions { get; set; } = new List<SelectListItem>();

@@ -20,4 +20,6 @@ public class AlertGetListInput : PagedAndSortedResultRequestDto
     public Guid? StatusId { get; set; }
 
     public Guid? LevelId { get; set; }
+    public bool? NotificationSent { get; set; }
+
 }

@@ -72,6 +72,9 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.Property<Guid>("MessageId")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("NotificationSent")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<Guid>("RuleId")
                         .HasColumnType("char(36)");
 
@@ -440,6 +443,10 @@ namespace OptionOneTech.AlertSystem.Migrations
                     b.Property<Guid?>("LastModifierId")
                         .HasColumnType("char(36)")
                         .HasColumnName("LastModifierId");
+
+                    b.Property<string>("NotificationEmails")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("TitleRegex")
                         .IsRequired()

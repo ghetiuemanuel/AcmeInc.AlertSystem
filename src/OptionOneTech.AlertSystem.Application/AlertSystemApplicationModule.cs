@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OptionOneTech.AlertSystem.BackgroundWorkers;
+using OptionOneTech.AlertSystem.Notifications;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Account;
@@ -38,6 +39,7 @@ public class AlertSystemApplicationModule : AbpModule
     public override async Task OnApplicationInitializationAsync(
         ApplicationInitializationContext context)
     {
+        await context.AddBackgroundWorkerAsync<NotificationBackgroundWorker>();
         await context.AddBackgroundWorkerAsync<EmailSourceBackgroundWorker>();
         await context.AddBackgroundWorkerAsync<AlertBackgroundWorker>();
     }

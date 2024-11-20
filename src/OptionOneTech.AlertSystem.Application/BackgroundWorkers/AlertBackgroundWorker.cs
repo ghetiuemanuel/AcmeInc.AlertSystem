@@ -123,7 +123,8 @@ namespace OptionOneTech.AlertSystem.BackgroundWorkers
                 rule.Id,
                 rule.AlertDepartmentId,
                 rule.AlertStatusId,
-                rule.AlertLevelId
+                rule.AlertLevelId,
+               notificationSent: false
             );
 
             await alertRepository.InsertAsync(alert);

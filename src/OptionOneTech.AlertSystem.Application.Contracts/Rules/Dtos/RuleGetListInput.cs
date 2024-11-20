@@ -29,4 +29,6 @@ public class RuleGetListInput : PagedAndSortedResultRequestDto
     public int? TriggersRequired { get; set; }
     public DateTime? TriggerTimestamp { get; set; }
     public bool? Active { get; set; }
+    public string? NotificationEmails { get; set; }
+
 }

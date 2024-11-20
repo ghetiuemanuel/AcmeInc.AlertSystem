@@ -96,6 +96,7 @@
     "RuleTriggersRequired": "Required Triggers to create alert",
     "RuleTriggerTimestamp": "Last Trigger Timestamp",
     "RuleActive": "Active",
+    "RuleNotificationEmails": "Notification Emails",
     "FilterAllText": "All",
     "Permission:Alert": "Alert",
     "Menu:Alert": "Alert",
@@ -109,6 +110,7 @@
     "AlertLevelId": "Level",
     "CreateAlert": "Create",
     "EditAlert": "Edit",
+    "AlertNotificationSent":  "Notification Sent",
     "AlertDeletionConfirmationMessage": "Are you sure to delete the alert {0}?"
   }
 }

@@ -23,7 +23,7 @@ public class AlertRepository : EfCoreRepository<AlertSystemDbContext, Alert, Gui
     {
         return await (await GetQueryableAsync())
             .AsNoTracking()
-            .Select(alert => new Alert(alert.Id, alert.Title, "", Guid.Empty, Guid.Empty, Guid.Empty, Guid.Empty, Guid.Empty))
+            .Select(alert => new Alert(alert.Id, alert.Title, "", Guid.Empty, Guid.Empty, Guid.Empty, Guid.Empty, Guid.Empty, false))
             .Skip(skip)
             .Take(take)
             .ToListAsync();
