@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OptionOneTech.AlertSystem.BackgroundWorkers;
-using OptionOneTech.AlertSystem.Notifications;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Account;
