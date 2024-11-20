@@ -68,12 +68,11 @@ namespace OptionOneTech.AlertSystem.Notifications
 
                 var emails = rule.NotificationEmails.Split(',');
 
-                var subject = $"Alert Notification: {rule.AlertTitle} - {alert.Title}";
+                var subject = $"Alert Notification: {rule.AlertTitle}";
                 var body = $"Dear User,\n\nWe would like to inform you about the following alert:\n\n" +
-                           $"Alert Title: {alert.Title}\n" +
+                           $"Alert Title: {rule.AlertTitle}\n" +
                            $"Alert Body: {alert.Body}\n\n" +
                            $"Please review the alert details and take necessary actions.";
-
 
                 foreach (var email in emails)
                 {
