@@ -19,6 +19,8 @@ namespace OptionOneTech.AlertSystem.Rules
         public int TriggersRequired { get; set; }
         public DateTime? TriggerTimestamp { get; set; }
         public bool Active { get; set; }
+        public string NotificationEmails { get; set; }
+
 
     protected Rule()
     {
@@ -39,7 +41,8 @@ namespace OptionOneTech.AlertSystem.Rules
             int triggerWindowDuration,
             int triggersRequired,
             DateTime? triggerTimestamp,
-            bool Active
+            bool Active,
+            string notificationEmails
         )    : base(id)
         {
             FromRegex = fromRegex;
@@ -56,6 +59,7 @@ namespace OptionOneTech.AlertSystem.Rules
             TriggersRequired = triggersRequired;
             TriggerTimestamp = triggerTimestamp;
             Active = Active;
+            NotificationEmails = notificationEmails;
         }
     }
 }

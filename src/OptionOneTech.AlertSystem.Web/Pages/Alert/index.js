@@ -162,6 +162,10 @@
                     return '';
                 }
             },
+            {
+                title: l('AlertNotificationSent'),
+                data: "alert.notificationSent"
+            },
         ]
     }));
 

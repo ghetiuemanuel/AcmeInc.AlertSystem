@@ -35,6 +35,9 @@ public class EditAlertViewModel
     [Display(Name = "AlertRuleId")]
     public Guid RuleId { get; set; }
 
+    [Display(Name = "AlertNotificationSent")]
+    public bool NotificationSent { get; set; }
+
 
     public List<SelectListItem> RuleOptions { get; set; } = new List<SelectListItem>();
 

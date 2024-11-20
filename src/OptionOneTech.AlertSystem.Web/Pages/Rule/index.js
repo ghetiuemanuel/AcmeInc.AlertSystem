@@ -129,6 +129,10 @@
                 data: "rule.triggerTimestamp"
             },
             {
+                title: l('RuleNotificationEmails'),
+                data: "rule.notificationEmails"
+            },
+            {
                 title: l('RuleActive'),
                 data: "rule.active",
                 render: function (data) {

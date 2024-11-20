@@ -12,8 +12,9 @@ namespace OptionOneTech.AlertSystem.Alerts
         public Guid DepartmentId { get; set; }
         public Guid StatusId { get; set; }
         public Guid LevelId { get; set; }
+        public bool NotificationSent { get; set; }
 
-    protected Alert()
+        protected Alert()
     {
     }
 
@@ -25,7 +26,8 @@ namespace OptionOneTech.AlertSystem.Alerts
         Guid ruleId,
         Guid departmentId,
         Guid statusId,
-        Guid levelId
+        Guid levelId,
+        bool notificationSent
     ) : base(id)
     {
         Title = title;
@@ -35,6 +37,7 @@ namespace OptionOneTech.AlertSystem.Alerts
         DepartmentId = departmentId;
         StatusId = statusId;
         LevelId = levelId;
+        NotificationSent = notificationSent;
     }
     }
 }

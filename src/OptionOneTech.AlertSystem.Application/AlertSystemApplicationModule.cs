@@ -38,6 +38,7 @@ public class AlertSystemApplicationModule : AbpModule
     public override async Task OnApplicationInitializationAsync(
         ApplicationInitializationContext context)
     {
+        await context.AddBackgroundWorkerAsync<NotificationBackgroundWorker>();
         await context.AddBackgroundWorkerAsync<EmailSourceBackgroundWorker>();
         await context.AddBackgroundWorkerAsync<AlertBackgroundWorker>();
     }

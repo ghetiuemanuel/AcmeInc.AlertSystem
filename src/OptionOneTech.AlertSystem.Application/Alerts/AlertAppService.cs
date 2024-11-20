@@ -11,7 +11,6 @@ using Volo.Abp.Domain.Repositories;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace OptionOneTech.AlertSystem.Alerts;
 
 public class AlertAppService : CrudAppService<Alert, AlertDto, Guid, AlertGetListInput, AlertCreateDto, AlertUpdateDto>,
