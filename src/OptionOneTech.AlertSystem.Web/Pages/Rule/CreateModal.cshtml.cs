@@ -64,8 +64,15 @@ public class CreateModalModel : AlertSystemPageModel
     }
     public virtual async Task<IActionResult> OnPostAsync()
     {
-        var dto = ObjectMapper.Map<CreateRuleViewModel, RuleCreateDto>(ViewModel);
-        await _service.CreateAsync(dto);
-        return NoContent();
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
+            var dto = ObjectMapper.Map<CreateRuleViewModel, RuleCreateDto>(ViewModel);
+            await _service.CreateAsync(dto);
+
+            return NoContent();
+        
     }
 }

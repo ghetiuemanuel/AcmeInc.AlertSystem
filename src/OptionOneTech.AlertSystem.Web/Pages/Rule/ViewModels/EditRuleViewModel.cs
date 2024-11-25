@@ -54,6 +54,10 @@ public class EditRuleViewModel
     [Display(Name = "RuleActive")]
     public bool Active { get; set; }
 
+    [Required(ErrorMessage = "Notification Emails are required.")]
+    [RegularExpression(
+         @"^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})(,\s*[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})*$",
+         ErrorMessage = "Please enter valid email addresses separated by commas. e.g.: john@test.com, alice@test.com")]
     [Display(Name = "RuleNotificationEmails")]
     public string NotificationEmails { get; set; }
 

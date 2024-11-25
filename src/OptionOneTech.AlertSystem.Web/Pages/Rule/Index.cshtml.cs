@@ -152,6 +152,7 @@ namespace OptionOneTech.AlertSystem.Web.Pages.Rule
             [SelectItems(nameof(ActiveOptions))] 
             [Display(Name = "RuleActive")]
             public bool? Active { get; set; }
+            public string NotificationEmails { get; set; }
 
             public List<SelectListItem> ActiveOptions { get; set; } = new List<SelectListItem>(); 
             public List<SelectListItem> DepartmentOptions { get; set; } = new List<SelectListItem>();

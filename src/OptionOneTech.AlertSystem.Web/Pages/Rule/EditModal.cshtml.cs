@@ -68,8 +68,14 @@ public class EditModalModel : AlertSystemPageModel
     }
     public virtual async Task<IActionResult> OnPostAsync()
     {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
         var dto = ObjectMapper.Map<EditRuleViewModel, RuleUpdateDto>(ViewModel);
         await _service.UpdateAsync(Id, dto);
+
         return NoContent();
     }
 }
