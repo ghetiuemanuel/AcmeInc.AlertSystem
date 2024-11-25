@@ -1,0 +1,42 @@
+@page
+@using AcmeInc.AlertSystem.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using AcmeInc.AlertSystem.Web.Pages.Message
+@using AcmeInc.AlertSystem.Localization
+@using AcmeInc.AlertSystem.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<AlertSystemResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["Message"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Message"].Value);
+    PageLayout.Content.MenuItemName = AlertSystemMenus.Message;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Message/index.js" />
+}
+@section styles
+{
+    <abp-style src="/Pages/Message/index.css"/>
+}
+@section content_toolbar
+{
+	@if (await Authorization.IsGrantedAsync(AlertSystemPermissions.Message.Create))
+    {
+        <abp-button id="NewMessageButton"
+            text="@L["CreateMessage"].Value"
+            icon="plus"
+            button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="MessageTable" class="nowrap"/>
+    </abp-card-body>
+</abp-card>

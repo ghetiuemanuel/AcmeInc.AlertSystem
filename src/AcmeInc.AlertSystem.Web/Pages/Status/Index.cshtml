@@ -1,0 +1,42 @@
+@page
+@using AcmeInc.AlertSystem.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using AcmeInc.AlertSystem.Web.Pages.Status
+@using AcmeInc.AlertSystem.Localization
+@using AcmeInc.AlertSystem.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<AlertSystemResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["Status"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Status"].Value);
+    PageLayout.Content.MenuItemName = AlertSystemMenus.Status;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Status/index.js" />
+}
+@section styles
+{
+    <abp-style src="/Pages/Status/index.css"/>
+}
+@section content_toolbar
+{
+	@if (await Authorization.IsGrantedAsync(AlertSystemPermissions.Status.Create))
+    {
+        <abp-button id="NewStatusButton"
+            text="@L["CreateStatus"].Value"
+            icon="plus"
+            button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="StatusTable" class="nowrap"/>
+    </abp-card-body>
+</abp-card>

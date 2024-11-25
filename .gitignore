@@ -252,14 +252,14 @@ paket-files/
 *.sln.iml
 
 # AlertSystem
-src/OptionOneTech.AlertSystem.Web/Logs/*
-src/OptionOneTech.AlertSystem.Web.Host/Logs/*
-src/OptionOneTech.AlertSystem.AuthServer/Logs/*
-src/OptionOneTech.AlertSystem.HttpApi.Host/Logs/*
-src/OptionOneTech.AlertSystem.HttpApi.HostWithIds/Logs/*
-src/OptionOneTech.AlertSystem.DbMigrator/Logs/*
-src/OptionOneTech.AlertSystem.Blazor.Server/Logs/*
-src/OptionOneTech.AlertSystem.Blazor.Server.Tiered/Logs/*
+src/AcmeInc.AlertSystem.Web/Logs/*
+src/AcmeInc.AlertSystem.Web.Host/Logs/*
+src/AcmeInc.AlertSystem.AuthServer/Logs/*
+src/AcmeInc.AlertSystem.HttpApi.Host/Logs/*
+src/AcmeInc.AlertSystem.HttpApi.HostWithIds/Logs/*
+src/AcmeInc.AlertSystem.DbMigrator/Logs/*
+src/AcmeInc.AlertSystem.Blazor.Server/Logs/*
+src/AcmeInc.AlertSystem.Blazor.Server.Tiered/Logs/*
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
